@@ -2,6 +2,9 @@
 
 1-6안 디자인 시안을 React + Vite + TypeScript로 옮긴 클릭 가능한 화면이에요. 서버 없이 돌아가요.
 
+- 보는 링크: https://eonpensee.github.io/automata-prototype/
+- GitHub에서 파일을 고쳐 저장(commit)하면 1~2분 뒤 위 링크에 자동으로 반영돼요.
+
 ## 내 컴퓨터에서 열어 보기
 
 1. [Node.js](https://nodejs.org) LTS 버전을 설치해요. (한 번만)
