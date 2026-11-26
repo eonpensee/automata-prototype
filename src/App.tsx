@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import * as data from './data/today'
 import type { ResultId, SourceId, ZoneId } from './data/today'
 import { match, toggle, type Filter } from './logic'
@@ -35,6 +35,13 @@ export function TodayScreen({ d }: { d: Data }) {
   const sourceSel = (SOURCE_IDS as string[]).includes(filter) ? (filter as SourceId) : null
   const zoneSel = filter.startsWith('z:') ? (filter.slice(2) as ZoneId) : null
   const detail = d.UNITS.find((u) => u.id === detailId) || null
+
+  const historyRef = useRef<HTMLElement>(null)
+  /** 상태 카드를 누르면 처리 이력이 화면 위쪽에 오도록 부드럽게 스크롤 */
+  const pickStatus = (id: Filter) => {
+    setFilter((f) => toggle(f, id))
+    historyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   const openUnit = (id: string) => { setDetailId(id); setResult(null) }
 
@@ -83,9 +90,9 @@ export function TodayScreen({ d }: { d: Data }) {
         </section>
       </div>
 
-      <section aria-label="처리 이력" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <section ref={historyRef} aria-label="처리 이력" style={{ scrollMarginTop: 16, display: 'flex', flexDirection: 'column', gap: 16 }}>
         <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>처리 이력</h2>
-        <StatusTabs tabs={d.CARDS} units={d.UNITS} filter={filter} onPick={(id) => setFilter((f) => toggle(f, id))} />
+        <StatusTabs tabs={d.CARDS} units={d.UNITS} filter={filter} onPick={pickStatus} />
         <HistoryTable rows={rows} stepNames={d.FLT} onOpenUnit={openUnit} />
       </section>
     </div>
