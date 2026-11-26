@@ -38,7 +38,7 @@ export function DetailPanel({ unit, stepNames, sections, onClose, onAction }: Pr
             {sec.rows.map((r, i) => (
               <span key={i} className={r.flag ? 'r' : ''}>
                 <em>{r.k}</em>
-                <b>{r.v}<small>{r.s}</small></b>
+                <b>{r.v}{r.s && <small>{r.s}</small>}</b>
               </span>
             ))}
           </div>
