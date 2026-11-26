@@ -19,7 +19,20 @@
 /* 줄바꿈 때 마지막 한 글자만 아래로 떨어지지 않게 */
 body{text-wrap:pretty}
 
-/* 대기 중 아이콘: 점선 테두리가 천천히 도는 잔잔한 움직임 */
+/* 대기 중 아이콘: 균일한 작은 점 8개가 천천히 도는 원형 표시 */
 @keyframes waitspin{to{transform:rotate(360deg)}}
-.badge.st-wait::before,.mk.sched{animation:waitspin 6s linear infinite}
+.badge.st-wait::before,.mk.sched{
+  width:12px;height:12px;flex:0 0 12px;border:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238C8C8C'%3E%3Ccircle cx='8' cy='2' r='1.15'/%3E%3Ccircle cx='12.24' cy='3.76' r='1.15'/%3E%3Ccircle cx='14' cy='8' r='1.15'/%3E%3Ccircle cx='12.24' cy='12.24' r='1.15'/%3E%3Ccircle cx='8' cy='14' r='1.15'/%3E%3Ccircle cx='3.76' cy='12.24' r='1.15'/%3E%3Ccircle cx='2' cy='8' r='1.15'/%3E%3Ccircle cx='3.76' cy='3.76' r='1.15'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:waitspin 6s linear infinite;
+}
 @media (prefers-reduced-motion:reduce){.badge.st-wait::before,.mk.sched{animation:none}}
+
+/* 카드사: 기존 건물 면과 같은 무채색으로 신용카드 간판과 단말기 디테일 */
+.card-sign{fill:#FAFAFA;stroke:#C8C8C8;stroke-width:1}
+.card-chip{fill:#E1E1E1;stroke:#BBBBBB;stroke-width:.7}
+.card-etch{fill:none;stroke:#B9B9B9;stroke-width:1;stroke-linecap:round}
+.card-screen{fill:#DDDDDD;stroke:#C9C9C9;stroke-width:.7}
+.zlit .card-sign{fill:#E3EEE5;stroke:#A9C2AE}
+.zlit .card-chip,.zlit .card-screen{fill:#BED6C2;stroke:#A9C2AE}
+.zlit .card-etch{stroke:#8EAD95}
