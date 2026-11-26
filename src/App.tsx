@@ -10,6 +10,8 @@ import { ResultLane } from './components/ResultLane'
 import { DetailPanel } from './components/DetailPanel'
 import { StatusTabs } from './components/StatusTabs'
 import { HistoryTable } from './components/HistoryTable'
+import { SideNav } from './components/SideNav'
+import { useFitZoom } from './useFitZoom'
 
 const SOURCE_IDS: SourceId[] = ['mail', 'cp', 'ss', 'bank', 'card', 'chk']
 
@@ -55,7 +57,6 @@ export function TodayScreen({ d }: { d: Data }) {
             zoneSelected={zoneSel}
             sourceSelected={sourceSel}
             {...MAP_LAYOUT}
-            nowCard={d.NOW_CARD}
             stockWarn={d.STOCK_WARN}
             onPickZone={(z) => setFilter((f) => toggle(f, `z:${z}`))}
             onOpenUnit={openUnit}
@@ -91,13 +92,14 @@ export function TodayScreen({ d }: { d: Data }) {
   )
 }
 
-/** 앱 틀: 왼쪽 메뉴와 상단 탭은 자리만 잡아 둠 */
+/** 앱 틀: 왼쪽 메뉴, 상단 탭, 본문. 1920px 기준 화면을 창 폭에 맞춰 줄여 보여 줘요. */
 export default function App() {
+  const z = useFitZoom(1920)
   return (
-    <div style={{ boxSizing: 'border-box', minHeight: '100vh', display: 'flex', flexWrap: 'wrap', alignItems: 'stretch' }}>
-      <nav aria-label="주 메뉴" className="ph-nav" />
-      <main style={{ flex: '999 1 640px', minWidth: 0, boxSizing: 'border-box', padding: '12px 12px 12px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div className="ph-tab" aria-hidden="true" />
+    <div style={{ zoom: z, ['--z' as string]: z, boxSizing: 'border-box', minHeight: `calc(100vh / ${z})`, display: 'flex', alignItems: 'stretch', width: z < 1 ? 1920 : undefined }}>
+      <SideNav />
+      <main style={{ flex: '1 1 0', minWidth: 0, boxSizing: 'border-box', padding: '12px 12px 12px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="toptab">자동 처리 현황</div>
         <TodayScreen d={data} />
       </main>
     </div>

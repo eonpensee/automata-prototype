@@ -2,7 +2,6 @@ import type { CSSProperties } from 'react'
 import type { SourceId, Status, Unit } from '../../data/today'
 import { ZNAME } from '../../data/today'
 import { BADGE, RANK, ZCLS } from '../../logic'
-import { ArrowIcon } from '../Icons'
 import { GRID_LINES } from './isoGrid'
 import type { PartnerDef, ZoneId } from './partners/types'
 
@@ -33,14 +32,6 @@ const CONNECT: { id: SourceId; top: number; vTop: number; vH: number }[] = [
   { id: 'chk', top: 258, vTop: 53, vH: 205 },
 ]
 
-export interface NowCardData {
-  unitId: string
-  time: string
-  step: number
-  title: string
-  lines: string[]
-  pos: [number, number]
-}
 
 interface Props {
   partners: PartnerDef[]
@@ -57,7 +48,6 @@ interface Props {
   moveTo: Partial<Record<ZoneId, [number, number]>>
   /** 이 거래 상대들로 가는 연결선은 숨김 */
   hiddenFlows: ZoneId[]
-  nowCard: NowCardData
   stockWarn: { label: string; n: string; zone: ZoneId; pos: [number, number] }
   onPickZone: (z: ZoneId) => void
   onOpenUnit: (id: string) => void
@@ -93,7 +83,6 @@ export function MiniMap(p: Props) {
   })
 
   const srcOn = p.sourceSelected
-  const nc = p.nowCard
 
   return (
     <div className="world">
@@ -150,22 +139,6 @@ export function MiniMap(p: Props) {
             <span className={'cnx' + (srcOn ? ' on' : '') + ' h'} style={{ left: '1.8%', top: 'calc(50% + 53px)', width: '37.4%' }} aria-hidden="true" />
           </div>
 
-          {!active && (
-            <a onClick={() => p.onOpenUnit(nc.unitId)} className="minicard nowmc" style={{ left: `${nc.pos[0]}%`, top: `${nc.pos[1]}%` }}>
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                <span className="live"><span className="cells3" aria-hidden="true"><i /><i /><i /><i /></span>진행 중</span>
-                <span className="mono" style={{ fontSize: 11, color: '#9C9C9C' }}>{nc.time}</span>
-              </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2 }}>
-                <span className="mn">{nc.step}</span>
-                <span style={{ fontSize: 15, fontWeight: 700 }}>{nc.title}</span>
-              </span>
-              <span style={{ fontSize: 12, color: '#D9DBD7', lineHeight: 1.45 }}>
-                {nc.lines.map((l, i) => <span key={i}>{i > 0 && <br />}{l}</span>)}
-              </span>
-              <span className="more">자세히 보기<ArrowIcon /></span>
-            </a>
-          )}
 
           {zone.map((v) => (
             <button key={'t' + v.def.id} className={v.tagCls} style={v.tagPos} onClick={() => p.onPickZone(v.def.id)}>

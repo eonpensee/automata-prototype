@@ -152,17 +152,6 @@ export const ZNAME: Record<string, [string, string]> = {
   'u11:sup': ['솔빛제조 발주', '구매 승인 대기'],
 }
 
-/** 지도 위 "지금 하는 일" 카드 */
-export const NOW_CARD = {
-  unitId: 'u4',
-  time: '11/26 09:10',
-  step: 3,
-  title: '창고 회신',
-  lines: ['바다상점 주문 24개', '중앙창고 회신을 기다리고 있어요'],
-  /** 왼쪽·위 위치 (지도 대비 %) */
-  pos: [65.4, 50.1] as [number, number],
-}
-
 /** 지도 위 재고 부족 표시 */
 export const STOCK_WARN = { label: '재고 부족', n: '6개', zone: 'wh' as ZoneId, pos: [88, 34] as [number, number] }
 
