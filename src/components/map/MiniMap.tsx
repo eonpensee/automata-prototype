@@ -22,15 +22,16 @@ const POPUP: Record<ZoneId, [number, number, string]> = {
   card: [24.13, 80, '-50%, 8px'],
 }
 
-/** 들어온 자료 카드 → 지도 연결선 (세로 위치는 지도 가운데 기준 px) */
-const CONNECT: { id: SourceId; top: number; vTop: number; vH: number }[] = [
-  { id: 'mail', top: -232, vTop: -232, vH: 285 },
-  { id: 'cp', top: -134, vTop: -134, vH: 187 },
-  { id: 'ss', top: -36, vTop: -36, vH: 89 },
-  { id: 'bank', top: 62, vTop: 53, vH: 9 },
-  { id: 'card', top: 160, vTop: 53, vH: 107 },
-  { id: 'chk', top: 258, vTop: 53, vH: 205 },
-]
+/** 들어온 자료 카드 위치(px). 카드 i의 가운데 = 지도 가운데 + CARD_TOP + i × CARD_STEP */
+const CARD_TOP = -232
+const CARD_STEP = 98
+/** 모아 주는 세로선 x(%) / 거래 상대로 바로 가는 선이 꺾이는 x(%) */
+const BUS_X = 1.8
+const BRANCH_X = 6
+
+type Seg = { k: 'h' | 'v'; style: CSSProperties }
+const H = (x0: number, x1: number, y: string): Seg => ({ k: 'h', style: { left: `${x0}%`, width: `${(x1 - x0).toFixed(2)}%`, top: `calc${y}` } })
+const V = (x: number, y0: string, y1: string): Seg => ({ k: 'v', style: { left: `${x}%`, top: `min${'(' + y0 + ', ' + y1 + ')'}`, height: `calc(max(${y0}, ${y1}) - min(${y0}, ${y1}))` } })
 
 
 interface Props {
@@ -50,6 +51,10 @@ interface Props {
   hiddenFlows: ZoneId[]
   /** 건물·바닥판 크기 배율 */
   scale: number
+  /** 왼쪽 들어온 자료 카드 순서 */
+  sourceOrder: SourceId[]
+  /** 지도 속 거래 상대로 바로 잇는 출처 (나머지는 (주)엘리먼츠로) */
+  sourceTo: Partial<Record<SourceId, ZoneId>>
   stockWarn: { label: string; n: string; zone: ZoneId; pos: [number, number] }
   onPickZone: (z: ZoneId) => void
   onOpenUnit: (id: string) => void
@@ -76,6 +81,9 @@ export function MiniMap(p: Props) {
     // 이름표도 같은 비율로 바깥쪽으로 밀어 건물과 겹치지 않게
     const ax = cx + (a[0] * PX_X - cx) * k + tx
     const ay = cy + (a[1] * PX_Y - cy) * k + ty - (k > 1 ? 12 : 0)
+    // 바닥판 왼쪽 꼭짓점 (연결선이 닿는 곳), 지도 대비 %
+    const lv = pts.reduce((m, q) => (q[0] < m[0] ? q : m), pts[0])
+    const leftPt: [number, number] = [((cx + (lv[0] - cx) * k + tx) / 1366) * 100, ((cy + (lv[1] - cy) * k + ty) / 724) * 100]
     const lit = !!vis && vis.has(z)
     const here = active ? active.filter((u) => u.z === z) : []
     const all = units.filter((u) => u.z === z)
@@ -90,8 +98,29 @@ export function MiniMap(p: Props) {
       tagCls: 'tag zt' + (hide ? ' hid' : p.zoneSelected === z ? ' on' : vis && !lit ? ' off' : ''),
       count: !hide && !active && all.length > 0 ? { label: `${all.length}건`, cls: ZCLS[topSt] } : null,
       list: hide ? [] : here,
+      leftPt,
     }
   })
+
+  // 연결선: 출처 카드 → (주)엘리먼츠, 또는 출처 카드 → 지도 속 거래 상대
+  const yCard = (i: number) => `(50% + ${CARD_TOP + i * CARD_STEP}px)`
+  const yMap = (pct: number) => `(${pct.toFixed(2)}% + 40px)`
+  const hq = zone.find((v) => v.def.id === 'hq')!
+  const hub = p.sourceOrder.map((id, i) => ({ id, i })).filter((c) => !p.sourceTo[c.id])
+  const hubY = yMap(hq.leftPt[1])
+  const hubSegs: Seg[] = hub.length
+    ? [V(BUS_X, yCard(Math.min(...hub.map((c) => c.i))), yCard(Math.max(...hub.map((c) => c.i)))), H(BUS_X, hq.leftPt[0], hubY)]
+    : []
+  const routes = p.sourceOrder.map((id, i) => {
+    const to = p.sourceTo[id]
+    const dest = to && zone.find((v) => v.def.id === to)
+    if (dest) {
+      const y = yMap(dest.leftPt[1])
+      return { id, hub: false, segs: [H(0, BRANCH_X, yCard(i)), V(BRANCH_X, yCard(i), y), H(BRANCH_X, dest.leftPt[0], y)] }
+    }
+    return { id, hub: true, segs: [H(0, BUS_X, yCard(i)), V(BUS_X, yCard(i), hubY)] }
+  })
+  const hubOn = !!p.sourceSelected && !p.sourceTo[p.sourceSelected]
 
   const srcOn = p.sourceSelected
 
@@ -135,19 +164,14 @@ export function MiniMap(p: Props) {
           </svg>
 
           <div className={active ? 'cnl off' : 'cnl'}>
-            {CONNECT.map((c) => (
-              <span key={'h' + c.id} className="cn h" style={{ left: 0, top: `calc(50% + ${c.top}px)`, width: '1.8%' }} aria-hidden="true" />
-            ))}
-            <span className="cn v" style={{ left: '1.8%', top: 'calc(50% + -232px)', height: 490 }} aria-hidden="true" />
-            <span className="cn h" style={{ left: '1.8%', top: 'calc(50% + 53px)', width: '37.4%' }} aria-hidden="true" />
-            {CONNECT.map((c) => {
-              const cls = 'cnx' + (srcOn === c.id ? ' on' : '')
-              return [
-                <span key={'xh' + c.id} className={cls + ' h'} style={{ left: 0, top: `calc(50% + ${c.top}px)`, width: '1.8%' }} aria-hidden="true" />,
-                <span key={'xv' + c.id} className={cls + ' v'} style={{ left: '1.8%', top: `calc(50% + ${c.vTop}px)`, height: c.vH }} aria-hidden="true" />,
-              ]
-            })}
-            <span className={'cnx' + (srcOn ? ' on' : '') + ' h'} style={{ left: '1.8%', top: 'calc(50% + 53px)', width: '37.4%' }} aria-hidden="true" />
+            {routes.flatMap((r) => r.segs.filter((_, j) => !(r.hub && j === 1)).map((sg, j) => (
+              <span key={'c' + r.id + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />
+            )))}
+            {hubSegs.map((sg, j) => <span key={'hub' + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />)}
+            {routes.flatMap((r) => r.segs.map((sg, j) => (
+              <span key={'x' + r.id + j} className={'cnx' + (srcOn === r.id ? ' on' : '') + ' ' + sg.k} style={sg.style} aria-hidden="true" />
+            )))}
+            <span className={'cnx' + (hubOn ? ' on' : '') + ' h'} style={hubSegs[1]?.style} aria-hidden="true" />
           </div>
 
 

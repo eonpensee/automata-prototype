@@ -118,16 +118,16 @@ export const CARDS: StatusTab[] = [
   { st: '확인 필요', mark: 'mk wait', todo: true },
 ]
 
-/** 왼쪽 들어온 자료 카드 */
+/** 왼쪽 들어온 자료 카드 (순서 = 화면 순서. 은행은 맨 위, 카드사는 맨 아래로 두어 지도 속 건물과 높이를 맞춤) */
 export type SourceIcon = 'mail' | 'shop' | 'bank' | 'card' | 'check'
 export interface Source { id: SourceId; name: string; count: string; latest: string; cadence: string; icon: SourceIcon }
 export const SOURCES: Source[] = [
+  { id: 'bank', name: '은행', count: '1회', latest: '10:00 입금 5건, 출금 1건', cadence: '하루 1번', icon: 'bank' },
   { id: 'mail', name: '거래처 메일', count: '3통', latest: '최근 10:10 달빛스토어', cadence: '10분마다', icon: 'mail' },
   { id: 'cp', name: '쿠팡', count: '2회', latest: '최근 10:00 주문 100건', cadence: '3시간마다', icon: 'shop' },
   { id: 'ss', name: '스마트스토어', count: '1회', latest: '09:00 주문 38건', cadence: '하루 1번', icon: 'shop' },
-  { id: 'bank', name: '은행', count: '1회', latest: '10:00 입금 5건, 출금 1건', cadence: '하루 1번', icon: 'bank' },
-  { id: 'card', name: '카드사', count: '1회', latest: '07:00 사용 내역 32건', cadence: '하루 1번', icon: 'card' },
   { id: 'chk', name: '재고 점검', count: '1회', latest: '06:00 발주 1건', cadence: '하루 1번', icon: 'check' },
+  { id: 'card', name: '카드사', count: '1회', latest: '07:00 사용 내역 32건', cadence: '하루 1번', icon: 'card' },
 ]
 
 /** 오른쪽 ERP에 입력된 결과 카드와, 눌렀을 때 뜨는 처리 건 목록 */

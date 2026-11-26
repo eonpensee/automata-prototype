@@ -22,6 +22,8 @@ const MAP_LAYOUT = {
   hiddenFlows: ['card'] as ZoneId[],
   /** 건물 크기 배율 */
   scale: 1.12,
+  /** 은행·카드사 자료는 지도 속 은행·카드사로 바로 이어요 */
+  sourceTo: { bank: 'bank', card: 'card' } as Partial<Record<SourceId, ZoneId>>,
 }
 
 type Data = typeof data
@@ -66,6 +68,7 @@ export function TodayScreen({ d }: { d: Data }) {
             zoneSelected={zoneSel}
             sourceSelected={sourceSel}
             {...MAP_LAYOUT}
+            sourceOrder={d.SOURCES.map((x) => x.id)}
             stockWarn={d.STOCK_WARN}
             onPickZone={(z) => setFilter((f) => toggle(f, `z:${z}`))}
             onOpenUnit={openUnit}
