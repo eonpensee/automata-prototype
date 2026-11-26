@@ -31,12 +31,6 @@ export const Hq: PartnerDef = {
       {/* 지붕 안쪽 테두리와 측면의 얇은 수직 분할 */}
       <polygon points="683,233 738,265.2 683,297.4 628,265.2" className="wl" />
       <polyline points={vline(SIDE, 0.5, 0.29, 0.88)} className="wl" />
-      {/* 작은 회사 표식: 글자 대신 네 칸의 심볼과 명판 */}
-      <g transform="matrix(0.866 0.5 0 1 620 309)">
-        <rect width="38" height="15" rx="1.5" className="hq-sign" />
-        <path d="M5 4h3v3H5zM10 4h3v3h-3zM5 9h3v3H5zM10 9h3v3h-3z" className="band" />
-        <path d="M18 6h14M18 10h10" className="wl" />
-      </g>
       {/* 1층 유리 양개문과 손잡이 */}
       <polygon points={rect(FRONT, 0.34, 0, 0.66, 0.19)} className="door" />
       <polyline points={vline(FRONT, 0.5, 0, 0.19)} className="wl" />
