@@ -1,5 +1,5 @@
 import type { PartnerDef } from './types'
-import { TopBox, rect } from '../iso'
+import { rect } from '../iso'
 
 // 거래 상대: 우리 회사. 바닥판(plate), 연결선(flow), 건물(Building)을 한 묶음으로 가져요.
 export const Hq: PartnerDef = {
@@ -25,10 +25,8 @@ export const Hq: PartnerDef = {
     <polyline points="615.3,351.9 674.2,385.9" className="ln" />
     <polyline points="615.3,324.7 674.2,358.7" className="ln" />
     <polyline points="615.3,297.5 674.2,331.5" className="ln" />
-      {/* 디테일: 1층 출입문, 옥상 설비 */}
+      {/* 디테일: 1층 출입문 */}
       <polygon points={rect('606.4,374.0 683.0,418.2 683.0,309.4 606.4,265.2', 0.38, 0, 0.62, 0.15)} className="door" />
-      <TopBox top="683.0,221.0 759.6,265.2 683.0,309.4 606.4,265.2" u0={0.15} v0={0.15} u1={0.45} v1={0.4} h={9} />
-      <TopBox top="683.0,221.0 759.6,265.2 683.0,309.4 606.4,265.2" u0={0.55} v0={0.5} u1={0.7} v1={0.65} h={6} />
     </>
   ),
 }

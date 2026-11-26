@@ -18,3 +18,8 @@
 
 /* 줄바꿈 때 마지막 한 글자만 아래로 떨어지지 않게 */
 body{text-wrap:pretty}
+
+/* 대기 중 아이콘: 점선 테두리가 천천히 도는 잔잔한 움직임 */
+@keyframes waitspin{to{transform:rotate(360deg)}}
+.badge.st-wait::before,.mk.sched{animation:waitspin 6s linear infinite}
+@media (prefers-reduced-motion:reduce){.badge.st-wait::before,.mk.sched{animation:none}}
