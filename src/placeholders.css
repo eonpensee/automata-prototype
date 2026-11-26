@@ -50,8 +50,9 @@ body{text-wrap:pretty}
 /* 상세 패널 항목 행: 위아래 안쪽 여백을 각각 4px 확대 */
 .odet .kv > span{padding-block:14px}
 
-/* 우리 회사: 무채색 명판과 출입문 손잡이 */
-.hq-sign{fill:#FAFAFA;stroke:#D2D2D2;stroke-width:.8}
+/* 우리 회사: 출입문 손잡이 */
 .hq-handle{fill:none;stroke:#BDBDBD;stroke-width:1}
-.zlit .hq-sign{fill:#E3EEE5;stroke:#A9C2AE}
 .zlit .hq-handle{stroke:#8EAD95}
+
+/* 카드 쪽 선은 지도 시작점에서 끝내고 지도 안 연결선이 이어받아요 */
+.s3stage .trig2 .trk2{width:37px}
