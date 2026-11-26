@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useMemo, type ReactNode } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { FlowCase, FlowStep } from '../data/review'
 import type { Status, StepCode, Unit, ZoneId } from '../data/today'
 import { BADGE, RANK } from '../logic'
@@ -59,24 +59,43 @@ function FlowScene({ flow, onBack, onMore }: { flow: FlowCase; onBack: () => voi
   let ci = steps.findIndex((s) => active(s.status))
   if (ci < 0) ci = steps.length - 1
   const shown = useMemo(() => sceneSteps(steps, U.z, ci), [steps, U.z, ci])
+  const cur = shown.find((x) => x.i === ci) || shown[shown.length - 1]
   const html = useMemo(() => {
     const on: Partial<Record<Station, boolean>> = {}
     shown.forEach(({ i, at }) => { if (active(steps[i].status)) on[at] = true })
     const ld: Record<string, string> = {}, ldd: Record<string, string> = {}
     ;['t0', 't2', 't3', 't4', 't5'].forEach((k) => { ld[k] = 'ld hide'; ldd[k] = 'ldd hide' })
-    shown.forEach(({ i, at }) => { const k = TPOS[at][0], a = active(steps[i].status); if (k in ld) { ld[k] = 'ld' + (a ? ' on' : ''); ldd[k] = 'ldd' + (a ? ' on' : '') } })
-    const warn = shown.some(({ i, at }) => at === 'stack' && active(steps[i].status))
+    // 장면에는 지금 단계 물건 위 점만 남기고, 그 점에서 검은 카드로 선을 이어요 (번호표 없음)
+    { const k = TPOS[cur.at][0]; if (k in ldd) ldd[k] = 'ldd on' }
     const v: Record<string, string> = {
       'pp.pl': 'pp', 'pp.p2': 'pp', 'pp.p3': 'pp', 'pp.p5': 'pp',
-      'ldWarn': warn ? 'ld on' : 'ld hide', 'lddWarn': warn ? 'ldd on' : 'ldd hide',
+      'ldWarn': 'ld hide', 'lddWarn': cur.at === 'stack' ? 'ldd on' : 'ldd hide',
       'mv': 'mvg' + (on.conv ? ' on' : ''), 'kscr': 'ks' + (on.kiosk ? ' on' : ''), 'xl': 'xl' + (on.desk ? ' on' : ''),
     }
     ;(['desk', 'stack', 'conv', 'kiosk', 'settle'] as Station[]).forEach((o) => { v['g.' + o] = 'grp' + (on[o] ? ' on' : '') })
     Object.keys(ld).forEach((k) => { v['ld.' + k] = ld[k]; v['ldd.' + k] = ldd[k] })
     return SCENE_SVG.replace(/\{\{\s*fv\.([\w.]+)\s*\}\}/g, (_, k: string) => v[k] ?? '')
-  }, [steps, shown])
+  }, [steps, shown, cur])
 
-  const cur = shown.find((x) => x.i === ci) || shown[shown.length - 1]
+  // 점과 카드 사이 선: 실제 그려진 위치를 재서 카드의 가장 가까운 가장자리까지 이어요
+  const boxRef = useRef<HTMLDivElement>(null), cardRef = useRef<HTMLDivElement>(null)
+  const [link, setLink] = useState<[number, number, number, number] | null>(null)
+  useLayoutEffect(() => {
+    const box = boxRef.current, card = cardRef.current
+    if (!box || !card) return
+    const measure = () => {
+      const dot = box.querySelector('.scene circle.ldd.on')
+      if (!dot) return setLink(null)
+      const b = box.getBoundingClientRect(), d = dot.getBoundingClientRect(), c = card.getBoundingClientRect()
+      const z = b.width / box.offsetWidth || 1
+      const x = (d.left + d.width / 2 - b.left) / z, y = (d.top + d.height / 2 - b.top) / z
+      const cl = (c.left - b.left) / z, ct = (c.top - b.top) / z, cr = (c.right - b.left) / z, cb = (c.bottom - b.top) / z
+      setLink([x, y, Math.min(Math.max(x, cl + 16), cr - 16), Math.min(Math.max(y, ct), cb)])
+    }
+    measure()
+    const ro = new ResizeObserver(measure); ro.observe(box); ro.observe(card)
+    return () => ro.disconnect()
+  }, [html])
   const cs = steps[cur.i], k = cs.status, q = U.id === 'u1' && k === 'w'
   const nc = NCS[k]
   return <>
@@ -84,12 +103,12 @@ function FlowScene({ flow, onBack, onMore }: { flow: FlowCase; onBack: () => voi
       <button className="fl3back" onClick={onBack}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>거래 상대별 지금 상황</button>
     </div>
     <div className="fl3 whin">
-      <div className="fl3s">
+      <div className="fl3s" ref={boxRef}>
         <div className="scene" dangerouslySetInnerHTML={{ __html: html }} />
-        {shown.map(({ i, at }) => { const s = steps[i], p = TPOS[at]; return <span key={i} className={'tag' + (s.status === 'd' ? ' done' : s.status === 'n' ? ' off' : s.status === 'w' ? ' warn' : ' on') + (at === 'desk' ? ' below' : '')} style={{ left: p[1] + '%', top: p[2] + '%' }}><span className="tn">{i + 1}</span>{s.title}</span> })}
-        <div className={'nowc ' + KCLS[k]} style={{ ...CARD_AT[cur.at], transform: 'none' }}>
-          <span className="nch"><span className="live"><span className={nc[1]} aria-hidden="true"><i /><i /><i /><i /></span>{nc[0]}</span>{cs.time && <span className="mono" style={{ fontSize: 'max(11px,var(--min-font-size,10px))', color: '#9C9C9C' }}>{cs.time} 시작</span>}</span>
+        {link && <svg className="nowlink" aria-hidden="true"><line x1={link[0]} y1={link[1]} x2={link[2]} y2={link[3]} /></svg>}
+        <div ref={cardRef} className={'nowc ' + KCLS[k]} style={{ ...CARD_AT[cur.at], transform: 'none' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span className="mn">{cur.i + 1}</span><span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 700 }}>{cs.title}</span></span>
+          <span className="nch"><span className="live"><span className={nc[1]} aria-hidden="true"><i /><i /><i /><i /></span>{nc[0]}</span>{cs.time && <span className="mono" style={{ fontSize: 'max(11px,var(--min-font-size,10px))', color: '#9C9C9C' }}>{cs.time} 시작</span>}</span>
           {q && <span className="aq"><span><em>주문</em><b>24개</b></span><span><em>재고</em><b>18개</b></span><span className="r"><em>부족</em><b>6개</b></span></span>}
           <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#D9DBD7', lineHeight: 1.5 }}>{cs.summary}</span>
           <button type="button" className="more" onClick={onMore}>{k === 'w' ? '할 일에서 처리' : '자세히 보기'}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>

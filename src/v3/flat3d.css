@@ -185,5 +185,12 @@ button.f7i{width:100%;border:0;border-top:1px solid #EEEEEE;background:transpare
 
 /* 세 열 제목을 같은 높이에, 첫 카드 시작선도 같게 (제목 위 218px, 카드 248px 기준) */
 .v3stage .source-groups{justify-content:flex-start!important;padding-top:20px!important}
-.v3stage .source-groups h3{line-height:16px;height:16px;margin:0 0 6px;font-size:max(13px,var(--min-font-size,10px));font-weight:700;color:#4F4F4F}
+.v3stage .source-groups h3{margin:0 0 6px}
+/* 세 제목 모두 같은 글자 규칙 (화면이 좁아 글자가 커질 때도 같이 커지게) */
+.v3stage .source-groups h3,.v3stage .world.f7 .rh,.v3stage .rlane .rh,.v3stage .fl3back{font-size:max(13px,var(--min-font-size,10px));font-weight:700;color:#4F4F4F;line-height:1.25;height:auto;padding:0 2px}
+.v3stage .fl3h{height:auto}
 .v3stage .rlane .rh{margin-bottom:4px}
+/* 장면 속 번호표는 번호만 (단계 이름은 검은 카드 맨 위 제목으로) */
+.v3stage .fl3 .tag{padding:6px;gap:0}
+.v3stage .fl3s .nowlink{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible}
+.v3stage .fl3s .nowlink line{stroke:#181818;stroke-width:1}
