@@ -92,14 +92,13 @@ export function TodayScreen({ d }: { d: Data }) {
   )
 }
 
-/** 앱 틀: 왼쪽 메뉴, 상단 탭, 본문. 1920px 기준 화면을 창 폭에 맞춰 줄여 보여 줘요. */
+/** 앱 틀: 왼쪽 메뉴, 본문. 1920px 기준 화면을 창 폭에 맞춰 줄여 보여 줘요. */
 export default function App() {
   const z = useFitZoom(1920)
   return (
     <div style={{ zoom: z, ['--z' as string]: z, boxSizing: 'border-box', minHeight: `calc(100vh / ${z})`, display: 'flex', alignItems: 'stretch', width: z < 1 ? 1920 : undefined }}>
       <SideNav />
       <main style={{ flex: '1 1 0', minWidth: 0, boxSizing: 'border-box', padding: '12px 12px 12px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div className="toptab">자동 처리 현황</div>
         <TodayScreen d={data} />
       </main>
     </div>
