@@ -37,10 +37,11 @@ export function TodayScreen3() {
   // 처리 단위를 누르면 가운데가 그 자리에서 3D로 바뀌어요.
   const openFlow = (id: string) => { setFlowId(id); setResult(null); requestAnimationFrame(() => stageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })) }
   const openDetail = (id: string) => { setDetailId(id); requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }
-  return <div ref={topRef} className="today-content">
+  return <div ref={topRef} className={'today-content' + (detail ? '' : ' v3overview')}>
     <Header dates={REVIEW_DATES} selectedDate={selectedDate} onSelectDate={id => { setSelectedDate(id); setDetailId(null); reset() }} />
     {detail ? <UnitWorkspace key={`${detail.unit.id}-${detail.variant}`} flow={detail} related={cases.filter(c => c.unit.z === detail.unit.z).map(c => c.unit)} onSelect={id => setDetailId(id)} onBack={() => setDetailId(null)} /> : <>
       <section className="overview-shell v3shell" aria-label="전체 처리 현황">
+        <h1 className="v3title">자동 처리 현황</h1>
         <OverviewTabs units={units} selected={status} onBack={filtered || flowId ? reset : undefined} onPick={s => { setStatus(s); setSource(null); setResult(null); setFlowId(null) }} />
         <section ref={stageRef} aria-label="오늘의 처리 장면" className="stage s3stage review-stage v3stage">
           <SourceLane sources={sources} selected={source} highlighted={highlightedSources} onPick={id => { setSource(source === id ? null : id); setResult(null); setFlowId(null) }} />

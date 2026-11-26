@@ -196,3 +196,9 @@ button.f7i{width:100%;border:0;border-top:1px solid #EEEEEE;background:transpare
 .v3stage .fl3s .nowlink line{stroke:#181818;stroke-width:1}
 /* 시안 3: 상태 탭 묶음은 오른쪽에 붙임 (오른쪽 결과 카드 끝선과 맞춤) */
 .v3shell .overview-controls{justify-content:flex-end;padding-right:22px}
+/* 시안 3: '자동 처리 현황' 제목은 큰 카드 왼쪽 위, 상태 탭과 같은 줄. 위쪽 머리글엔 날짜만 남김 */
+.v3overview .page-heading{justify-content:flex-end}
+.v3overview .page-heading h1{display:none}
+.v3shell{position:relative}
+.v3shell .v3title{position:absolute;left:22px;top:22px;height:65px;display:flex;align-items:center;margin:0;font-size:max(30px,var(--min-font-size,10px));font-weight:700;letter-spacing:-.02em;line-height:1}
+.v3shell .overview-back{position:static;order:-1}
