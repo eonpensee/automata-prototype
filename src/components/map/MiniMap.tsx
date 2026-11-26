@@ -19,7 +19,7 @@ const POPUP: Record<ZoneId, [number, number, string]> = {
   wh: [67, 27, '-100%, -50%'],
   sup: [68, 70, '-100%, -50%'],
   bank: [24.13, 45, '-50%, 8px'],
-  card: [24.13, 80, '-50%, 8px'],
+  card: [24.13, 84.01, '-50%, 8px'],
 }
 
 /** 들어온 자료 카드 위치(px). 카드 i의 가운데 = 지도 가운데 + CARD_TOP + i × CARD_STEP */
