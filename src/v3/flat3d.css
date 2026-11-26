@@ -1,0 +1,184 @@
+/* 1-7안(첫 화면 2D, 누르면 3D) 원본 시안에만 있는 스타일 */
+/* 1-7: 첫 화면 2D */
+.world.f7{display:flex;flex-direction:column;justify-content:flex-start;gap:14px;padding:20px 24px}
+.world.f7 .rh{height:16px;line-height:16px;font-size:13px;font-weight:700;color:#4F4F4F}
+.world.f7{min-height:640px}
+.f7grid{display:grid;align-items:start;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.f7c{display:flex;flex-direction:column;gap:12px;padding:18px 20px;border-radius:16px;background:#FFFFFF;border:1.5px solid transparent;transition:opacity .3s,border-color .2s}
+.f7c.on{border-color:#719681}
+.f7c.off{opacity:.4}
+.f7h{display:flex;align-items:center;gap:10px}
+.f7ic{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#F4F4F4;color:#2E2E2E}
+.f7c.on .f7ic{background:#F1F6F1}
+.f7st{display:flex;flex-wrap:wrap;gap:6px}
+.f7p{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:#F4F4F4;font-size:12px;color:#4F4F4F}
+.f7p b{color:#171717}
+.f7p.z{opacity:.45}
+.f7l{display:flex;flex-direction:column}
+.f7i{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #EEEEEE;font-size:13px;font-weight:600;color:#171717;text-decoration:none}
+.f7i:hover{background:#FAFAFA}
+.f7i .badge{font-size:11px;padding:4px 8px;flex:0 0 auto}
+/* 1-7 정렬: 세 열 제목과 위아래 끝 맞춤 */
+.world.f7{padding-left:24px;padding-right:24px;min-height:0}
+.f7grid{flex:1 1 auto;grid-auto-rows:1fr;align-items:stretch !important}
+.world.f7 .rh{padding:0 2px}
+.f7more{padding:9px 0 0;border-top:1px solid #EEEEEE;font-size:12px;color:#6F6F6F;text-decoration:none}
+/* 1-7 카드 좌우 여백 넓힘 */
+/* 1-7: 그 자리에서 3D 플로우 */
+.fl3h{display:flex;align-items:center;justify-content:space-between;gap:16px;height:16px}
+.fl3back{display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:13px;font-weight:700;color:#4F4F4F;cursor:pointer}
+.fl3back:hover{color:#171717}
+.fl3.whin{position:relative;left:auto;right:auto;top:auto;bottom:auto;display:block;opacity:1;pointer-events:auto;flex:1 1 auto;min-height:0;border-radius:16px;background:#FFFFFF;overflow:hidden}
+.fl3s{position:relative;height:100%}
+.fl3s > svg{display:block;width:100%;height:100%}
+.fl3 polygon,.fl3 line,.fl3 polyline{vector-effect:non-scaling-stroke}
+.fl3 .tag{position:absolute}
+.fl3now{display:flex;flex-direction:column;gap:4px;padding:12px 16px;border-radius:12px;background:#FFFFFF}
+a.trow,a.f7i,a.rdr{cursor:pointer}
+.fl3 .post .fy,.fl3 .post .fx,.fl3 .post .ft{fill:#E3E3E3}
+.fl3 .shelf .ft{fill:#FFFFFF}
+.fl3 .shelf .fy{fill:#ECECEC}
+.fl3 .shelf .fx{fill:#E3E3E3}
+.fl3 .bx .ft{fill:#FFFFFF}
+.fl3 .bx .fy{fill:#F1F1F1}
+.fl3 .bx .fx{fill:#E7E7E7}
+.fl3 .rack.hot .bx .ft{fill:#ECECEC}
+.fl3 .rack.hot .bx .fy{fill:#DAE9DB}
+.fl3 .rack.hot .bx .fx{fill:#C5DCC7}
+.fl3 .rack.hot .bx polygon{stroke:#B9CFBD}
+.fl3 .item .bx .ft{fill:#F3F3F3}
+.fl3 .item .bx .fy{fill:#ECECEC}
+.fl3 .item .bx .fx{fill:#DAE9DB}
+.fl3 .leg .fy,.fl3 .leg .fx,.fl3 .leg .ft{fill:#ECECEC}
+.fl3 .top .ft{fill:#FFFFFF}
+.fl3 .top .fy{fill:#ECECEC}
+.fl3 .top .fx{fill:#E3E3E3}
+.fl3 .stand .ft,.fl3 .stand .fy,.fl3 .stand .fx{fill:#E3E3E3}
+.fl3 .mon .ft{fill:#ECECEC}
+.fl3 .mon .fy{fill:#F4F4F4}
+.fl3 .mon .fx{fill:#E3E3E3}
+.fl3 .kb .ft{fill:#F4F4F4}
+.fl3 .stool .ft{fill:#F4F4F4}
+.fl3 .pallet .ft{fill:#F4F4F4}
+.fl3 .pc{opacity:0;transition:opacity .5s}
+.fl3 .pc.show{opacity:1}
+.fl3 .pc .ft{fill:#F3F3F3}
+.fl3 .pc .fy{fill:#DAE9DB}
+.fl3 .pc .fx{fill:#C5DCC7}
+.fl3 .pc polygon{stroke:#A9C2AE !important}
+.fl3 .isogrid .gl{stroke:#EEEEEE;stroke-width:0.8}
+.fl3 .pl polygon{stroke:#DCDCDC;stroke-width:0.8;stroke-linejoin:round}
+.fl3 .pl .ft{fill:#F9F9F9}
+.fl3 .pl .fy{fill:#ECECEC}
+.fl3 .pl .fx{fill:#E3E3E3}
+.fl3 .o polygon{stroke:#DCDCDC;stroke-width:0.8;stroke-linejoin:round;transition:fill .5s,stroke .5s}
+.fl3 .o .ft{fill:#FFFFFF}
+.fl3 .o .fy{fill:#F4F4F4}
+.fl3 .o .fx{fill:#ECECEC}
+.fl3 .o2 polygon{stroke:#E3E3E3;stroke-width:0.8}
+.fl3 .o2 .ft{fill:#FFFFFF}
+.fl3 .o2 .fy{fill:#F4F4F4}
+.fl3 .o2 .fx{fill:#ECECEC}
+.fl3 .o.pk .ft{fill:#FFFFFF}
+.fl3 .o.pk .fy{fill:#F1F1F1}
+.fl3 .o.pk .fx{fill:#E7E7E7}
+.fl3 .o.pk .tp{fill:#E3E3E3;stroke:none}
+.fl3 .o.pk .tp.s{fill:#D6D6D6}
+.fl3 .o.pk .lb{fill:#FFFFFF;stroke:#D6D6D6;stroke-width:.6}
+.fl3 .o.pk .lbl{stroke:#CACACA;stroke-width:1}
+.fl3 g.o.pk polygon.tp{stroke:none}
+.fl3 .grp.on g.o.pk polygon.tp{fill:#CFE1D2;stroke:none}
+.fl3 .grp.on g.o.pk polygon.tp.s{fill:#B3CDB8}
+.fl3 .grp.on g.o.pk polygon.lb{fill:#F7F7F7;stroke:#A9C2AE}
+.fl3 .grp.on .o.pk .lbl{stroke:#A9C2AE}
+.fl3 .o.paper .ft{fill:#FFFFFF}
+.fl3 .o.book .ft{fill:#F3F3F3}
+.fl3 .sg{stroke:#E3E3E3;stroke-width:0.7}
+.fl3 .xl{fill:transparent;stroke:none}
+.fl3 .xl.on{fill:#BED6C2;animation:blink 1.4s infinite}
+.fl3 .kh .fy{fill:#F9F9F9}
+.fl3 .grp.on .kh .fy{fill:#DCEADE}
+.fl3 .ks{fill:#F4F4F4;stroke:#DCDCDC;stroke-width:.6}
+.fl3 .ks.on{fill:#F7F7F7;stroke:#A9C2AE}
+.fl3 .ksh{fill:#E3E3E3}
+.fl3 .grp.on .ksh{fill:#C5DCC7}
+.fl3 .ksr{fill:#FFFFFF;stroke:#E3E3E3;stroke-width:.5}
+.fl3 .grp.on .ksr{stroke:#DAE9DB}
+.fl3 .ksl{stroke:#DCDCDC;stroke-width:1}
+.fl3 .grp.on .ksl{stroke:#B3CDB8}
+.fl3 .ksb{fill:#CACACA}
+.fl3 .grp.on .ksb{fill:#719681}
+.fl3 .kslot{stroke:#CACACA;stroke-width:1.6;stroke-linecap:round}
+.fl3 .grp.on .kslot{stroke:#8FB09A}
+.fl3 .grp.on .o polygon{stroke:#A9C2AE}
+.fl3 .grp.on .o .ft{fill:#E7E7E7}
+.fl3 .grp.on .o .fy{fill:#D2E4D5}
+.fl3 .grp.on .o .fx{fill:#BED6C2}
+.fl3 .mvg.on{animation:belt 2.2s linear infinite}
+.fl3 .po{fill:none;stroke:#D4D4D4;stroke-width:1;stroke-dasharray:2 5;stroke-linecap:round}
+.fl3 .pf{fill:none;stroke:transparent;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.fl3 .pp.on .pf{stroke:#181818}
+.fl3 .pp.dashed .po{stroke-dasharray:2 5}
+.fl3 .ld{stroke:#DCDCDC;stroke-width:0.8}
+.fl3 .ld.on{stroke:#181818}
+.fl3 .ldd{fill:#DCDCDC}
+.fl3 .ldd.on{fill:#181818;stroke:#181818;stroke-width:5;stroke-opacity:.22;animation:lpulse 1.6s ease-out infinite}
+.fl3 .pp.block .po{stroke:#181818;stroke-dasharray:2 4}
+.fl3 .ld.on.red{stroke:#D9473A}
+.fl3 .ldd.on.red{fill:#D9473A;stroke:#D9473A;animation:lpulse 1.6s ease-out infinite}
+.fl3 .ld.hide{stroke:transparent}
+.fl3 .ldd.hide{fill:transparent}
+.fl3 .po{stroke:#D4D4D4 !important;stroke-dasharray:2 5}
+.fl3 .pf{stroke:transparent !important}
+.fl3 .pp.on .po{stroke:#DCDCDC !important;stroke-dasharray:none}
+.fl3 .comet{display:none}
+.fl3 .pp.on .comet{display:inline}
+.fl3 .tr{fill:none;stroke:#181818;stroke-width:1.8;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:2.0 200;animation-name:none;animation-timing-function:cubic-bezier(.4,0,.6,1);animation-iteration-count:infinite}
+.fl3 .pp.on .tr.t0{animation-name:tr0}
+.fl3 .pp.on .tr.t1{animation-name:tr1}
+.fl3 .pp.on .tr.t2{animation-name:tr2}
+.fl3 .pp.on .tr.t3{animation-name:tr3}
+.fl3 .pp.on .tr.t4{animation-name:tr4}
+.fl3 .pp.on .tr.t5{animation-name:tr5}
+.fl3 .pp.on .tr.t6{animation-name:tr6}
+.fl3 .pp.on .tr.t7{animation-name:tr7}
+.fl3 .pp.on .tr.t8{animation-name:tr8}
+.fl3 .pp.on .tr.t9{animation-name:tr9}
+.fl3 .ld.hide{stroke:transparent !important}
+.fl3 .ldd.hide{fill:transparent !important}
+.fl3 .nowc{position:absolute;z-index:6;transform:translate(-50%,calc(-100% - 6px));width:260px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:16px 20px;border-radius:14px;background:#161A17;color:#F4F5EF;text-align:left;box-shadow:0 10px 26px rgba(22,26,23,.12);animation:ncpop .35s ease-out both}
+@keyframes ncpop{from{opacity:0;margin-top:6px}to{opacity:1;margin-top:0}}
+.fl3 .nowc.dn{transform:translate(-30%,6px)}
+.fl3 .nowc.wide{transform:none;width:300px;gap:12px;padding:20px}
+.fl3 .nowc .nch{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fl3 .nowc .mn{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;background:#F4F5EF;color:#161A17;font-size:11px;font-weight:700;flex:0 0 auto}
+.fl3 .nowc .live{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#F4F5EF}
+.fl3 .nowc .more{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:4px;padding:7px 12px 7px 14px;border-radius:999px;background:#F4F5EF;color:#161A17;font-size:12px;font-weight:700;cursor:pointer}
+.fl3 .nowc .more:hover{background:#FFFFFF}
+.fl3 .cells3{display:inline-flex;gap:2px}
+.fl3 .cells3 i{display:block;width:5px;height:5px;border-radius:1px;background:rgba(244,245,239,.18);animation:cell 1.2s ease-in-out infinite}
+.fl3 .cells3 i:nth-child(2){animation-delay:.15s}
+.fl3 .cells3 i:nth-child(3){animation-delay:.3s}
+.fl3 .cells3 i:nth-child(4){animation-delay:.45s}
+.fl3 .wring2{width:12px;height:12px;box-sizing:border-box;border-radius:50%;border:1.5px dashed #C5DCC7;animation:wspin 4s linear infinite}
+.fl3 .wring2 i,.fl3 .chk2 i{display:none}
+@keyframes wspin{to{transform:rotate(360deg)}}
+.fl3 .chk2{width:14px;height:14px;border-radius:50%;background:#C5DCC7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161A17' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/9px no-repeat}
+.fl3 .nowc.kf .chk2{animation:cpulse 1.6s ease-out infinite}
+@keyframes cpulse{0%{box-shadow:0 0 0 0 rgba(197,220,199,.55)}100%{box-shadow:0 0 0 6px rgba(197,220,199,0)}}
+.fl3 .aq{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.fl3 .aq span{display:flex;flex-direction:column;gap:5px;padding:11px 12px;border-radius:10px;background:rgba(244,245,239,.07)}
+.fl3 .aq em{font-style:normal;font-size:11px;color:#9C9C9C}
+.fl3 .aq b{font-size:15px}
+.fl3 .aq .r{background:rgba(197,220,199,.16)}
+.fl3 .aq .r em{color:#C5DCC7}
+.fl3 .aq .r b{color:#C5DCC7}
+.fl3 .tag.hid{visibility:hidden}
+.fl3 .nowc.sl{transform:translate(calc(-100% - 10px),-70%)}
+
+/* React로 옮기면서 더한 것: 버튼 기본 모양 지우기, 장면 SVG 자리 */
+button.f7i{width:100%;border:0;border-top:1px solid #EEEEEE;background:transparent;text-align:left;cursor:pointer;font:inherit;font-size:max(13px,var(--min-font-size,10px));font-weight:600}
+.f7i .zpt{min-width:0}
+.nowc button.more{border:0;font:inherit;font-size:max(12px,var(--min-font-size,10px));font-weight:700;cursor:pointer}
+.fl3s .scene{position:absolute;inset:0}
+.fl3s .scene>svg{display:block;width:100%;height:100%}
