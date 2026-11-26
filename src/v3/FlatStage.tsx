@@ -1,3 +1,4 @@
+import type React from 'react'
 import { useMemo, type ReactNode } from 'react'
 import type { FlowCase, FlowStep } from '../data/review'
 import type { Status, StepCode, Unit, ZoneId } from '../data/today'
@@ -23,13 +24,30 @@ const ZICON: Record<ZoneId, ReactNode> = {
 // 3D 장면 안 자리: [선 이름, 왼쪽 %, 위 %]
 type Station = 'desk' | 'p2' | 'conv' | 'kiosk' | 'settle' | 'stack'
 const TPOS: Record<Station, [string, number, number]> = { desk: ['t0', 9.36, 55.03], p2: ['t2', 42.39, 38.13], conv: ['t3', 63.32, 32.9], kiosk: ['t4', 69.94, 59.72], settle: ['t5', 57.24, 76.67], stack: ['tsh', 66.82, 17.43] }
-// 지금 단계 카드가 다른 단계 이름표를 가리거나 장면 밖으로 잘리지 않게 자리마다 놓는 방향
-const CARD_AT: Record<Station, string> = { desk: 'translate(-30%, 6px)', p2: 'translate(calc(-100% - 14px), -72%)', conv: 'translate(-50%, calc(-100% - 6px))', kiosk: 'translate(14px, -50%)', settle: 'translate(calc(-100% - 10px), -70%)', stack: 'translate(14px, -20%)' }
-const SEQ: Station[] = ['desk', 'p2', 'conv', 'kiosk', 'settle']
+// 지금 단계 카드는 일러스트를 가리지 않게 장면의 빈 구석에 둬요. 단계 위치는 물건 옆 번호표로 표시해요.
+// 왼쪽 아래(사무실 아래 빈 바닥), 오른쪽 아래(창고 바닥 바깥), 위 가운데(사무실과 선반 사이 빈 곳) 중 가까운 곳
+const CARD_AT: Record<Station, React.CSSProperties> = {
+  desk: { left: '34%', top: '3%' }, settle: { left: '2%', bottom: '3%' },
+  kiosk: { right: '2%', bottom: '3%' },
+  p2: { left: '34%', top: '3%' }, conv: { left: '34%', top: '3%' }, stack: { left: '34%', top: '3%' },
+}
 
-/** 단계 순서대로 장면 속 자리에 놓아요 (책상 → 팔레트 → 컨베이어 → 키오스크 → 정산대). 마지막 단계가 재고 일이면 선반으로. */
-function stationsFor(steps: FlowStep[]): Station[] {
-  return steps.map((s, i) => i > 0 && i === steps.length - 1 && /재고|잔여/.test(s.title) ? 'stack' : SEQ[Math.min(i, 4)])
+/**
+ * 장면에는 지금 이 처리 단위가 머무는 곳(2D에서 누른 카드의 거래 상대)에서 일어나는 단계만 놓아요.
+ * 창고 일은 팔레트·컨베이어·선반, 우리 회사·은행·카드사 일은 왼쪽 책상과 정산 책상.
+ * 같은 자리에 두 단계가 겹치면 지금 단계, 아니면 가장 최근 단계를 남겨요. 번호는 전체 흐름 순서 그대로.
+ */
+function sceneSteps(steps: FlowStep[], zone: ZoneId, ci: number): { i: number; at: Station }[] {
+  const pick = new Map<Station, number>()
+  steps.forEach((s, i) => {
+    if (s.zone !== zone) return
+    const t = s.title
+    const at: Station = zone === 'wh'
+      ? (/재고|잔여/.test(t) ? 'stack' : /출고|요청/.test(t) ? 'p2' : 'conv')
+      : (/대사|대조|전표|ERP|차액|목적|정산|반영/.test(t) ? 'settle' : 'desk')
+    if (pick.get(at) !== ci) pick.set(at, i)
+  })
+  return [...pick].map(([at, i]) => ({ i, at })).sort((x, y) => x.i - y.i)
 }
 
 const active = (k: StepCode) => k !== 'd' && k !== 'n'
@@ -38,14 +56,16 @@ const KCLS: Record<StepCode, string> = { c: 'kc', q: 'kw', w: 'kf', d: 'kd', n: 
 
 function FlowScene({ flow, onBack, onMore }: { flow: FlowCase; onBack: () => void; onMore: () => void }) {
   const { unit: U, steps } = flow
-  const st = useMemo(() => stationsFor(steps), [steps])
+  let ci = steps.findIndex((s) => active(s.status))
+  if (ci < 0) ci = steps.length - 1
+  const shown = useMemo(() => sceneSteps(steps, U.z, ci), [steps, U.z, ci])
   const html = useMemo(() => {
     const on: Partial<Record<Station, boolean>> = {}
-    steps.forEach((s, i) => { if (active(s.status)) on[st[i]] = true })
+    shown.forEach(({ i, at }) => { if (active(steps[i].status)) on[at] = true })
     const ld: Record<string, string> = {}, ldd: Record<string, string> = {}
     ;['t0', 't2', 't3', 't4', 't5'].forEach((k) => { ld[k] = 'ld hide'; ldd[k] = 'ldd hide' })
-    steps.forEach((s, i) => { const k = TPOS[st[i]][0]; if (k in ld) { ld[k] = 'ld' + (active(s.status) ? ' on' : ''); ldd[k] = 'ldd' + (active(s.status) ? ' on' : '') } })
-    const warn = steps.some((s, i) => st[i] === 'stack' && active(s.status))
+    shown.forEach(({ i, at }) => { const k = TPOS[at][0], a = active(steps[i].status); if (k in ld) { ld[k] = 'ld' + (a ? ' on' : ''); ldd[k] = 'ldd' + (a ? ' on' : '') } })
+    const warn = shown.some(({ i, at }) => at === 'stack' && active(steps[i].status))
     const v: Record<string, string> = {
       'pp.pl': 'pp', 'pp.p2': 'pp', 'pp.p3': 'pp', 'pp.p5': 'pp',
       'ldWarn': warn ? 'ld on' : 'ld hide', 'lddWarn': warn ? 'ldd on' : 'ldd hide',
@@ -54,24 +74,22 @@ function FlowScene({ flow, onBack, onMore }: { flow: FlowCase; onBack: () => voi
     ;(['desk', 'stack', 'conv', 'kiosk', 'settle'] as Station[]).forEach((o) => { v['g.' + o] = 'grp' + (on[o] ? ' on' : '') })
     Object.keys(ld).forEach((k) => { v['ld.' + k] = ld[k]; v['ldd.' + k] = ldd[k] })
     return SCENE_SVG.replace(/\{\{\s*fv\.([\w.]+)\s*\}\}/g, (_, k: string) => v[k] ?? '')
-  }, [steps, st])
+  }, [steps, shown])
 
-  let ci = steps.findIndex((s) => active(s.status))
-  if (ci < 0) ci = steps.length - 1
-  const cs = steps[ci], P = TPOS[st[ci]], k = cs.status, q = U.id === 'u1' && k === 'w'
+  const cur = shown.find((x) => x.i === ci) || shown[shown.length - 1]
+  const cs = steps[cur.i], k = cs.status, q = U.id === 'u1' && k === 'w'
   const nc = NCS[k]
   return <>
     <div className="fl3h">
       <button className="fl3back" onClick={onBack}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>거래 상대별 지금 상황</button>
-      <span style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}><span className="mono" style={{ fontSize: 'max(13px,var(--min-font-size,10px))', fontWeight: 600, color: '#6F6F6F' }}>{U.t}</span><span style={{ fontSize: 'max(16px,var(--min-font-size,10px))', fontWeight: 700 }}>{U.name}</span><span className={BADGE[U.st]}>{U.st}</span></span>
     </div>
     <div className="fl3 whin">
       <div className="fl3s">
         <div className="scene" dangerouslySetInnerHTML={{ __html: html }} />
-        {steps.map((s, i) => { const p = TPOS[st[i]]; return <span key={i} className={'tag' + (s.status === 'd' ? ' done' : s.status === 'n' ? ' off' : s.status === 'w' ? ' warn' : ' on') + (st[i] === 'desk' ? ' below' : '') + (i === ci ? ' hid' : '')} style={{ left: p[1] + '%', top: p[2] + '%' }}><span className="tn">{i + 1}</span>{s.title}</span> })}
-        <div className={'nowc ' + KCLS[k]} style={{ left: P[1] + '%', top: P[2] + '%', width: q ? 300 : undefined, transform: CARD_AT[st[ci]] }}>
+        {shown.map(({ i, at }) => { const s = steps[i], p = TPOS[at]; return <span key={i} className={'tag' + (s.status === 'd' ? ' done' : s.status === 'n' ? ' off' : s.status === 'w' ? ' warn' : ' on') + (at === 'desk' ? ' below' : '')} style={{ left: p[1] + '%', top: p[2] + '%' }}><span className="tn">{i + 1}</span>{s.title}</span> })}
+        <div className={'nowc ' + KCLS[k]} style={{ ...CARD_AT[cur.at], transform: 'none' }}>
           <span className="nch"><span className="live"><span className={nc[1]} aria-hidden="true"><i /><i /><i /><i /></span>{nc[0]}</span>{cs.time && <span className="mono" style={{ fontSize: 'max(11px,var(--min-font-size,10px))', color: '#9C9C9C' }}>{cs.time} 시작</span>}</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span className="mn">{ci + 1}</span><span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 700 }}>{cs.title}</span></span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span className="mn">{cur.i + 1}</span><span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 700 }}>{cs.title}</span></span>
           {q && <span className="aq"><span><em>주문</em><b>24개</b></span><span><em>재고</em><b>18개</b></span><span className="r"><em>부족</em><b>6개</b></span></span>}
           <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#D9DBD7', lineHeight: 1.5 }}>{cs.summary}</span>
           <button type="button" className="more" onClick={onMore}>{k === 'w' ? '할 일에서 처리' : '자세히 보기'}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
