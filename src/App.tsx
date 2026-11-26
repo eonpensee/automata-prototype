@@ -18,7 +18,7 @@ const SOURCE_IDS: SourceId[] = ['mail', 'cp', 'ss', 'bank', 'card', 'chk']
 /** 지도 배치: 판매처는 숨기고, 은행은 왼쪽 위(판매처 자리), 카드사는 왼쪽 아래(은행 자리)로 */
 const MAP_LAYOUT = {
   hidden: ['shop'] as ZoneId[],
-  moveTo: { bank: [24.13, 19.25], card: [24.13, 61.99] } as Partial<Record<ZoneId, [number, number]>>,
+  moveTo: { bank: [24.13, 19.25], card: [24.13, 66] } as Partial<Record<ZoneId, [number, number]>>,
   hiddenFlows: ['card'] as ZoneId[],
   /** 건물 크기 배율 */
   scale: 1.12,
