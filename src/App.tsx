@@ -37,7 +37,7 @@ export function TodayScreen() {
   return <div ref={topRef} className="today-content">
     <Header dates={REVIEW_DATES} selectedDate={selectedDate} onSelectDate={id => { setSelectedDate(id); setDetailId(null); reset() }} />
     {detail ? <UnitWorkspace key={`${detail.unit.id}-${detail.variant}`} flow={detail} related={cases.filter(c => c.unit.z === detail.unit.z).map(c => c.unit)} onSelect={id => setDetailId(id)} onBack={() => setDetailId(null)} /> : <>
-      <section className="overview-shell" aria-label="전체 처리 현황">
+      <section className="overview-shell" aria-label="전체 처리 현황" onClick={e => { if ((filtered || result) && !(e.target as Element).closest('button,a,input,select,[role="button"],[role="tablist"],[role="dialog"],.zpop')) reset() }}>
         <OverviewTabs units={units} selected={status} onBack={filtered ? reset : undefined} onPick={s => { setStatus(s); setSource(null); setZone(null); setResult(null) }} />
         <section aria-label="오늘의 처리 장면" className="stage s3stage review-stage">
           <SourceLane sources={sources} selected={source} highlighted={highlightedSources} onPick={id => { setSource(source === id ? null : id); setZone(null); setResult(null) }} />
