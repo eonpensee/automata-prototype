@@ -13,6 +13,9 @@ import { UnitWorkspace } from './components/UnitWorkspace'
 import { casesForDate, REVIEW_DATES, resultsFor, sourcesFor } from './data/review'
 import { useFitZoom } from './useFitZoom'
 import './review.css'
+import './ascii.css'
+
+const ASCII_VARIANT = /\/2\/?$/.test(window.location.pathname)
 
 const MAP_LAYOUT = { hidden: ['shop'] as ZoneId[], moveTo: { bank: [24.13, 19.25], card: [24.13, 66] } as Partial<Record<ZoneId, [number, number]>>, hiddenFlows: ['card'] as ZoneId[], scale: 1.12 }
 export function TodayScreen() {
@@ -37,11 +40,11 @@ export function TodayScreen() {
   return <div ref={topRef} className="today-content">
     <Header dates={REVIEW_DATES} selectedDate={selectedDate} onSelectDate={id => { setSelectedDate(id); setDetailId(null); reset() }} />
     {detail ? <UnitWorkspace key={`${detail.unit.id}-${detail.variant}`} flow={detail} related={cases.filter(c => c.unit.z === detail.unit.z).map(c => c.unit)} onSelect={id => setDetailId(id)} onBack={() => setDetailId(null)} /> : <>
-      <section className="overview-shell" aria-label="전체 처리 현황" onClick={e => { if ((filtered || result) && !(e.target as Element).closest('button,a,input,select,[role="button"],[role="tablist"],[role="dialog"],.zpop')) reset() }}>
+      <section className={`overview-shell${ASCII_VARIANT ? ' ascii-variant' : ''}`} aria-label="전체 처리 현황" onClick={e => { if ((filtered || result) && !(e.target as Element).closest('button,a,input,select,[role="button"],[role="tablist"],[role="dialog"],.zpop')) reset() }}>
         <OverviewTabs units={units} selected={status} onBack={filtered ? reset : undefined} onPick={s => { setStatus(s); setSource(null); setZone(null); setResult(null) }} />
         <section aria-label="오늘의 처리 장면" className="stage s3stage review-stage">
           <SourceLane sources={sources} selected={source} highlighted={highlightedSources} onPick={id => { setSource(source === id ? null : id); setZone(null); setResult(null) }} />
-          <MiniMap partners={PARTNERS} units={units} availableZones={rows.map(u => u.z)} active={zone ? rows.filter(u => u.z === zone) : filtered ? rows : null} zoneSelected={zone} sourceSelected={source} {...MAP_LAYOUT} hiddenSourceLinks={sources.map(s => s.id)} sourceOrder={sources.map(s => s.id)} stockWarn={cases.find(c => c.unit.id === 'u1')?.unit.st === '확인 필요' ? { ...data.STOCK_WARN, unitId: 'u1' } : null} onClearFocus={reset} onPickZone={z => { setZone(zone === z ? null : z); setSource(null); setResult(null) }} onOpenUnit={openUnit} />
+          <MiniMap ascii={ASCII_VARIANT} partners={PARTNERS} units={units} availableZones={rows.map(u => u.z)} active={zone ? rows.filter(u => u.z === zone) : filtered ? rows : null} zoneSelected={zone} sourceSelected={source} {...MAP_LAYOUT} scale={ASCII_VARIANT ? 1.34 : MAP_LAYOUT.scale} hiddenSourceLinks={sources.map(s => s.id)} sourceOrder={sources.map(s => s.id)} stockWarn={cases.find(c => c.unit.id === 'u1')?.unit.st === '확인 필요' ? { ...data.STOCK_WARN, unitId: 'u1' } : null} onClearFocus={reset} onPickZone={z => { setZone(zone === z ? null : z); setSource(null); setResult(null) }} onOpenUnit={openUnit} />
           <div className="rlane"><ResultLane results={resultsFor(visibleCases)} units={units} selected={result} onPick={id => setResult(result === id ? null : id)} onClose={() => setResult(null)} onOpenUnit={openUnit} /></div>
         </section>
       </section>

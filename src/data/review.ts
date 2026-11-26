@@ -121,6 +121,6 @@ export const REVIEW_DATES = [
 /** Three representative days share the same processing model. */
 export function casesForDate(date: string, variants: VariantState = {}): FlowCase[] {
   if (date === '2026-11-24') return createCases(variants).filter(c => c.unit.id === 'u7')
-  if (date === '2026-11-25') return createCases({ u2: 1, u4: 1, u3: 1, ...variants }).filter(c => ['u2', 'u3', 'u4', 'u9', 'u11'].includes(c.unit.id))
+  if (date === '2026-11-25') return createCases({ u2: 1, u4: 1, u3: 1, u11: 1, ...variants }).filter(c => ['u2', 'u3', 'u4', 'u9', 'u11'].includes(c.unit.id))
   return createCases(variants).filter(c => c.unit.id !== 'u11')
 }
