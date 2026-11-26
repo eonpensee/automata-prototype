@@ -36,5 +36,22 @@ body{text-wrap:pretty}
 .zlit .card-chip{fill:#BED6C2;stroke:#A9C2AE}
 .zlit .card-etch{stroke:#8EAD95}
 
-/* 처리 이력 상태 칩: 위아래 안쪽 여백을 각각 2px 확대 */
-.trow .badge{padding-block:8px}
+/* 상태 칩: 표·상세 패널·팝업 모두 기존보다 위아래 안쪽 여백을 각각 4px 확대 */
+.trow .badge,.odet .badge{padding-block:10px}
+.zpi .badge,.rdr .badge{padding-block:8px}
+
+/* 상태 카드와 처리 이력 표 사이 간격: 기존 16px에 8px 추가 */
+.hero6 + .panel{margin-top:8px}
+
+/* 체크 아이콘이 있는 칩의 오른쪽 시각적 여백 보정 */
+.badge.st-flag{padding-right:12px}
+.zpi .badge.st-flag,.rdr .badge.st-flag{padding-right:10px}
+
+/* 상세 패널 항목 행: 위아래 안쪽 여백을 각각 4px 확대 */
+.odet .kv > span{padding-block:14px}
+
+/* 우리 회사: 무채색 명판과 출입문 손잡이 */
+.hq-sign{fill:#FAFAFA;stroke:#D2D2D2;stroke-width:.8}
+.hq-handle{fill:none;stroke:#BDBDBD;stroke-width:1}
+.zlit .hq-sign{fill:#E3EEE5;stroke:#A9C2AE}
+.zlit .hq-handle{stroke:#8EAD95}
