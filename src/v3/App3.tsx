@@ -40,7 +40,7 @@ export function TodayScreen3() {
   return <div ref={topRef} className="today-content">
     <Header dates={REVIEW_DATES} selectedDate={selectedDate} onSelectDate={id => { setSelectedDate(id); setDetailId(null); reset() }} />
     {detail ? <UnitWorkspace key={`${detail.unit.id}-${detail.variant}`} flow={detail} related={cases.filter(c => c.unit.z === detail.unit.z).map(c => c.unit)} onSelect={id => setDetailId(id)} onBack={() => setDetailId(null)} /> : <>
-      <section className="overview-shell" aria-label="전체 처리 현황">
+      <section className="overview-shell v3shell" aria-label="전체 처리 현황">
         <OverviewTabs units={units} selected={status} onBack={filtered || flowId ? reset : undefined} onPick={s => { setStatus(s); setSource(null); setResult(null); setFlowId(null) }} />
         <section ref={stageRef} aria-label="오늘의 처리 장면" className="stage s3stage review-stage v3stage">
           <SourceLane sources={sources} selected={source} highlighted={highlightedSources} onPick={id => { setSource(source === id ? null : id); setResult(null); setFlowId(null) }} />
