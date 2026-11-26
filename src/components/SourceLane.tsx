@@ -3,6 +3,7 @@ import { SourceGlyph } from './Icons'
 
 interface Props {
   sources: Source[]
+  hiddenLinks: SourceId[]
   /** 선택된 출처 */
   selected: SourceId | null
   /** 무언가 걸러진 상태인지 (연결선 흐림) */
@@ -11,7 +12,7 @@ interface Props {
 }
 
 /** 왼쪽: 들어온 자료 카드 */
-export function SourceLane({ sources, selected, filtered, onPick }: Props) {
+export function SourceLane({ sources, hiddenLinks, selected, filtered, onPick }: Props) {
   return (
     <div className="tlane">
       <span className="rh" style={{ paddingLeft: 2 }}>들어온 자료</span>
@@ -28,7 +29,7 @@ export function SourceLane({ sources, selected, filtered, onPick }: Props) {
             <span className="tcount2">{s.count}</span>
           </span>
           <span className="tmeta3"><span className="tl3">{s.latest}</span><span>{s.cadence}</span></span>
-          <span className="trk2" aria-hidden="true" />
+          {!hiddenLinks.includes(s.id) && <span className="trk2" aria-hidden="true" />}
         </button>
       ))}
     </div>
