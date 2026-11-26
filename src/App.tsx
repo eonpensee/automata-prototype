@@ -1,0 +1,105 @@
+import { useState } from 'react'
+import * as data from './data/today'
+import type { ResultId, SourceId, ZoneId } from './data/today'
+import { match, toggle, type Filter } from './logic'
+import { Header } from './components/Header'
+import { SourceLane } from './components/SourceLane'
+import { MiniMap } from './components/map/MiniMap'
+import { PARTNERS } from './components/map/partners'
+import { ResultLane } from './components/ResultLane'
+import { DetailPanel } from './components/DetailPanel'
+import { StatusTabs } from './components/StatusTabs'
+import { HistoryTable } from './components/HistoryTable'
+
+const SOURCE_IDS: SourceId[] = ['mail', 'cp', 'ss', 'bank', 'card', 'chk']
+
+/** 지도 배치: 판매처는 숨기고, 은행은 왼쪽 위(판매처 자리), 카드사는 왼쪽 아래(은행 자리)로 */
+const MAP_LAYOUT = {
+  hidden: ['shop'] as ZoneId[],
+  moveTo: { bank: [24.13, 19.25], card: [24.13, 61.99] } as Partial<Record<ZoneId, [number, number]>>,
+  hiddenFlows: ['card'] as ZoneId[],
+}
+
+type Data = typeof data
+
+/** 자동 처리 현황 본문. 화면 데이터는 모두 props로 받아요. */
+export function TodayScreen({ d }: { d: Data }) {
+  const [filter, setFilter] = useState<Filter>('all')
+  const [detailId, setDetailId] = useState<string | null>(null)
+  const [result, setResult] = useState<ResultId | null>(null)
+
+  const rows = d.UNITS.filter((u) => match(u, filter))
+  const active = filter === 'all' ? null : rows
+  const sourceSel = (SOURCE_IDS as string[]).includes(filter) ? (filter as SourceId) : null
+  const zoneSel = filter.startsWith('z:') ? (filter.slice(2) as ZoneId) : null
+  const detail = d.UNITS.find((u) => u.id === detailId) || null
+
+  const openUnit = (id: string) => { setDetailId(id); setResult(null) }
+
+  return (
+    <div style={{ flex: '1 1 auto', background: '#F8F8F8', border: '1px solid #E6E6E6', borderRadius: 16, padding: 28, display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <Header dateLabel={d.TODAY_LABEL} />
+
+      <div style={{ overflowX: 'auto' }}>
+        <section aria-label="오늘의 처리 장면" className={'stage s3stage' + (detail ? ' ndopen' : '')}>
+          <SourceLane
+            sources={d.SOURCES}
+            selected={sourceSel}
+            filtered={!!active}
+            onPick={(id) => setFilter((f) => toggle(f, id))}
+          />
+          <MiniMap
+            partners={PARTNERS}
+            units={d.UNITS}
+            active={active}
+            zoneSelected={zoneSel}
+            sourceSelected={sourceSel}
+            {...MAP_LAYOUT}
+            nowCard={d.NOW_CARD}
+            stockWarn={d.STOCK_WARN}
+            onPickZone={(z) => setFilter((f) => toggle(f, `z:${z}`))}
+            onOpenUnit={openUnit}
+          />
+          <div className="rlane">
+            {detail ? (
+              <DetailPanel
+                unit={detail}
+                stepNames={d.FLT[detail.id] || []}
+                sections={d.DET[detail.id] || []}
+                onClose={() => setDetailId(null)}
+              />
+            ) : (
+              <ResultLane
+                results={d.RES}
+                units={d.UNITS}
+                selected={result}
+                onPick={(id) => setResult((r) => (r === id ? null : id))}
+                onClose={() => setResult(null)}
+                onOpenUnit={openUnit}
+              />
+            )}
+          </div>
+        </section>
+      </div>
+
+      <section aria-label="처리 이력" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>처리 이력</h2>
+        <StatusTabs tabs={d.CARDS} units={d.UNITS} filter={filter} onPick={(id) => setFilter((f) => toggle(f, id))} />
+        <HistoryTable rows={rows} stepNames={d.FLT} onOpenUnit={openUnit} />
+      </section>
+    </div>
+  )
+}
+
+/** 앱 틀: 왼쪽 메뉴와 상단 탭은 자리만 잡아 둠 */
+export default function App() {
+  return (
+    <div style={{ boxSizing: 'border-box', minHeight: '100vh', display: 'flex', flexWrap: 'wrap', alignItems: 'stretch' }}>
+      <nav aria-label="주 메뉴" className="ph-nav" />
+      <main style={{ flex: '999 1 640px', minWidth: 0, boxSizing: 'border-box', padding: '12px 12px 12px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="ph-tab" aria-hidden="true" />
+        <TodayScreen d={data} />
+      </main>
+    </div>
+  )
+}
