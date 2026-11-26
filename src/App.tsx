@@ -25,12 +25,12 @@ export function TodayScreen() {
   const topRef = useRef<HTMLDivElement>(null)
   const cases = useMemo(() => casesForDate(selectedDate), [selectedDate])
   const units = cases.map(c => c.unit)
-  const sourceCases = cases.filter(c => (status === '전체' || c.unit.st === status))
-  const sources = sourcesFor(sourceCases)
+  const sources = sourcesFor(cases)
   const detail = cases.find(c => c.unit.id === detailId)
   const visibleCases = cases.filter(c => (status === '전체' || c.unit.st === status) && (!source || c.unit.g === source))
   const filtered = status !== '전체' || source !== null || zone !== null
   const rows = visibleCases.map(c => c.unit)
+  const highlightedSources = zone ? rows.filter(u => u.z === zone).map(u => u.g) : source ? [source] : status !== '전체' ? rows.map(u => u.g) : undefined
   const steps = Object.fromEntries(cases.map(c => [c.unit.id, c.steps.map(s => s.title)]))
   const reset = () => { setStatus('전체'); setSource(null); setZone(null); setResult(null) }
   const openUnit = (id: string) => { setDetailId(id); setResult(null); requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }
@@ -40,8 +40,8 @@ export function TodayScreen() {
       <section className="overview-shell" aria-label="전체 처리 현황">
         <OverviewTabs units={units} selected={status} onBack={filtered ? reset : undefined} onPick={s => { setStatus(s); setSource(null); setZone(null); setResult(null) }} />
         <section aria-label="오늘의 처리 장면" className="stage s3stage review-stage">
-          <SourceLane sources={sources} selected={source} highlighted={zone ? rows.filter(u => u.z === zone).map(u => u.g) : undefined} onPick={id => { setSource(source === id ? null : id); setZone(null); setResult(null) }} />
-          <MiniMap partners={PARTNERS} units={units} availableZones={rows.map(u => u.z)} active={zone ? rows.filter(u => u.z === zone) : filtered ? rows : null} zoneSelected={zone} sourceSelected={source} {...MAP_LAYOUT} hiddenSourceLinks={sources.map(s => s.id)} sourceOrder={sources.map(s => s.id)} stockWarn={cases.find(c => c.unit.id === 'u1')?.unit.st === '확인 필요' ? { ...data.STOCK_WARN, unitId: 'u1' } : null} onClearFocus={() => setZone(null)} onPickZone={z => { setZone(zone === z ? null : z); setSource(null); setResult(null) }} onOpenUnit={openUnit} />
+          <SourceLane sources={sources} selected={source} highlighted={highlightedSources} onPick={id => { setSource(source === id ? null : id); setZone(null); setResult(null) }} />
+          <MiniMap partners={PARTNERS} units={units} availableZones={rows.map(u => u.z)} active={zone ? rows.filter(u => u.z === zone) : filtered ? rows : null} zoneSelected={zone} sourceSelected={source} {...MAP_LAYOUT} hiddenSourceLinks={sources.map(s => s.id)} sourceOrder={sources.map(s => s.id)} stockWarn={cases.find(c => c.unit.id === 'u1')?.unit.st === '확인 필요' ? { ...data.STOCK_WARN, unitId: 'u1' } : null} onClearFocus={reset} onPickZone={z => { setZone(zone === z ? null : z); setSource(null); setResult(null) }} onOpenUnit={openUnit} />
           <div className="rlane"><ResultLane results={resultsFor(visibleCases)} units={units} selected={result} onPick={id => setResult(result === id ? null : id)} onClose={() => setResult(null)} onOpenUnit={openUnit} /></div>
         </section>
       </section>

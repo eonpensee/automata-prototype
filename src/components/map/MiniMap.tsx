@@ -130,7 +130,7 @@ export function MiniMap(p: Props) {
   return (
     <div className="world">
       <div className="c2">
-        <div className="scene3" onClick={e => { if (p.zoneSelected && !(e.target as Element).closest('button,[role="button"],.zpop')) p.onClearFocus() }}>
+        <div className="scene3" onClick={e => { if (active && !(e.target as Element).closest('button,[role="button"],.zpop')) p.onClearFocus() }}>
           <svg viewBox="0 0 1366 724" className="s3">
             <g className="isogrid">
               {GRID_LINES.map(([x1, y1, x2, y2], i) => (
