@@ -1,4 +1,5 @@
 import type { PartnerDef } from './types'
+import { Windows, hline } from '../iso'
 
 // 거래 상대: 은행. 바닥판(plate), 연결선(flow), 건물(Building)을 한 묶음으로 가져요.
 export const Bank: PartnerDef = {
@@ -56,6 +57,11 @@ export const Bank: PartnerDef = {
     <g className="bx">
       <polygon points="259.0,474.3 341.4,521.9 300.2,479.4" className="fy" />
     </g>
+      {/* 디테일: 옆벽 창문, 박공 장식, 처마 줄 */}
+      <Windows quad="395.9,538.0 353.2,562.7 353.2,520.2 395.9,495.5" cols={2} rows={1} v={[0.15, 0.85]} pad={[0.18, 0.05]} gap={[0.2, 0]} cls="win2" />
+      <polyline points={hline('264.9,489.6 341.4,533.8 341.4,523.6 264.9,479.4', 0.5, 0.04, 0.96)} className="wl" />
+      <polyline points={hline('406.2,496.4 341.4,533.8 341.4,523.6 406.2,486.2', 0.5, 0.04, 0.96)} className="wl" />
+      <polygon points="285.0,483.0 307.5,496.0 300.2,486.6" className="win" />
     </>
   ),
 }

@@ -1,4 +1,5 @@
 import type { PartnerDef } from './types'
+import { Windows, rect } from '../iso'
 
 // 거래 상대: 매입처. 바닥판(plate), 연결선(flow), 건물(Building)을 한 묶음으로 가져요.
 export const Supplier: PartnerDef = {
@@ -29,6 +30,15 @@ export const Supplier: PartnerDef = {
       <polygon points="1055.5,510.9 1042.2,518.5 1042.2,430.1 1055.5,422.5" className="fx" />
       <polygon points="1042.2,414.8 1055.5,422.5 1042.2,430.1 1029.0,422.5" className="ft" />
     </g>
+      {/* 디테일: 톱니 지붕 유리, 벽 창문, 출입문, 굴뚝 띠 */}
+      <polygon points={rect('1063.7,471.4 993.1,512.2 993.1,493.5 1063.7,452.7', 0.08, 0.2, 0.92, 0.8)} className="win2" />
+      <polygon points={rect('1091.1,487.2 1020.4,528.0 1020.4,509.3 1091.1,468.5', 0.08, 0.2, 0.92, 0.8)} className="win2" />
+      <polygon points={rect('1118.5,503.0 1047.8,543.8 1047.8,525.1 1118.5,484.3', 0.08, 0.2, 0.92, 0.8)} className="win2" />
+      <Windows quad="965.7,537.2 1048.1,584.8 1048.1,544.0 965.7,496.4" cols={4} rows={1} v={[0.4, 0.8]} pad={[0.1, 0.1]} gap={[0.08, 0]} />
+      <polygon points={rect('1118.8,544.0 1048.1,584.8 1048.1,544.0 1118.8,503.2', 0.12, 0, 0.36, 0.6)} className="door" />
+      <Windows quad="1118.8,544.0 1048.1,584.8 1048.1,544.0 1118.8,503.2" cols={2} rows={1} v={[0.4, 0.8]} pad={[0.46, 0.1]} gap={[0.1, 0]} cls="win2" />
+      <polygon points={rect('1029.0,510.9 1042.2,518.5 1042.2,430.1 1029.0,422.5', 0, 0.84, 1, 0.9)} className="band" />
+      <polygon points={rect('1055.5,510.9 1042.2,518.5 1042.2,430.1 1055.5,422.5', 0, 0.84, 1, 0.9)} className="band" />
     </>
   ),
 }

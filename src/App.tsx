@@ -20,6 +20,8 @@ const MAP_LAYOUT = {
   hidden: ['shop'] as ZoneId[],
   moveTo: { bank: [24.13, 19.25], card: [24.13, 61.99] } as Partial<Record<ZoneId, [number, number]>>,
   hiddenFlows: ['card'] as ZoneId[],
+  /** 건물 크기 배율 */
+  scale: 1.12,
 }
 
 type Data = typeof data

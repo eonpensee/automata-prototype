@@ -153,7 +153,7 @@ export const ZNAME: Record<string, [string, string]> = {
 }
 
 /** 지도 위 재고 부족 표시 */
-export const STOCK_WARN = { label: '재고 부족', n: '6개', zone: 'wh' as ZoneId, pos: [88, 34] as [number, number] }
+export const STOCK_WARN = { label: '재고 부족', n: '6개', zone: 'wh' as ZoneId, pos: [89.5, 33] as [number, number] }
 
 /** 헤더 날짜 */
 export const TODAY_LABEL = '11월 26일 목요일'

@@ -1,4 +1,5 @@
 import type { PartnerDef } from './types'
+import { Windows, TopBox, rect } from '../iso'
 
 // 거래 상대: 카드사. 바닥판(plate), 연결선(flow), 건물(Building)을 한 묶음으로 가져요.
 export const CardCompany: PartnerDef = {
@@ -28,6 +29,11 @@ export const CardCompany: PartnerDef = {
       <polygon points="509.3,634.1 494.6,642.6 494.6,618.8 509.3,610.3" className="fx" />
       <polygon points="491.6,600.1 509.3,610.3 494.6,618.8 476.9,608.6" className="ft" />
     </g>
+      {/* 디테일: 층 창문, 출입문, 옥상 간판 */}
+      <Windows quad="506.3,629.0 571.1,666.4 571.1,615.4 506.3,578.0" cols={3} rows={2} v={[0.3, 0.95]} pad={[0.12, 0.08]} gap={[0.1, 0.25]} />
+      <polygon points={rect('624.1,635.8 571.1,666.4 571.1,615.4 624.1,584.8', 0.55, 0, 0.8, 0.38)} className="door" />
+      <Windows quad="624.1,635.8 571.1,666.4 571.1,615.4 624.1,584.8" cols={2} rows={1} v={[0.5, 0.95]} pad={[0.1, 0.1]} gap={[0.12, 0]} cls="win2" />
+      <TopBox top="559.3,547.4 624.1,584.8 571.1,615.4 506.3,578.0" u0={0.2} v0={0.25} u1={0.5} v1={0.5} h={7} />
     </>
   ),
 }

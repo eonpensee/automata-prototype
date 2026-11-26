@@ -48,6 +48,8 @@ interface Props {
   moveTo: Partial<Record<ZoneId, [number, number]>>
   /** 이 거래 상대들로 가는 연결선은 숨김 */
   hiddenFlows: ZoneId[]
+  /** 건물·바닥판 크기 배율 */
+  scale: number
   stockWarn: { label: string; n: string; zone: ZoneId; pos: [number, number] }
   onPickZone: (z: ZoneId) => void
   onOpenUnit: (id: string) => void
@@ -65,19 +67,28 @@ export function MiniMap(p: Props) {
     const to = p.moveTo[z]
     const tx = to ? (to[0] - a[0]) * PX_X : 0
     const ty = to ? (to[1] - a[1]) * PX_Y : 0
+    // 바닥판 가운데를 기준으로 건물을 키움
+    const top = def.plate.find((pg) => pg.cls === 'ft') || def.plate[0]
+    const pts = top.points.split(' ').map((q) => q.split(',').map(Number))
+    const cx = pts.reduce((m, q) => m + q[0], 0) / pts.length
+    const cy = pts.reduce((m, q) => m + q[1], 0) / pts.length
+    const k = p.scale
+    // 이름표도 같은 비율로 바깥쪽으로 밀어 건물과 겹치지 않게
+    const ax = cx + (a[0] * PX_X - cx) * k + tx
+    const ay = cy + (a[1] * PX_Y - cy) * k + ty - (k > 1 ? 12 : 0)
     const lit = !!vis && vis.has(z)
     const here = active ? active.filter((u) => u.z === z) : []
     const all = units.filter((u) => u.z === z)
-    const top = all.reduce<Status>((m, u) => (RANK[u.st] > RANK[m] ? u.st : m), '완료')
+    const topSt = all.reduce<Status>((m, u) => (RANK[u.st] > RANK[m] ? u.st : m), '완료')
     return {
       def,
       hide,
-      move: { transform: `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px)` } as CSSProperties,
-      tagPos: { left: `${(a[0] + tx / PX_X).toFixed(2)}%`, top: `${(a[1] + ty / PX_Y).toFixed(2)}%` } as CSSProperties,
+      move: { transform: `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px) scale(${k}) translate(${(-cx).toFixed(1)}px, ${(-cy).toFixed(1)}px)` } as CSSProperties,
+      tagPos: { left: `${(ax / PX_X).toFixed(2)}%`, top: `${(ay / PX_Y).toFixed(2)}%` } as CSSProperties,
       plateCls: hide ? 'zp zhide' : lit ? 'zp zon' : vis ? 'zp zoff' : 'zp',
       bldCls: hide ? 'zg zhide' : lit ? 'zg zlit' : vis ? 'zg zoff' : 'zg',
       tagCls: 'tag zt' + (hide ? ' hid' : p.zoneSelected === z ? ' on' : vis && !lit ? ' off' : ''),
-      count: !hide && !active && all.length > 0 ? { label: `${all.length}건`, cls: ZCLS[top] } : null,
+      count: !hide && !active && all.length > 0 ? { label: `${all.length}건`, cls: ZCLS[topSt] } : null,
       list: hide ? [] : here,
     }
   })
