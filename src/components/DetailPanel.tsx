@@ -13,7 +13,7 @@ interface Props {
 
 /** 오른쪽 상세 패널: 단계, 받은 자료, 판단, 남긴 결과, 지금 상태 */
 export function DetailPanel({ unit, stepNames, sections, onClose, onAction }: Props) {
-  const btn = unit.st === '확인 필요' ? '할 일에서 처리' : '에이전트 세션 보기'
+  const btn = unit.st === '확인 필요' ? '할 일에서 처리' : '처리 기록 보기'
   return (
     <div className="odet" role="dialog" aria-label={`${unit.name} 상세`}>
       <div className="odh">
