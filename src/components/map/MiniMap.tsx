@@ -19,15 +19,14 @@ const POPUP: Record<ZoneId, [number, number, string]> = {
   wh: [67, 27, '-100%, -50%'],
   sup: [68, 70, '-100%, -50%'],
   bank: [24.13, 45, '-50%, 8px'],
-  card: [24.13, 80, '-50%, 8px'],
+  card: [24.13, 84.01, '-50%, 8px'],
 }
 
 /** 들어온 자료 카드 위치(px). 카드 i의 가운데 = 지도 가운데 + CARD_TOP + i × CARD_STEP */
 const CARD_TOP = -232
 const CARD_STEP = 98
-/** 모아 주는 세로선 x(%) / 거래 상대로 바로 가는 선이 꺾이는 x(%) */
+/** 모아 주는 세로선 x(%) */
 const BUS_X = 1.8
-const BRANCH_X = 6
 
 type Seg = { k: 'h' | 'v'; style: CSSProperties }
 const H = (x0: number, x1: number, y: string): Seg => ({ k: 'h', style: { left: `${x0}%`, width: `${(x1 - x0).toFixed(2)}%`, top: `calc${y}` } })
@@ -53,8 +52,8 @@ interface Props {
   scale: number
   /** 왼쪽 들어온 자료 카드 순서 */
   sourceOrder: SourceId[]
-  /** 지도 속 거래 상대로 바로 잇는 출처 (나머지는 (주)엘리먼츠로) */
-  sourceTo: Partial<Record<SourceId, ZoneId>>
+  /** 자료 카드에서 지도로 가는 연결선을 생략할 출처 */
+  hiddenSourceLinks: SourceId[]
   stockWarn: { label: string; n: string; zone: ZoneId; pos: [number, number] }
   onPickZone: (z: ZoneId) => void
   onOpenUnit: (id: string) => void
@@ -102,25 +101,20 @@ export function MiniMap(p: Props) {
     }
   })
 
-  // 연결선: 출처 카드 → (주)엘리먼츠, 또는 출처 카드 → 지도 속 거래 상대
+  // 연결선: 표시할 출처 카드 → (주)엘리먼츠. 원래 카드 순서의 좌표를 유지해요.
   const yCard = (i: number) => `(50% + ${CARD_TOP + i * CARD_STEP}px)`
   const yMap = (pct: number) => `(${pct.toFixed(2)}% + 40px)`
   const hq = zone.find((v) => v.def.id === 'hq')!
-  const hub = p.sourceOrder.map((id, i) => ({ id, i })).filter((c) => !p.sourceTo[c.id])
+  const hub = p.sourceOrder.map((id, i) => ({ id, i })).filter((c) => !p.hiddenSourceLinks.includes(c.id))
   const hubY = yMap(hq.leftPt[1])
   const hubSegs: Seg[] = hub.length
     ? [V(BUS_X, yCard(Math.min(...hub.map((c) => c.i))), yCard(Math.max(...hub.map((c) => c.i)))), H(BUS_X, hq.leftPt[0], hubY)]
     : []
-  const routes = p.sourceOrder.map((id, i) => {
-    const to = p.sourceTo[id]
-    const dest = to && zone.find((v) => v.def.id === to)
-    if (dest) {
-      const y = yMap(dest.leftPt[1])
-      return { id, hub: false, segs: [H(0, BRANCH_X, yCard(i)), V(BRANCH_X, yCard(i), y), H(BRANCH_X, dest.leftPt[0], y)] }
-    }
-    return { id, hub: true, segs: [H(0, BUS_X, yCard(i)), V(BUS_X, yCard(i), hubY)] }
-  })
-  const hubOn = !!p.sourceSelected && !p.sourceTo[p.sourceSelected]
+  const routes = hub.map(({ id, i }) => ({
+    id,
+    segs: [H(0, BUS_X, yCard(i)), V(BUS_X, yCard(i), hubY)],
+  }))
+  const hubOn = hub.some((c) => c.id === p.sourceSelected)
 
   const srcOn = p.sourceSelected
 
@@ -164,7 +158,7 @@ export function MiniMap(p: Props) {
           </svg>
 
           <div className={active ? 'cnl off' : 'cnl'}>
-            {routes.flatMap((r) => r.segs.filter((_, j) => !(r.hub && j === 1)).map((sg, j) => (
+            {routes.flatMap((r) => r.segs.filter((_, j) => j === 0).map((sg, j) => (
               <span key={'c' + r.id + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />
             )))}
             {hubSegs.map((sg, j) => <span key={'hub' + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />)}

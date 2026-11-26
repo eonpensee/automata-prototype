@@ -18,12 +18,12 @@ const SOURCE_IDS: SourceId[] = ['mail', 'cp', 'ss', 'bank', 'card', 'chk']
 /** 지도 배치: 판매처는 숨기고, 은행은 왼쪽 위(판매처 자리), 카드사는 왼쪽 아래(은행 자리)로 */
 const MAP_LAYOUT = {
   hidden: ['shop'] as ZoneId[],
-  moveTo: { bank: [24.13, 19.25], card: [24.13, 61.99] } as Partial<Record<ZoneId, [number, number]>>,
+  moveTo: { bank: [24.13, 19.25], card: [24.13, 66] } as Partial<Record<ZoneId, [number, number]>>,
   hiddenFlows: ['card'] as ZoneId[],
   /** 건물 크기 배율 */
   scale: 1.12,
-  /** 은행·카드사 자료는 지도 속 은행·카드사로 바로 이어요 */
-  sourceTo: { bank: 'bank', card: 'card' } as Partial<Record<SourceId, ZoneId>>,
+  /** 은행·카드사는 자료 카드와 건물 사이의 장식 연결선을 생략해요 */
+  hiddenSourceLinks: ['bank', 'card'] as SourceId[],
 }
 
 type Data = typeof data
@@ -57,6 +57,7 @@ export function TodayScreen({ d }: { d: Data }) {
         <section aria-label="오늘의 처리 장면" className={'stage s3stage' + (detail ? ' ndopen' : '')}>
           <SourceLane
             sources={d.SOURCES}
+            hiddenLinks={MAP_LAYOUT.hiddenSourceLinks}
             selected={sourceSel}
             filtered={!!active}
             onPick={(id) => setFilter((f) => toggle(f, id))}
