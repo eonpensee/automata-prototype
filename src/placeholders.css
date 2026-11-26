@@ -35,3 +35,6 @@ body{text-wrap:pretty}
 .zlit .card-sign{fill:#E3EEE5;stroke:#A9C2AE}
 .zlit .card-chip{fill:#BED6C2;stroke:#A9C2AE}
 .zlit .card-etch{stroke:#8EAD95}
+
+/* 처리 이력 상태 칩: 위아래 안쪽 여백을 각각 2px 확대 */
+.trow .badge{padding-block:8px}
