@@ -9,7 +9,7 @@ export type { ZoneId }
 export type Status = '확인 필요' | '대기 중' | '진행 중' | '완료'
 
 /** 들어온 자료 출처 */
-export type SourceId = 'mail' | 'cp' | 'ss' | 'bank' | 'card' | 'chk'
+export type SourceId = 'mail' | 'cp' | 'ss' | 'bank' | 'card' | 'chk' | 'manual'
 
 /** 단계 표시: d 완료, c 진행 중, w 확인 필요, q 대기 중, n 아직 안 함 */
 export type StepCode = 'd' | 'c' | 'w' | 'q' | 'n'
@@ -119,7 +119,7 @@ export const CARDS: StatusTab[] = [
 ]
 
 /** 왼쪽 들어온 자료 카드 (순서 = 화면 순서. 은행은 맨 위, 카드사는 맨 아래로 두어 지도 속 건물과 높이를 맞춤) */
-export type SourceIcon = 'mail' | 'shop' | 'bank' | 'card' | 'check'
+export type SourceIcon = 'mail' | 'shop' | 'bank' | 'card' | 'check' | 'upload'
 export interface Source { id: SourceId; name: string; count: string; latest: string; cadence: string; icon: SourceIcon }
 export const SOURCES: Source[] = [
   { id: 'bank', name: '은행', count: '1회', latest: '10:00 입금 5건, 출금 1건', cadence: '하루 1번', icon: 'bank' },
@@ -131,7 +131,7 @@ export const SOURCES: Source[] = [
 ]
 
 /** 오른쪽 ERP에 입력된 결과 카드와, 눌렀을 때 뜨는 처리 건 목록 */
-export type ResultId = 'so' | 'ship' | 'exp' | 'ar' | 'pay' | 'inv' | 'po'
+export type ResultId = 'so' | 'ship' | 'exp' | 'ar' | 'pay' | 'inv' | 'po' | 'mail'
 export interface ResultRow { t: string; name: string; sub: string; n: string; unitId: string }
 export interface Result { id: ResultId; title: string; sub: string; n: string; rows: ResultRow[] }
 const rr = (rows: [string, string, string, string, string][]): ResultRow[] =>

@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react'
 import type { SourceId, Status, Unit } from '../../data/today'
-import { ZNAME } from '../../data/today'
 import { BADGE, RANK, ZCLS } from '../../logic'
+import { BuildingInterior } from './BuildingInterior'
+import { PopupItems } from './PopupItems'
 import { GRID_LINES } from './isoGrid'
 import type { PartnerDef, ZoneId } from './partners/types'
 
@@ -19,15 +20,14 @@ const POPUP: Record<ZoneId, [number, number, string]> = {
   wh: [67, 27, '-100%, -50%'],
   sup: [68, 70, '-100%, -50%'],
   bank: [24.13, 45, '-50%, 8px'],
-  card: [24.13, 80, '-50%, 8px'],
+  card: [24.13, 77, '-50%, 8px'],
 }
 
 /** 들어온 자료 카드 위치(px). 카드 i의 가운데 = 지도 가운데 + CARD_TOP + i × CARD_STEP */
 const CARD_TOP = -232
 const CARD_STEP = 98
-/** 모아 주는 세로선 x(%) / 거래 상대로 바로 가는 선이 꺾이는 x(%) */
+/** 모아 주는 세로선 x(%) */
 const BUS_X = 1.8
-const BRANCH_X = 6
 
 type Seg = { k: 'h' | 'v'; style: CSSProperties }
 const H = (x0: number, x1: number, y: string): Seg => ({ k: 'h', style: { left: `${x0}%`, width: `${(x1 - x0).toFixed(2)}%`, top: `calc${y}` } })
@@ -37,6 +37,7 @@ const V = (x: number, y0: string, y1: string): Seg => ({ k: 'v', style: { left: 
 interface Props {
   partners: PartnerDef[]
   units: Unit[]
+  availableZones: ZoneId[]
   /** 지금 걸러진 처리 건. 전체 보기면 null */
   active: Unit[] | null
   /** 선택된 거래 상대 */
@@ -49,13 +50,14 @@ interface Props {
   moveTo: Partial<Record<ZoneId, [number, number]>>
   /** 이 거래 상대들로 가는 연결선은 숨김 */
   hiddenFlows: ZoneId[]
-  /** 건물·바닥판 크기 배율 */
+  /** 건물 바닥판 크기 배율 */
   scale: number
   /** 왼쪽 들어온 자료 카드 순서 */
   sourceOrder: SourceId[]
-  /** 지도 속 거래 상대로 바로 잇는 출처 (나머지는 (주)엘리먼츠로) */
-  sourceTo: Partial<Record<SourceId, ZoneId>>
-  stockWarn: { label: string; n: string; zone: ZoneId; pos: [number, number] }
+  /** 자료 카드에서 지도로 가는 연결선을 생략할 출처 */
+  hiddenSourceLinks: SourceId[]
+  stockWarn: { unitId: string; label: string; n: string; zone: ZoneId; pos: [number, number] } | null
+  onClearFocus: () => void
   onPickZone: (z: ZoneId) => void
   onOpenUnit: (id: string) => void
 }
@@ -80,55 +82,56 @@ export function MiniMap(p: Props) {
     const k = p.scale
     // 이름표도 같은 비율로 바깥쪽으로 밀어 건물과 겹치지 않게
     const ax = cx + (a[0] * PX_X - cx) * k + tx
-    const ay = cy + (a[1] * PX_Y - cy) * k + ty - (k > 1 ? 12 : 0)
+    const ay = cy + (a[1] * PX_Y - cy) * k + ty - (k > 1 ? 12 : 0) - (p.zoneSelected === z ? z === 'card' ? 36 : 30 : 0)
     // 바닥판 왼쪽 꼭짓점 (연결선이 닿는 곳), 지도 대비 %
     const lv = pts.reduce((m, q) => (q[0] < m[0] ? q : m), pts[0])
     const leftPt: [number, number] = [((cx + (lv[0] - cx) * k + tx) / 1366) * 100, ((cy + (lv[1] - cy) * k + ty) / 724) * 100]
-    const lit = !!vis && vis.has(z)
     const here = active ? active.filter((u) => u.z === z) : []
     const all = units.filter((u) => u.z === z)
+    const lit = vis ? vis.has(z) : all.length > 0
+    const selected = lit && p.zoneSelected === z
     const topSt = all.reduce<Status>((m, u) => (RANK[u.st] > RANK[m] ? u.st : m), '완료')
     return {
       def,
       hide,
       move: { transform: `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px) scale(${k}) translate(${(-cx).toFixed(1)}px, ${(-cy).toFixed(1)}px)` } as CSSProperties,
       tagPos: { left: `${(ax / PX_X).toFixed(2)}%`, top: `${(ay / PX_Y).toFixed(2)}%` } as CSSProperties,
-      plateCls: hide ? 'zp zhide' : lit ? 'zp zon' : vis ? 'zp zoff' : 'zp',
-      bldCls: hide ? 'zg zhide' : lit ? 'zg zlit' : vis ? 'zg zoff' : 'zg',
+      plateCls: hide ? 'zp zhide' : lit ? 'zp zon' + (selected ? ' zselected' : '') : vis ? 'zp zoff' : 'zp',
+      bldCls: hide ? 'zg zhide' : lit ? 'zg zlit' + (selected ? ' zselected' : '') : vis ? 'zg zoff' : 'zg',
       tagCls: 'tag zt' + (hide ? ' hid' : p.zoneSelected === z ? ' on' : vis && !lit ? ' off' : ''),
       count: !hide && !active && all.length > 0 ? { label: `${all.length}건`, cls: ZCLS[topSt] } : null,
       list: hide ? [] : here,
       leftPt,
+      canOpen: !hide && p.availableZones.includes(z),
+      right: (cx + (Math.max(...pts.map(p => p[0])) - cx) * k + tx) / PX_X,
+      centerY: (cy + ty) / PX_Y,
+      graphicTop: p.zoneSelected === z ? (cy - (Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0]))) * .86 / 180 * (z === 'wh' ? 73 : 77.5) * k + ty) / PX_Y : ay / PX_Y,
+      bottom: (cy + (Math.max(...pts.map(p => p[1])) - cy) * k + ty) / PX_Y,
     }
   })
 
-  // 연결선: 출처 카드 → (주)엘리먼츠, 또는 출처 카드 → 지도 속 거래 상대
+  // 연결선: 표시할 출처 카드 → (주)엘리먼츠. 원래 카드 순서의 좌표를 유지해요.
   const yCard = (i: number) => `(50% + ${CARD_TOP + i * CARD_STEP}px)`
   const yMap = (pct: number) => `(${pct.toFixed(2)}% + 40px)`
   const hq = zone.find((v) => v.def.id === 'hq')!
-  const hub = p.sourceOrder.map((id, i) => ({ id, i })).filter((c) => !p.sourceTo[c.id])
+  const hub = p.sourceOrder.map((id, i) => ({ id, i })).filter((c) => !p.hiddenSourceLinks.includes(c.id))
   const hubY = yMap(hq.leftPt[1])
   const hubSegs: Seg[] = hub.length
     ? [V(BUS_X, yCard(Math.min(...hub.map((c) => c.i))), yCard(Math.max(...hub.map((c) => c.i)))), H(BUS_X, hq.leftPt[0], hubY)]
     : []
-  const routes = p.sourceOrder.map((id, i) => {
-    const to = p.sourceTo[id]
-    const dest = to && zone.find((v) => v.def.id === to)
-    if (dest) {
-      const y = yMap(dest.leftPt[1])
-      return { id, hub: false, segs: [H(0, BRANCH_X, yCard(i)), V(BRANCH_X, yCard(i), y), H(BRANCH_X, dest.leftPt[0], y)] }
-    }
-    return { id, hub: true, segs: [H(0, BUS_X, yCard(i)), V(BUS_X, yCard(i), hubY)] }
-  })
-  const hubOn = !!p.sourceSelected && !p.sourceTo[p.sourceSelected]
+  const routes = hub.map(({ id, i }) => ({
+    id,
+    segs: [H(0, BUS_X, yCard(i)), V(BUS_X, yCard(i), hubY)],
+  }))
+  const hubOn = hub.some((c) => c.id === p.sourceSelected)
 
   const srcOn = p.sourceSelected
 
   return (
     <div className="world">
       <div className="c2">
-        <div className="scene3">
-          <svg viewBox="0 0 1366 724" aria-hidden="true" className="s3">
+        <div className="scene3" onClick={e => { if (p.zoneSelected && !(e.target as Element).closest('button,[role="button"],.zpop')) p.onClearFocus() }}>
+          <svg viewBox="0 0 1366 724" className="s3">
             <g className="isogrid">
               {GRID_LINES.map(([x1, y1, x2, y2], i) => (
                 <line key={i} x1={x1.toFixed(1)} y1={y1.toFixed(1)} x2={x2.toFixed(1)} y2={y2.toFixed(1)} className="gl" />
@@ -145,8 +148,9 @@ export function MiniMap(p: Props) {
               const def = partners.find((d) => d.id === z)
               if (!def || !def.flow) return null
               const off = !!active || p.hiddenFlows.includes(z)
+              const hasActivity = units.some(unit => unit.z === z && unit.st !== '완료')
               return (
-                <g key={'f' + z} className={off ? 'pp phide' : 'pp on'}>
+                <g key={'f' + z} className={off ? 'pp phide' : hasActivity ? 'pp on' : 'pp'}>
                   <polyline points={def.flow} className="po" />
                   <g className="comet">
                     {TRAIL.map((o, i) => (
@@ -157,14 +161,14 @@ export function MiniMap(p: Props) {
               )
             })}
             {zone.map((v) => (
-              <g key={'b' + v.def.id} className={v.bldCls} style={v.move}>
-                <v.def.Building />
+              <g key={'b' + v.def.id} className={v.bldCls} style={v.move} role={v.canOpen ? 'button' : undefined} tabIndex={v.canOpen ? 0 : undefined} aria-label={`${v.def.label} 내부 보기`} onClick={() => v.canOpen && p.onPickZone(v.def.id)} onKeyDown={e => { if (v.canOpen && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); p.onPickZone(v.def.id) } }}>
+                {p.zoneSelected === v.def.id ? <BuildingInterior partner={v.def} /> : <v.def.Building />}
               </g>
             ))}
           </svg>
 
           <div className={active ? 'cnl off' : 'cnl'}>
-            {routes.flatMap((r) => r.segs.filter((_, j) => !(r.hub && j === 1)).map((sg, j) => (
+            {routes.flatMap((r) => r.segs.filter((_, j) => j === 0).map((sg, j) => (
               <span key={'c' + r.id + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />
             )))}
             {hubSegs.map((sg, j) => <span key={'hub' + j} className={'cn ' + sg.k} style={sg.style} aria-hidden="true" />)}
@@ -175,34 +179,48 @@ export function MiniMap(p: Props) {
           </div>
 
 
-          {zone.map((v) => (
-            <button key={'t' + v.def.id} className={v.tagCls} style={v.tagPos} onClick={() => p.onPickZone(v.def.id)}>
+          {zone.filter(v => !v.list.length).map((v) => (
+            <button key={'t' + v.def.id} className={v.tagCls} style={{ ...v.tagPos, top: `calc(${v.tagPos.top} - 8px / var(--z, 1))` }} disabled={!v.canOpen} onClick={() => p.onPickZone(v.def.id)}>
               {v.def.label}
               {v.count && <span className={v.count.cls}>{v.count.label}</span>}
             </button>
           ))}
-          <button
+          {p.stockWarn && <button
             className={'tag warn' + (active ? ' hid' : '')}
             style={{ left: `${p.stockWarn.pos[0]}%`, top: `${p.stockWarn.pos[1]}%` }}
-            onClick={() => p.onPickZone(p.stockWarn.zone)}
+            onClick={() => p.onOpenUnit(p.stockWarn!.unitId)}
           >
             <span className="wdot" aria-hidden="true" />{p.stockWarn.label}<span className="wnum">{p.stockWarn.n}</span>
-          </button>
+          </button>}
 
           {zone.map((v) => {
             if (!v.list.length) return null
-            const [l, t, tr] = POPUP[v.def.id]
+            const [, t] = POPUP[v.def.id]
+            const above = v.def.id === 'bank' || v.def.id === 'hq' || v.def.id === 'card'
+            const leftAligned = v.def.id === 'bank' || v.def.id === 'card'
+            const besideCard = p.zoneSelected === 'card' && v.def.id === 'card'
+            const docked = v.def.id === 'wh' && zone.filter(item => item.list.length > 0).length === 1
+            const tail = besideCard ? 'left' : docked ? 'right' : above ? 'bottom' : 'top'
+            const popupStyle: CSSProperties = {
+              left: besideCard ? `calc(${v.right}% + 20px)` : docked ? `calc(${v.leftPt[0]}% - 18px)` : leftAligned ? '2%' : v.tagPos.left,
+              top: besideCard ? `${v.centerY}%` : docked ? `calc(${v.tagPos.top} - 12px - 28px / var(--z, 1))` : above ? `calc(${v.graphicTop}% - 18px / var(--z, 1))` : v.def.id === 'wh' ? `calc(${v.bottom}% + 18px / var(--z, 1))` : `${t}%`,
+              transform: besideCard ? 'translateY(-50%)' : docked ? 'translate(-100%, 0)' : above ? `translate(${leftAligned ? '0' : '-50%'}, -100%)` : 'translate(-50%, 0)',
+              ['--tail-x' as string]: leftAligned && !besideCard ? '74%' : '50%',
+            }
             return (
-              <div key={'l' + v.def.id} className="zpop" style={{ left: `${l}%`, top: `${t}%`, transform: `translate(${tr})` }}>
+              <div key={'l' + v.def.id} className={`zpop zpop-tail-${tail}${docked ? ' zpop-docked' : ''}`} style={popupStyle}>
+                <button type="button" className="zpop-title" onClick={() => p.onPickZone(v.def.id)} aria-label={`${v.def.label} 선택`}>{v.def.label}</button>
+                <PopupItems key={v.list.map(u => u.id).join("-")} count={v.list.length}>
                 {v.list.map((u) => {
-                  const nm = ZNAME[u.id + ':' + v.def.id] || [u.name, '']
+                  const nm = [u.name, u.now]
                   return (
-                    <a key={u.id} className="zpi" style={{ cursor: 'pointer' }} onClick={() => p.onOpenUnit(u.id)}>
-                      <span className={BADGE[u.st]}>{u.st}</span>
+                    <button type="button" key={u.id} className="zpi" style={{ cursor: 'pointer' }} onClick={() => p.onOpenUnit(u.id)}>
                       <span className="zpt"><span>{nm[0]}</span>{nm[1] && <span className="zps">{nm[1]}</span>}</span>
-                    </a>
+                      <span className={BADGE[u.st]}>{u.st}</span>
+                    </button>
                   )
                 })}
+                </PopupItems>
               </div>
             )
           })}

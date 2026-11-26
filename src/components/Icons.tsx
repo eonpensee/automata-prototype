@@ -12,6 +12,8 @@ export function SourceGlyph({ icon }: { icon: SourceIcon }) {
       return <svg {...base}><path d="M3 10l9-6 9 6" /><path d="M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18" /></svg>
     case 'card':
       return <svg {...base}><rect x="3" y="6" width="18" height="12" rx="2" /><path d="M3 10h18M7 15h3" /></svg>
+    case 'upload':
+      return <svg {...base}><path d="M12 16V4m-4 4 4-4 4 4M4 15v5h16v-5" /></svg>
     case 'check':
       return <svg {...base}><rect x="5" y="4" width="14" height="17" rx="2" /><path d="M9 4h6v3H9z" /><path d="M9 13l2 2 4-4" /></svg>
   }
@@ -41,4 +43,8 @@ export function InfoIcon() {
       <path d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75Z" fillRule="evenodd" clipRule="evenodd" />
     </svg>
   )
+}
+
+export function ChevronRightIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
 }

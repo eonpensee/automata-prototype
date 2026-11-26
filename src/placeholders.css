@@ -2,7 +2,7 @@
 .sidenav{flex:0 0 220px;box-sizing:border-box;padding:18px 12px 0;display:flex;flex-direction:column;position:sticky;top:0;align-self:flex-start;height:calc(100vh / var(--z, 1))}
 .sidenav-list{flex:1 1 auto;overflow-y:auto;display:flex;flex-direction:column;gap:2px;scrollbar-width:none}
 .sidenav-list::-webkit-scrollbar{display:none}
-.sidenav-list .nav{font-size:14px;height:38px}
+.sidenav-list .nav{font-size:max(14px,var(--min-font-size,10px));height:38px}
 .sidenav-foot{display:flex;align-items:center;gap:12px;padding:14px 12px 18px;border-top:1px solid #E2E2E2;color:#2E2E2E}
 
 /* 상세 패널: 보조 문구(금요일까지, 09:11 등)는 값 아래 줄에 */
@@ -19,7 +19,44 @@
 /* 줄바꿈 때 마지막 한 글자만 아래로 떨어지지 않게 */
 body{text-wrap:pretty}
 
-/* 대기 중 아이콘: 점선 테두리가 천천히 도는 잔잔한 움직임 */
+/* 대기 중 아이콘: 균일한 작은 점 8개가 천천히 도는 원형 표시 */
 @keyframes waitspin{to{transform:rotate(360deg)}}
-.badge.st-wait::before,.mk.sched{animation:waitspin 6s linear infinite}
+.badge.st-wait::before,.mk.sched{
+  width:12px;height:12px;flex:0 0 12px;border:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238C8C8C'%3E%3Ccircle cx='8' cy='2' r='1.15'/%3E%3Ccircle cx='12.24' cy='3.76' r='1.15'/%3E%3Ccircle cx='14' cy='8' r='1.15'/%3E%3Ccircle cx='12.24' cy='12.24' r='1.15'/%3E%3Ccircle cx='8' cy='14' r='1.15'/%3E%3Ccircle cx='3.76' cy='12.24' r='1.15'/%3E%3Ccircle cx='2' cy='8' r='1.15'/%3E%3Ccircle cx='3.76' cy='3.76' r='1.15'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:waitspin 6s linear infinite;
+}
 @media (prefers-reduced-motion:reduce){.badge.st-wait::before,.mk.sched{animation:none}}
+
+/* 카드사: 기존 건물 면과 같은 무채색으로 신용카드 간판 디테일 */
+.card-sign{fill:#FAFAFA;stroke:#C8C8C8;stroke-width:1}
+.card-chip{fill:#E1E1E1;stroke:#BBBBBB;stroke-width:.7}
+.card-etch{fill:none;stroke:#B9B9B9;stroke-width:1;stroke-linecap:round}
+.zlit .card-sign{fill:#E3EEE5;stroke:#A9C2AE}
+.zlit .card-chip{fill:#BED6C2;stroke:#A9C2AE}
+.zlit .card-etch{stroke:#8EAD95}
+
+/* 상태 칩: 표·상세 패널·팝업 모두 기존보다 위아래 안쪽 여백을 각각 4px 확대 */
+.trow .badge,.odet .badge{padding-block:10px}
+.zpi .badge,.rdr .badge{padding-block:8px}
+
+/* 상태 카드와 처리 이력 표 사이 간격: 기존 16px에 8px 추가 */
+.hero6 + .panel{margin-top:8px}
+
+/* 체크 아이콘이 있는 칩의 오른쪽 시각적 여백 보정 */
+.badge.st-flag{padding-right:12px}
+.zpi .badge.st-flag,.rdr .badge.st-flag{padding-right:10px}
+
+/* 상세 패널 항목 행: 위아래 안쪽 여백을 각각 4px 확대 */
+.odet .kv > span{padding-block:14px}
+
+/* 우리 회사: 출입문 손잡이 */
+.hq-handle{fill:none;stroke:#BDBDBD;stroke-width:1}
+.zlit .hq-handle{stroke:#8EAD95}
+
+/* 카드 쪽 선은 지도 시작점에서 끝내고 지도 안 연결선이 이어받아요 */
+.s3stage .trig2 .trk2{width:37px}
+
+/* Preserve a 10px rendered minimum when the fitted canvas is scaled. */
+small,sub,sup{font-size:max(.833em,var(--min-font-size,10px))}
+input,select,textarea{font-size:max(13px,var(--min-font-size,10px))}

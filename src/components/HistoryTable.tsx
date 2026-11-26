@@ -19,7 +19,7 @@ export function HistoryTable({ rows, stepNames, onOpenUnit }: Props) {
     <div className="panel" style={{ overflowX: 'auto' }}>
       <div className="thead">
         <span>시각</span>
-        <span>처리 건</span>
+        <span>처리 단위</span>
         <span className="hide-md">들어온 내용</span>
         <span className="hide-md lgh">
           진행
@@ -37,14 +37,14 @@ export function HistoryTable({ rows, stepNames, onOpenUnit }: Props) {
         <span>상태</span>
       </div>
       {rows.map((r) => (
-        <a key={r.id} className="trow" style={{ cursor: 'pointer' }} onClick={() => onOpenUnit(r.id)}>
-          <span className="mono" style={{ fontSize: 14, fontWeight: 600 }}>{r.t}</span>
+        <button type="button" key={r.id} className="trow" style={{ cursor: 'pointer' }} onClick={() => onOpenUnit(r.id)}>
+          <span className="mono" style={{ fontSize: 'max(14px,var(--min-font-size,10px))', fontWeight: 600 }}>{r.t}</span>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
             <span className="type" style={{ alignSelf: 'flex-start' }}>{r.kind}</span>
-            <span style={{ fontSize: 15, fontWeight: 600 }}>{r.name}</span>
+            <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600 }}>{r.name}</span>
           </span>
           <span className="hide-md" style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <span style={{ fontSize: 15, fontWeight: 600 }}>{r.qty}</span>
+            <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600 }}>{r.qty}</span>
             <span className="lab">{r.qsub}</span>
           </span>
           <span className="hide-md" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -53,12 +53,12 @@ export function HistoryTable({ rows, stepNames, onOpenUnit }: Props) {
             </span>
             <span className="lab">{r.stepLabel}</span>
           </span>
-          <span className="hide-md" style={{ fontSize: 14, color: '#2E2E2E' }}>{r.now}</span>
+          <span className="hide-md" style={{ fontSize: 'max(14px,var(--min-font-size,10px))', color: '#2E2E2E' }}>{r.now}</span>
           <span><span className={BADGE[r.st]}>{r.st}</span></span>
-        </a>
+        </button>
       ))}
       {rows.length === 0 && (
-        <div style={{ padding: '28px 20px', fontSize: 14, color: '#6F6F6F', borderTop: '1px solid #EEEEEE' }}>이 조건에 맞는 처리 건이 없어요.</div>
+        <div style={{ padding: '28px 20px', fontSize: 'max(14px,var(--min-font-size,10px))', color: '#6F6F6F', borderTop: '1px solid #EEEEEE' }}>이 조건에 맞는 처리 건이 없어요.</div>
       )}
     </div>
   )

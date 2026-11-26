@@ -23,8 +23,8 @@ export function StatusTabs({ tabs, units, filter, onPick, onTodo }: Props) {
             <button className="c6h" role="tab" onClick={() => onPick(id)} aria-selected={on}>
               <span className="c5lab"><span className={k.mark} aria-hidden="true" />{k.st}</span>
               <span style={{ display: 'flex', alignItems: 'baseline', gap: 7 }}>
-                <span style={{ fontSize: 40, fontWeight: 700, lineHeight: 1 }}>{n}</span>
-                <span style={{ fontSize: 24, fontWeight: 700, lineHeight: 1 }}>건</span>
+                <span style={{ fontSize: 'max(40px,var(--min-font-size,10px))', fontWeight: 700, lineHeight: 1 }}>{n}</span>
+                <span style={{ fontSize: 'max(24px,var(--min-font-size,10px))', fontWeight: 700, lineHeight: 1 }}>건</span>
               </span>
             </button>
             {/* TODO: 할 일 탭 경로가 생기면 onTodo로 연결 */}

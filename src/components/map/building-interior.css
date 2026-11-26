@@ -1,0 +1,10 @@
+.building-interior{overflow:visible;pointer-events:none}.building-interior polygon,.building-interior rect,.building-interior path,.building-interior circle,.building-interior polyline{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;stroke-width:.8}
+.building-interior .mini-top{fill:#E3EEE5;stroke:#A9C2AE}.building-interior .mini-front{fill:#D2E4D5;stroke:#A9C2AE}.building-interior .mini-side{fill:#BED6C2;stroke:#A9C2AE}
+.building-interior .mini-line,.building-interior .mini-roller{stroke:#A9C2AE;fill:none}.building-interior .mini-leg{stroke:#8EAD95;stroke-width:1.6;fill:none}.building-interior .mini-shelf{stroke:#A9C2AE;stroke-width:2;fill:none}
+.building-interior .mini-belt{fill:#E3EEE5;stroke:#A9C2AE}.building-interior .mini-moving-box{animation:mini-conveyor 8.4s linear infinite;opacity:1}
+@keyframes mini-conveyor{from{transform:translate(0,0)}to{transform:translate(64.95px,37.5px)}}
+.building-interior .mini-monitor{fill:#D2E4D5;stroke:#A9C2AE}.building-interior .mini-screen{fill:#F6FAF6;stroke:#A9C2AE;stroke-width:.5}.building-interior .mini-keyboard{fill:#E3EEE5;stroke:#A9C2AE}
+.building-interior .mini-typing{stroke:#8EAD95;stroke-width:1.4;fill:none;stroke-dasharray:80;animation:mini-type 5s ease-in-out infinite}.building-interior .mini-key-typing{stroke:#8EAD95;stroke-width:1.2;animation:mini-key 2s steps(2) infinite}.building-interior .mini-send{stroke:#719681;stroke-width:2;animation:mini-key 4s ease-in-out infinite}
+@keyframes mini-type{0%,10%{stroke-dashoffset:80}70%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:80}}@keyframes mini-key{0%,100%{opacity:.4}50%{opacity:1}}
+.building-interior .mini-check{stroke:#8EAD95;stroke-width:1.2;fill:none;stroke-dasharray:45;animation:mini-type 6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.building-interior *{animation:none!important}.building-interior .mini-moving-box{opacity:1}.building-interior .mini-moving-box:nth-last-child(2){transform:translate(22px,13px)}.building-interior .mini-moving-box:last-child{transform:translate(44px,26px)}}

@@ -37,20 +37,20 @@ function Sub({ label, right }: { label: string; right?: ReactNode }) {
   return (
     <div className="nav" style={{ cursor: 'default', paddingLeft: 42, height: 36 }}>
       <span style={{ flex: '1 1 auto' }}>{label}</span>
-      {right != null && <span style={{ fontSize: 13, color: '#6F6F6F' }}>{right}</span>}
+      {right != null && <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#6F6F6F' }}>{right}</span>}
     </div>
   )
 }
 
 function Group({ label }: { label: string }) {
   return (
-    <div style={{ margin: '18px 12px 6px', fontSize: 13, color: '#6F6F6F', display: 'flex', alignItems: 'center', gap: 4 }}>
+    <div style={{ margin: '18px 12px 6px', fontSize: 'max(13px,var(--min-font-size,10px))', color: '#6F6F6F', display: 'flex', alignItems: 'center', gap: 4 }}>
       {label}<Chev />
     </div>
   )
 }
 
-const n = (v: number | string) => <span style={{ fontSize: 13, color: '#6F6F6F' }}>{v}</span>
+const n = (v: number | string) => <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#6F6F6F' }}>{v}</span>
 
 export function SideNav() {
   return (
@@ -64,7 +64,7 @@ export function SideNav() {
               )))}
             </g>
           </svg>
-          <span style={{ fontSize: 15, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>주식회사 에스엠디네트웍스</span>
+          <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>주식회사 에스엠디네트웍스</span>
           <Chev />
         </div>
         <span className="btn sm" style={{ width: 32, padding: 0, flex: '0 0 auto', cursor: 'default' }} aria-hidden="true">
@@ -80,7 +80,7 @@ export function SideNav() {
         <Sub label="오늘" />
         <Sub label="근무 기록" />
         <Sub label="급여명세서" />
-        <Sub label="신청 · 증명서" />
+        <Sub label="신청 증명서" />
         <Item icon={I.team} label="우리 팀" />
 
         <Group label="AWP" />
@@ -96,7 +96,7 @@ export function SideNav() {
         <Sub label="견적 요청" />
         <Sub label="견적" right={2} />
         <Sub label="수주" right={2} />
-        <Sub label="출하지시" right="출고 · 배송" />
+        <Sub label="출하지시" right="출고 배송" />
         <Sub label="인도" />
         <Sub label="매출 청구" />
       </div>
@@ -104,8 +104,8 @@ export function SideNav() {
       <div className="sidenav-foot">
         {I.gear}
         <span style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: '1 1 auto' }}>
-          <span style={{ fontSize: 15, fontWeight: 600 }}>용대표</span>
-          <span style={{ fontSize: 13, color: '#6F6F6F' }}>마스터</span>
+          <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600 }}>용대표</span>
+          <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#6F6F6F' }}>마스터</span>
         </span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5v14M20 12H9M13 7l-5 5 5 5" /></svg>
       </div>

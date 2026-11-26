@@ -18,8 +18,8 @@ export function DetailPanel({ unit, stepNames, sections, onClose, onAction }: Pr
     <div className="odet" role="dialog" aria-label={`${unit.name} 상세`}>
       <div className="odh">
         <span style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
-          <span className="mono" style={{ fontSize: 12, fontWeight: 600, color: '#6F6F6F' }}>{unit.t} {unit.kind}</span>
-          <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.3 }}>{unit.name}</span>
+          <span className="mono" style={{ fontSize: 'max(12px,var(--min-font-size,10px))', fontWeight: 600, color: '#6F6F6F' }}>{unit.t} {unit.kind}</span>
+          <span style={{ fontSize: 'max(18px,var(--min-font-size,10px))', fontWeight: 700, lineHeight: 1.3 }}>{unit.name}</span>
         </span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span className={BADGE[unit.st]}>{unit.st}</span>
