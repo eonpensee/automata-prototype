@@ -447,7 +447,8 @@ export function Village({ states, route, routeCurrent, popup, onPickPlace, onOpe
       {(() => {
         const routes = LINKS.map(([a, b]) => ({ a, b, r: routeOf(placeById(a), placeById(b)) }))
         const ends = [...new Map(routes.flatMap(x => [x.r[0], x.r[x.r.length - 1]]).map(q => [q.join(), q])).values()]
-        const hot = routes.filter(x => picked && (x.a === picked || x.b === picked))
+        // 건물을 골라도 주변 길을 따로 켜지 않아요 (진한 선이 중간에 끊겨 보여서)
+        const hot: typeof routes = []
         return <g className="vlinks5">
           {mergedSegments(routes.map(x => x.r)).map(([p0, p1], k) => <line key={k} className="lk" x1={P(...p0)[0]} y1={P(...p0)[1]} x2={P(...p1)[0]} y2={P(...p1)[1]} />)}
           {ends.map((q, k) => { const [ex, ey] = P(q[0], q[1]); return <ellipse key={'e' + k} className="lk-end" cx={ex} cy={ey} rx={2.6} ry={1.5} /> })}

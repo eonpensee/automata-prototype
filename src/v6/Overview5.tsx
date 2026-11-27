@@ -98,7 +98,6 @@ export function MadePanel({ cases, onOpenCase }: { cases: FlowCase[]; onOpenCase
         <button type="button" className="made6-head" onClick={() => setOpen(open === k ? null : k)} aria-expanded={open === k}><b>{k}</b><span className="made6-n">{e.inv ? '+' : ''}{e.n}<small>{e.inv ? '개' : '건'}</small></span></button>
         {open === k && <ul className="made6-rows">{e.rows.map((r, i) => <li key={i}><button type="button" onClick={() => onOpenCase(r.id)}><span>{r.name}</span><span className="made6-sub">{r.sub}</span></button></li>)}</ul>}
       </article>)}
-      {!kinds.size && <p className="quiet-empty">아직 만든 것 없음</p>}
     </div>
   </section>
 }

@@ -1,5 +1,5 @@
 {
- "exportedAt": "2026-11-27T18:27:14+09:00",
+ "exportedAt": "2026-11-27T18:54:45+09:00",
  "engineToday": "2026-11-27",
  "days": [
   {
@@ -20,9 +20,10 @@
        "d",
        "d",
        "d",
-       "w"
+       "w",
+       "n"
       ],
-      "stepLabel": "3/4 완료",
+      "stepLabel": "3/5 완료",
       "now": "일부 매출 청구",
       "st": "확인 필요"
      },
@@ -73,6 +74,16 @@
        "evidence": [
         "tx-event-9"
        ],
+       "kind": "event"
+      },
+      {
+       "title": "입금",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
        "kind": "event"
       }
      ],
@@ -211,7 +222,8 @@
       "so",
       "shipreq",
       "deliver",
-      "voucher"
+      "voucher",
+      "deposit"
      ],
      "engineCaseId": 5,
      "stuck": "일부 매출 청구",
@@ -848,9 +860,12 @@
       "qsub": "유기농 녹차 티백 50입 12개 외 1건",
       "s": [
        "d",
-       "w"
+       "w",
+       "n",
+       "n",
+       "n"
       ],
-      "stepLabel": "1/2 완료",
+      "stepLabel": "1/5 완료",
       "now": "일부 출하지시",
       "st": "확인 필요"
      },
@@ -878,6 +893,36 @@
         "tx-promise-10"
        ],
        "kind": "promise"
+      },
+      {
+       "title": "인도",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
+      },
+      {
+       "title": "매출 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
+      },
+      {
+       "title": "입금",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
       }
      ],
      "items": [
@@ -977,7 +1022,10 @@
      ],
      "nodes": [
       "so",
-      "shipreq"
+      "shipreq",
+      "deliver",
+      "voucher",
+      "deposit"
      ],
      "engineCaseId": 6,
      "stuck": "일부 출하지시",
@@ -999,9 +1047,13 @@
       "qty": "수주 1건",
       "qsub": "스테인리스 텀블러 500ml 40개",
       "s": [
-       "w"
+       "w",
+       "n",
+       "n",
+       "n",
+       "n"
       ],
-      "stepLabel": "0/1 완료",
+      "stepLabel": "0/5 완료",
       "now": "수주 초안",
       "st": "확인 필요"
      },
@@ -1017,6 +1069,46 @@
         "tx-promise-11"
        ],
        "kind": "promise"
+      },
+      {
+       "title": "출하지시",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "promise"
+      },
+      {
+       "title": "인도",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
+      },
+      {
+       "title": "매출 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
+      },
+      {
+       "title": "입금",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "n",
+       "time": "",
+       "summary": "",
+       "evidence": [],
+       "kind": "event"
       }
      ],
      "items": [
@@ -1062,7 +1154,11 @@
       }
      ],
      "nodes": [
-      "so"
+      "so",
+      "shipreq",
+      "deliver",
+      "voucher",
+      "deposit"
      ],
      "engineCaseId": 7,
      "stuck": "수주 초안",

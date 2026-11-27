@@ -657,3 +657,58 @@
 @keyframes vkind-ripple{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(3.2);opacity:0}}
 @media (prefers-reduced-motion:reduce){.vtag5.live .vkind::after{animation:none;opacity:0}}
 .fly6-list li.fly6-empty{font-size:14px;color:#5F6B63;padding:8px 4px 12px}
+
+/* ── 케이스 상세(6번): 단계 줄 + 지도 + 아래 단계 내용 ── */
+.cf6{display:flex;flex-direction:column;gap:12px}
+.cf6-steps{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px}
+.cf6-step{position:relative}
+.cf6-step:not(:last-child)::after{content:"";position:absolute;top:50%;right:-12px;width:12px;border-top:1.5px solid #D5DDD7}
+.cf6-step button{display:flex;flex-direction:column;gap:8px;width:100%;height:100%;padding:14px 16px;border:1px solid #E8ECE9;border-radius:14px;background:#FFFFFF;font:inherit;text-align:left;cursor:pointer;color:#171717;box-sizing:border-box}
+.cf6-step button:hover{border-color:#BFD2C5}
+.cf6-step b{font-size:16px;font-weight:700}
+.cf6-step-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cf6-step-state{font-size:12px;color:#5F6B63}
+.cf6-step.k-event.on button{border-color:#719681;background:#F1F6F1;box-shadow:inset 0 0 0 1px #719681}
+.cf6-step.k-promise.on button{border-color:#8B7FD1;background:#F5F3FC;box-shadow:inset 0 0 0 1px #8B7FD1}
+.cf6-step.s-n button{background:#FAFBFA;color:#8A948D}
+.cf6-step.s-n .cf5-kind{background:#F0F2F0;color:#8A948D}
+.cf6-step.s-w .cf6-step-state{color:#171717;font-weight:600}
+.cf6-stage{min-height:560px}
+.cf6-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px;align-items:start}
+.cf6-detail>:only-child{grid-column:1/-1}
+.cf6-now,.cf6-in{display:flex;flex-direction:column;gap:12px}
+.cf6-in h3{margin:0;font-size:14px;font-weight:700;color:#2E3A32}
+
+/* 케이스 상세 머리글: 줄 사이 여유 */
+.cf5-top{gap:16px;padding:4px 0 8px}
+.cf5-title{gap:8px}
+.cf5-title h2{font-size:20px;line-height:1.3}
+.cf5-meta{gap:12px;line-height:1.4}
+.cf5-sub{font-size:14px;line-height:1.4}
+
+/* 단계 줄 양끝을 아래 출처 아이콘, 만든 것 카드와 맞춤 */
+.cf6-steps{padding:0 16px 0 36px}
+.cf6-steps{margin-top:12px}
+
+/* 케이스 상세 지도: 이 건의 길만 한 가지 선으로. 바탕 길과 끝 고리는 숨겨서 끊겨 보이지 않게 */
+.cf6 .v5v .vlinks5 .lk,.cf6 .v5v .vlinks5 .lk-end{display:none}
+.cf6 .v5v .lk-hot.later polyline{stroke:#9DBAA5;stroke-dasharray:none}
+
+/* 단계 카드 높이를 키워 길고 얇아 보이지 않게 */
+.cf6-step button{min-height:92px;padding:18px 20px;gap:12px;justify-content:center}
+.cf6-step b{font-size:18px}
+
+/* 케이스 상세 아래: 문서는 왼쪽, 할 일과 들어온 자료는 오른쪽. 한쪽만 있으면 폭을 제한 */
+.cf6-detail{grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr)}
+.cf6-detail.solo{grid-template-columns:minmax(0,960px)}
+.cf6-detail>:only-child{grid-column:auto}
+.cf6-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cf6-todo{gap:12px}
+.cf6-todo h3{margin:0;font-size:14px;font-weight:700;color:#2E3A32}
+.cf6-todo .cf5-todo-who{font-size:12px;color:#5F6B63}
+.cf6-todo .cf5-todo-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #EEF2EF;font-size:14px}
+
+/* 할 일 카드는 다시 연한 빨강 */
+.cf5-card.cf6-todo{background:#FDF1F1;border-color:#F6DCDC}
+.cf6-todo h3,.cf6-todo .cf5-todo-who{color:#C8373C}
+.cf6-todo .cf5-todo-row{border-top-color:#F6DCDC}
