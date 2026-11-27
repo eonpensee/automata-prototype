@@ -1,0 +1,41 @@
+/* 노드 마을: 1안 지도와 같은 선 + 면 그림체. 초록은 오늘 일이 있었던 곳에만. */
+.village{position:relative;width:100%;align-self:center}
+.village-svg{display:block;width:100%;height:auto;overflow:visible}
+.vground{fill:#FBFBFB;stroke:#E8E8E8;stroke-width:1}
+.vroad{fill:#EFEFEF;stroke:none}
+.vroad-mid{fill:none;stroke:#FFFFFF;stroke-width:1.2;stroke-dasharray:6 7}
+.vlot{fill:#F3F3F3;stroke:#E4E4E4;stroke-width:.8}
+.vlot.on{fill:#EDF4EE;stroke:#D3E2D6}
+.vlot.cur{fill:#E2EEE4;stroke:#A9C4B0}
+
+.vbox polygon{stroke:#D2D2D2;stroke-width:.8;stroke-linejoin:round}
+.vbox .ft{fill:#FFFFFF}.vbox .fy{fill:#F4F4F4}.vbox .fx{fill:#EAEAEA}
+.vln{stroke:#D2D2D2;stroke-width:.8}
+.vdoor{fill:#E2E2E2;stroke:#D2D2D2;stroke-width:.6}
+.vcard polygon{fill:#F7F7F7;stroke:#CFCFCF;stroke-width:.8}.vcard line{stroke:#CFCFCF}
+.vbld{transition:opacity .3s}
+.vbld.off{opacity:.35}
+.vbld.on .vbox .ft{fill:#EEF5EF}.vbld.on .vbox .fy{fill:#DFECE1}.vbld.on .vbox .fx{fill:#CFE1D3}
+.vbld.on .vbox polygon,.vbld.on .vln,.vbld.on .vdoor{stroke:#A9C4B0}.vbld.on .vdoor{fill:#C3D8C8}
+.vbld.on .vawning .fy{fill:#F4F4F4}
+.vbld.cur .vbox .ft{fill:#D5E5D7}.vbld.cur .vbox .fy{fill:#BDD6C2}.vbld.cur .vbox .fx{fill:#A7C6AE}
+.vbld.cur .vbox polygon,.vbld.cur .vln{stroke:#83A58E}.vbld.cur .vdoor{fill:#94B79C;stroke:#83A58E}
+.vbld[role="button"]{cursor:pointer}.vbld[role="button"]:focus{outline:none}
+.vbld[role="button"]:hover .vbox .ft{fill:#E2EEE4}
+
+.vroute-line{fill:none;stroke:#CBCBCB;stroke-width:1.4;stroke-dasharray:2 5;stroke-linecap:round}
+.vroute.past .vroute-line{stroke:#9DBAA5}
+.vroute.on .vroute-line{stroke:#DCDCDC;stroke-dasharray:none}
+.vroute-flow{fill:none;stroke:#719681;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:22 78;animation:vflow 2.6s linear infinite}
+@keyframes vflow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.vroute-flow{animation:none;stroke-dasharray:none}}
+
+.village .vtag{position:absolute;transform:translate(-50%,-100%);gap:6px;align-items:center;background:#FFFFFF;border:1px solid #E6E6E6;color:#2E2E2E;cursor:pointer}
+.village .vtag.on{background:#2E2E2E;border-color:#2E2E2E;color:#FFFFFF}
+.village .vtag.off{color:#BDBDBD;background:#FAFAFA}
+.village .vtag:disabled{cursor:default}
+
+.village .vpop{width:330px;max-height:none}
+.vpop-empty{grid-column:1/-1;margin:4px 8px 8px;font-size:max(12px,var(--min-font-size,10px));color:#9C9C9C}
+
+.vdistrict{font-size:15px;font-weight:700;fill:#C4C4C4;letter-spacing:.02em;pointer-events:none}
