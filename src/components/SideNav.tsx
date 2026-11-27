@@ -52,7 +52,8 @@ function Group({ label }: { label: string }) {
 
 const n = (v: number | string) => <span style={{ fontSize: 'max(13px,var(--min-font-size,10px))', color: '#6F6F6F' }}>{v}</span>
 
-export function SideNav() {
+/** company: 왼쪽 위 회사 이름 (기본은 기존 목업 이름, 시안 5는 송공작소) */
+export function SideNav({ company = '주식회사 에스엠디네트웍스' }: { company?: string } = {}) {
   return (
     <nav aria-label="주 메뉴" className="sidenav">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, padding: '0 6px 14px' }}>
@@ -64,7 +65,7 @@ export function SideNav() {
               )))}
             </g>
           </svg>
-          <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>주식회사 에스엠디네트웍스</span>
+          <span style={{ fontSize: 'max(15px,var(--min-font-size,10px))', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{company}</span>
           <Chev />
         </div>
         <span className="btn sm" style={{ width: 32, padding: 0, flex: '0 0 auto', cursor: 'default' }} aria-hidden="true">

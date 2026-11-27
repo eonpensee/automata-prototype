@@ -1,10 +1,14 @@
 import { UNITS, type Unit, type Status, type StepCode, type Source, type Result, type ResultId, type ZoneId } from './today'
 
 export interface Evidence { id: string; title: string; kind: 'input' | 'output' | 'session' | 'decision'; body: string; columns?: string[]; rows?: string[][] }
-export interface FlowStep { title: string; actor: string; zone: ZoneId; status: StepCode; time: string; summary: string; evidence: string[] }
+export interface FlowStep { title: string; actor: string; zone: ZoneId; status: StepCode; time: string; summary: string; evidence: string[]; /** 엔진 노드 종류: 약속(promise) 또는 사건(event) */ kind?: 'promise' | 'event' }
 export interface BatchItem { id: string; title: string; detail: string; status: Status; evidence: string }
 export interface Output { type: ResultId; count: number; detail: string }
-export interface FlowCase { unit: Unit; steps: FlowStep[]; items: BatchItem[]; evidence: Evidence[]; outputs: Output[]; variants: string[]; variant: number; eventLog: { time: string; text: string }[] }
+export interface FlowCase { unit: Unit; steps: FlowStep[]; items: BatchItem[]; evidence: Evidence[]; outputs: Output[]; variants: string[]; variant: number; eventLog: { time: string; text: string }[]
+  /** 엔진에서 뽑은 케이스: 단계별 마을 노드, 엔진 케이스 번호, 로컬 웹의 승인 요청 링크 */
+  nodes?: string[]; engineCaseId?: number; approval?: { href: string; label: string } | null
+  /** 제품의 멈춘 지점 문구, 업무 플로우 이름, 들어온 자료(근거 id) */
+  stuck?: string | null; flowName?: string | null; inputs?: string[] }
 /** Existing approval destinations documented in the automata design brief. */
 export const APPROVAL_REQUESTS: Partial<Record<string, { href: string; label: string }>> = {
   u1: { href: 'https://automata-web-staging.vercel.app/todo/all?open=3', label: '승인 요청 열기' },

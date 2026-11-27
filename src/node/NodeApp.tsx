@@ -10,14 +10,20 @@ import { HistoryTable } from '../components/HistoryTable'
 import { SideNav } from '../components/SideNav'
 import { OverviewTabs, type OverviewStatus } from '../components/OverviewTabs'
 import { CaseFlow } from '../components/CaseFlow'
-import { casesForDate, REVIEW_DATES, resultsFor, sourcesFor, type VariantState } from '../data/review'
+import { casesForDate as mockCasesForDate, REVIEW_DATES as MOCK_DATES, resultsFor, sourcesFor, type VariantState } from '../data/review'
+import { ENGINE_DATES, engineCasesForDate } from '../data/engine'
 import { useFitZoom } from '../useFitZoom'
 import '../review.css'
 
 
 
+// 기본은 로컬 엔진에서 뽑은 데이터. 주소에 ?data=mock 이면 기존 목업
+const USE_MOCK = new URLSearchParams(location.search).get('data') === 'mock'
+const REVIEW_DATES = USE_MOCK ? MOCK_DATES : ENGINE_DATES
+const casesForDate = (date: string, v: VariantState) => USE_MOCK ? mockCasesForDate(date, v) : engineCasesForDate(date)
+
 export function TodayScreen() {
-  const [selectedDate, setSelectedDate] = useState<string>('2026-11-26')
+  const [selectedDate, setSelectedDate] = useState<string>(USE_MOCK ? '2026-11-26' : REVIEW_DATES[REVIEW_DATES.length - 1].id)
   const [status, setStatus] = useState<OverviewStatus>('전체')
   const [source, setSource] = useState<SourceId | null>(null)
   const [zone, setZone] = useState<PlaceId | null>(null)

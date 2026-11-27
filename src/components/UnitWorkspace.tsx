@@ -30,7 +30,7 @@ export function UnitWorkspace({ flow, related, onSelect, onBack }: { flow: FlowC
   const [page, setPage] = useState(0)
   const [docId, setDocId] = useState<string | null>(null)
   const current = steps[selected]
-  const approvalRequest = current.status === 'w' ? APPROVAL_REQUESTS[unit.id] : undefined
+  const approvalRequest = current.status === 'w' ? APPROVAL_REQUESTS[unit.id] ?? flow.approval ?? undefined : undefined
   const currentDocs = current.evidence.map(id => evidence.find(e => e.id === id)).filter((e): e is Evidence => !!e)
   const filtered = items.filter(i => (itemFilter === '전체' || i.status === itemFilter) && `${i.id} ${i.title} ${i.detail}`.toLowerCase().includes(search.toLowerCase()))
   const pageCount = Math.max(1, Math.ceil(filtered.length / 8)), visibleItems = filtered.slice(page * 8, page * 8 + 8)

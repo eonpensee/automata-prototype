@@ -60,6 +60,8 @@ export const NODES: Record<string, FlowNode> = {
   voucher: { id: 'voucher', name: '전표', kind: '사건', place: 'acct' },
   deposit: { id: 'deposit', name: '입금', kind: '사건', place: 'bank' },
   cardUse: { id: 'cardUse', name: '카드 사용', kind: '사건', place: 'card' },
+  transfer: { id: 'transfer', name: '재고 이동', kind: '사건', place: 'tpl' },
+  wo: { id: 'wo', name: '작업지시', kind: '약속', place: 'factory' },
 }
 
 /** 지금 샘플 케이스의 단계 → 노드 (가안) */
@@ -76,7 +78,7 @@ const STEP_NODES: Record<string, string[]> = {
   u11: ['pr', 'pr', 'po', 'supply', 'pr'],
 }
 
-export const stepNodes = (c: FlowCase): FlowNode[] => (STEP_NODES[c.unit.id] || c.steps.map(() => 'so')).map(id => NODES[id])
+export const stepNodes = (c: FlowCase): FlowNode[] => (c.nodes || STEP_NODES[c.unit.id] || c.steps.map(() => 'so')).map(id => NODES[id])
 
 /** 케이스가 지금 머무는 단계 번호 */
 export function currentStep(c: FlowCase): number {

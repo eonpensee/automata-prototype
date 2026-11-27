@@ -1,0 +1,3581 @@
+{
+ "exportedAt": "2026-11-27T18:26:59+09:00",
+ "engineToday": "2026-11-27",
+ "days": [
+  {
+   "id": "2026-11-18",
+   "label": "11월 18일 수요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1350",
+      "t": "10:00",
+      "g": "manual",
+      "z": "bank",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 품질 클레임",
+      "qty": "품질 클레임 1건",
+      "qsub": "0원",
+      "s": [
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "3/3 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "품질 클레임",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "품질 클레임 확정  0원",
+       "evidence": [
+        "tx-promise-787"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "클레임 보상",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "클레임 보상 확정  89,000원",
+       "evidence": [
+        "tx-event-1619"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  89,000원",
+       "evidence": [
+        "tx-event-1626"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-promise-787",
+       "title": "품질 클레임-20261118-000001 (품질 클레임)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-18\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": []
+      },
+      {
+       "id": "tx-event-1619",
+       "title": "클레임 보상-20261118-000001 (클레임 보상)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-18\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1626",
+       "title": "지급-20261119-000001 (지급)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "품질 클레임 품질 클레임 확정  0원"
+      },
+      {
+       "time": "10:00",
+       "text": "클레임 보상 클레임 보상 확정  89,000원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "so",
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1350,
+     "stuck": null,
+     "flowName": "품질 클레임",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1351",
+      "t": "10:00",
+      "g": "manual",
+      "z": "bank",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 클레임 보상",
+      "qty": "클레임 보상 1건",
+      "qsub": "89,000원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "클레임 보상",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "클레임 보상 확정  89,000원",
+       "evidence": [
+        "tx-event-1619"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  89,000원",
+       "evidence": [
+        "tx-event-1626"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1619",
+       "title": "클레임 보상-20261118-000001 (클레임 보상)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-18\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1626",
+       "title": "지급-20261119-000001 (지급)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "클레임 보상 클레임 보상 확정  89,000원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1351,
+     "stuck": null,
+     "flowName": "품질 클레임",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1352",
+      "t": "10:00",
+      "g": "bank",
+      "z": "hq",
+      "kind": "은행 거래 수집",
+      "name": "한국전력공사 경비",
+      "qty": "경비 1건",
+      "qsub": "561,000원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  561,000원",
+       "evidence": [
+        "tx-event-1620"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "경비-20261118-000001-1",
+       "title": "금액",
+       "detail": "561,000원",
+       "status": "완료",
+       "evidence": "tx-event-1620"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 출금 내역",
+       "kind": "input",
+       "body": "회사 계좌 출금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-18",
+         "한국전력공사",
+         "510,000원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1620",
+       "title": "경비-20261118-000001 (경비)",
+       "kind": "output",
+       "body": "한국전력공사\n2026-11-18\n합계 561,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "510,000원",
+         "51,000원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "한국전력공사"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  561,000원"
+      }
+     ],
+     "nodes": [
+      "voucher"
+     ],
+     "engineCaseId": 1352,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1353",
+      "t": "09:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "한방 진액 제조 (OEM) 발주",
+      "qty": "발주 1건",
+      "qsub": "루테인 지아잔틴 60캡슐 144개",
+      "s": [
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "3/3 완료",
+      "now": "지급 대기",
+      "st": "대기 중"
+     },
+     "steps": [
+      {
+       "title": "발주",
+       "actor": "automata",
+       "zone": "sup",
+       "status": "d",
+       "time": "09:00",
+       "summary": "발주 확정  루테인 지아잔틴 60캡슐 144개",
+       "evidence": [
+        "tx-promise-788"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "입고",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "입고 확정  루테인 지아잔틴 60캡슐 144개",
+       "evidence": [
+        "tx-event-1624"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "매입 세금계산서",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "매입 세금계산서 확정  루테인 지아잔틴 60캡슐 144개",
+       "evidence": [
+        "tx-event-1665"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "발주-20261118-000001-1",
+       "title": "루테인 지아잔틴 60캡슐",
+       "detail": "144개  1,742,400원",
+       "status": "진행 중",
+       "evidence": "tx-promise-788"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-promise-788",
+       "title": "발주-20261118-000001 (발주)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-18\n합계 1,742,400원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "루테인 지아잔틴 60캡슐",
+         "144",
+         "11,000원",
+         "1,584,000원",
+         "158,400원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1624",
+       "title": "입고-20261121-000001 (입고)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-21\n합계 1,584,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "루테인 지아잔틴 60캡슐",
+         "144",
+         "11,000원",
+         "1,584,000원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1665",
+       "title": "매입 세금계산서-20261130-000002 (매입 세금계산서)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-30\n합계 1,742,400원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "루테인 지아잔틴 60캡슐",
+         "144",
+         "11,000원",
+         "1,584,000원",
+         "158,400원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "po",
+       "count": 1,
+       "detail": "한방 진액 제조 (OEM)"
+      },
+      {
+       "type": "inv",
+       "count": 1,
+       "detail": "한방 진액 제조 (OEM)"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "09:00",
+       "text": "발주 발주 확정  루테인 지아잔틴 60캡슐 144개"
+      },
+      {
+       "time": "10:00",
+       "text": "입고 입고 확정  루테인 지아잔틴 60캡슐 144개"
+      },
+      {
+       "time": "10:00",
+       "text": "매입 세금계산서 매입 세금계산서 확정  루테인 지아잔틴 60캡슐 144개"
+      }
+     ],
+     "nodes": [
+      "po",
+      "receive",
+      "so"
+     ],
+     "engineCaseId": 1353,
+     "stuck": "지급 대기",
+     "flowName": "구매",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-19",
+   "label": "11월 19일 목요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1356",
+      "t": "10:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 품질 클레임",
+      "qty": "품질 클레임 1건",
+      "qsub": "0원",
+      "s": [
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "3/3 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "품질 클레임",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "품질 클레임 확정  0원",
+       "evidence": [
+        "tx-promise-789"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "보증 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "보증 청구 확정  89,000원",
+       "evidence": [
+        "tx-event-1625"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "반제",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "20:16",
+       "summary": "반제 확정  89,000원",
+       "evidence": [
+        "tx-event-1627"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-promise-789",
+       "title": "품질 클레임-20261119-000001 (품질 클레임)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": []
+      },
+      {
+       "id": "tx-event-1625",
+       "title": "보증 청구-20261119-000001 (보증 청구)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1627",
+       "title": "반제-20261119-000001 (반제)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "품질 클레임 품질 클레임 확정  0원"
+      },
+      {
+       "time": "10:00",
+       "text": "보증 청구 보증 청구 확정  89,000원"
+      },
+      {
+       "time": "20:16",
+       "text": "반제 반제 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "so",
+      "so",
+      "so"
+     ],
+     "engineCaseId": 1356,
+     "stuck": null,
+     "flowName": "품질 클레임",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1357",
+      "t": "10:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "한방 진액 제조 (OEM) 보증 청구",
+      "qty": "보증 청구 1건",
+      "qsub": "89,000원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "보증 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "보증 청구 확정  89,000원",
+       "evidence": [
+        "tx-event-1625"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "반제",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "20:16",
+       "summary": "반제 확정  89,000원",
+       "evidence": [
+        "tx-event-1627"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1625",
+       "title": "보증 청구-20261119-000001 (보증 청구)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1627",
+       "title": "반제-20261119-000001 (반제)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "보증 청구 보증 청구 확정  89,000원"
+      },
+      {
+       "time": "20:16",
+       "text": "반제 반제 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "so",
+      "so"
+     ],
+     "engineCaseId": 1357,
+     "stuck": null,
+     "flowName": "품질 클레임",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1358",
+      "t": "10:00",
+      "g": "bank",
+      "z": "bank",
+      "kind": "은행 거래 수집",
+      "name": "건강약국 체인 지급",
+      "qty": "지급 1건",
+      "qsub": "89,000원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  89,000원",
+       "evidence": [
+        "tx-event-1626"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 출금 내역",
+       "kind": "input",
+       "body": "회사 계좌 출금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-19",
+         "건강약국 체인",
+         "89,000원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1626",
+       "title": "지급-20261119-000001 (지급)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "deposit"
+     ],
+     "engineCaseId": 1358,
+     "stuck": null,
+     "flowName": "지급",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1359",
+      "t": "20:16",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "한방 진액 제조 (OEM) 반제",
+      "qty": "반제 1건",
+      "qsub": "89,000원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "반제",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "20:16",
+       "summary": "반제 확정  89,000원",
+       "evidence": [
+        "tx-event-1627"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1627",
+       "title": "반제-20261119-000001 (반제)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-19\n합계 89,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "89,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "20:16",
+       "text": "반제 반제 확정  89,000원"
+      }
+     ],
+     "nodes": [
+      "so"
+     ],
+     "engineCaseId": 1359,
+     "stuck": null,
+     "flowName": "판매 반품",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-20",
+   "label": "11월 20일 금요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1360",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "GS칼텍스 셀프주유소 경비",
+      "qty": "경비 1건",
+      "qsub": "134,700원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  134,700원",
+       "evidence": [
+        "tx-event-1628"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1628",
+       "title": "경비-20261120-000001 (경비)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-11-20\n합계 134,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "122,455원",
+         "12,245원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "GS칼텍스 셀프주유소"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  134,700원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1360,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-23",
+   "label": "11월 23일 월요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1361",
+      "t": "10:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 반품 요청",
+      "qty": "반품 요청 1건",
+      "qsub": "저분자 콜라겐 30포 1개",
+      "s": [
+       "d",
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "4/4 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "반품 요청",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "반품 요청 확정  저분자 콜라겐 30포 1개",
+       "evidence": [
+        "tx-promise-790"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "반품 인도",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "반품 인도 확정  저분자 콜라겐 30포 1개",
+       "evidence": [
+        "tx-event-1630"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "재고 이동",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "재고 이동 확정  저분자 콜라겐 30포 1개",
+       "evidence": [
+        "tx-event-1631"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "수정 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "수정 청구 확정  저분자 콜라겐 30포 1개",
+       "evidence": [
+        "tx-event-1632"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "반품 요청-20261123-000001-1",
+       "title": "저분자 콜라겐 30포",
+       "detail": "1개  62,920원",
+       "status": "완료",
+       "evidence": "tx-promise-790"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-promise-790",
+       "title": "반품 요청-20261123-000001 (반품 요청)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 62,920원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "저분자 콜라겐 30포",
+         "1",
+         "57,200원",
+         "57,200원",
+         "5,720원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1630",
+       "title": "반품 인도-20261123-000001 (반품 인도)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 62,920원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "저분자 콜라겐 30포",
+         "1",
+         "57,200원",
+         "57,200원",
+         "5,720원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1631",
+       "title": "재고 이동-20261123-000001 (재고 이동)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "저분자 콜라겐 30포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1632",
+       "title": "수정 청구-20261123-000001 (수정 청구)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 -62,920원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "저분자 콜라겐 30포",
+         "1",
+         "57,200원",
+         "57,200원",
+         "5,720원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "inv",
+       "count": 1,
+       "detail": "건강약국 체인"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "반품 요청 반품 요청 확정  저분자 콜라겐 30포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "반품 인도 반품 인도 확정  저분자 콜라겐 30포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "재고 이동 재고 이동 확정  저분자 콜라겐 30포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "수정 청구 수정 청구 확정  저분자 콜라겐 30포 1개"
+      }
+     ],
+     "nodes": [
+      "pickup",
+      "pickup",
+      "transfer",
+      "so"
+     ],
+     "engineCaseId": 1361,
+     "stuck": null,
+     "flowName": "판매 반품",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1362",
+      "t": "10:00",
+      "g": "manual",
+      "z": "wh",
+      "kind": "직원 직접 입력",
+      "name": "재고 이동",
+      "qty": "재고 이동 1건",
+      "qsub": "저분자 콜라겐 30포 1개",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "재고 이동",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "재고 이동 확정  저분자 콜라겐 30포 1개",
+       "evidence": [
+        "tx-event-1631"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "재고 이동-20261123-000001-1",
+       "title": "저분자 콜라겐 30포",
+       "detail": "1개  0원",
+       "status": "완료",
+       "evidence": "tx-event-1631"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-event-1631",
+       "title": "재고 이동-20261123-000001 (재고 이동)",
+       "kind": "output",
+       "body": "사내\n2026-11-23\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "저분자 콜라겐 30포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "inv",
+       "count": 1,
+       "detail": "사내"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "재고 이동 재고 이동 확정  저분자 콜라겐 30포 1개"
+      }
+     ],
+     "nodes": [
+      "transfer"
+     ],
+     "engineCaseId": 1362,
+     "stuck": null,
+     "flowName": "판매 반품",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1363",
+      "t": "10:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 교환 요청",
+      "qty": "교환 요청 1건",
+      "qsub": "석류 콜라겐 젤리 14포 1개",
+      "s": [
+       "d",
+       "d",
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "5/5 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "교환 요청",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "교환 요청 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-promise-791"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "교환 회수",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "교환 회수 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1633"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "교환 재출고",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "교환 재출고 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1634"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "재고 이동",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "18:56",
+       "summary": "재고 이동 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1648"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "재고 조정",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "18:56",
+       "summary": "재고 조정 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1649"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "교환 요청-20261123-000001-1",
+       "title": "석류 콜라겐 젤리 14포",
+       "detail": "1개  42,900원",
+       "status": "완료",
+       "evidence": "tx-promise-791"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-promise-791",
+       "title": "교환 요청-20261123-000001 (교환 요청)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 42,900원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "39,000원",
+         "39,000원",
+         "3,900원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1633",
+       "title": "교환 회수-20261123-000001 (교환 회수)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 42,900원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "39,000원",
+         "39,000원",
+         "3,900원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1634",
+       "title": "교환 재출고-20261123-000001 (교환 재출고)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 42,900원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "39,000원",
+         "39,000원",
+         "3,900원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1648",
+       "title": "재고 이동-20261123-000002 (재고 이동)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1649",
+       "title": "재고 조정-20261123-000001 (재고 조정)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-23\n합계 14,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "inv",
+       "count": 1,
+       "detail": "건강약국 체인"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "교환 요청 교환 요청 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "교환 회수 교환 회수 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "교환 재출고 교환 재출고 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "18:56",
+       "text": "재고 이동 재고 이동 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "18:56",
+       "text": "재고 조정 재고 조정 확정  석류 콜라겐 젤리 14포 1개"
+      }
+     ],
+     "nodes": [
+      "pickup",
+      "pickup",
+      "ship",
+      "transfer",
+      "so"
+     ],
+     "engineCaseId": 1363,
+     "stuck": null,
+     "flowName": "교환과 재배송",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1364",
+      "t": "10:00",
+      "g": "manual",
+      "z": "wh",
+      "kind": "직원 직접 입력",
+      "name": "한방 진액 제조 (OEM) 구매 반품 요청",
+      "qty": "구매 반품 요청 1건",
+      "qsub": "석류 콜라겐 젤리 14포 1개",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "구매 반품 요청",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "구매 반품 요청 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-promise-792"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "반품 출고",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "반품 출고 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1635"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "구매 반품 요청-20261123-000001-1",
+       "title": "석류 콜라겐 젤리 14포",
+       "detail": "1개  0원",
+       "status": "완료",
+       "evidence": "tx-promise-792"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-promise-792",
+       "title": "구매 반품 요청-20261123-000001 (구매 반품 요청)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-23\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1635",
+       "title": "반품 출고-20261123-000001 (반품 출고)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-23\n합계 15,400원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "14,000원",
+         "14,000원",
+         "1,400원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "구매 반품 요청 구매 반품 요청 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "반품 출고 반품 출고 확정  석류 콜라겐 젤리 14포 1개"
+      }
+     ],
+     "nodes": [
+      "pickup",
+      "pickup"
+     ],
+     "engineCaseId": 1364,
+     "stuck": null,
+     "flowName": "구매 반품",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1365",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "카페 드롭탑 경비",
+      "qty": "경비 1건",
+      "qsub": "26,400원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  26,400원",
+       "evidence": [
+        "tx-event-1636"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1636",
+       "title": "경비-20261123-000001 (경비)",
+       "kind": "output",
+       "body": "카페 드롭탑\n2026-11-23\n합계 26,400원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "24,000원",
+         "2,400원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "카페 드롭탑\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "카페 드롭탑"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  26,400원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1365,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1366",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "GS칼텍스 셀프주유소 경비",
+      "qty": "경비 1건",
+      "qsub": "127,300원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  127,300원",
+       "evidence": [
+        "tx-event-1637"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1637",
+       "title": "경비-20261123-000002 (경비)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-11-23\n합계 127,300원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "115,727원",
+         "11,573원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "GS칼텍스 셀프주유소"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  127,300원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1366,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1367",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "스피드메이트 정비 경비",
+      "qty": "경비 1건",
+      "qsub": "147,500원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  147,500원",
+       "evidence": [
+        "tx-event-1638"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1638",
+       "title": "경비-20261123-000003 (경비)",
+       "kind": "output",
+       "body": "스피드메이트 정비\n2026-11-23\n합계 147,500원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "134,091원",
+         "13,409원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "스피드메이트 정비\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "스피드메이트 정비"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  147,500원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1367,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1368",
+      "t": "10:00",
+      "g": "bank",
+      "z": "hq",
+      "kind": "은행 거래 수집",
+      "name": "케이티 기업통신 경비",
+      "qty": "경비 1건",
+      "qsub": "253,000원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  253,000원",
+       "evidence": [
+        "tx-event-1639"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "경비-20261123-000004-1",
+       "title": "금액",
+       "detail": "253,000원",
+       "status": "완료",
+       "evidence": "tx-event-1639"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 출금 내역",
+       "kind": "input",
+       "body": "회사 계좌 출금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-23",
+         "KT통신요금",
+         "230,000원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1639",
+       "title": "경비-20261123-000004 (경비)",
+       "kind": "output",
+       "body": "케이티 기업통신\n2026-11-23\n합계 253,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "230,000원",
+         "23,000원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "케이티 기업통신"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  253,000원"
+      }
+     ],
+     "nodes": [
+      "voucher"
+     ],
+     "engineCaseId": 1368,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1375",
+      "t": "18:56",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "재고 이동",
+      "qty": "재고 이동 1건",
+      "qsub": "석류 콜라겐 젤리 14포 1개",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "재고 이동",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "18:56",
+       "summary": "재고 이동 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1648"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "재고 조정",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "18:56",
+       "summary": "재고 조정 확정  석류 콜라겐 젤리 14포 1개",
+       "evidence": [
+        "tx-event-1649"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "재고 이동-20261123-000002-1",
+       "title": "석류 콜라겐 젤리 14포",
+       "detail": "1개  0원",
+       "status": "완료",
+       "evidence": "tx-event-1648"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-event-1648",
+       "title": "재고 이동-20261123-000002 (재고 이동)",
+       "kind": "output",
+       "body": "사내\n2026-11-23\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1649",
+       "title": "재고 조정-20261123-000001 (재고 조정)",
+       "kind": "output",
+       "body": "사내\n2026-11-23\n합계 14,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "1",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "inv",
+       "count": 1,
+       "detail": "사내"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "18:56",
+       "text": "재고 이동 재고 이동 확정  석류 콜라겐 젤리 14포 1개"
+      },
+      {
+       "time": "18:56",
+       "text": "재고 조정 재고 조정 확정  석류 콜라겐 젤리 14포 1개"
+      }
+     ],
+     "nodes": [
+      "transfer",
+      "so"
+     ],
+     "engineCaseId": 1375,
+     "stuck": null,
+     "flowName": "교환과 재배송",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-24",
+   "label": "11월 24일 화요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1370",
+      "t": "10:00",
+      "g": "manual",
+      "z": "hq",
+      "kind": "직원 직접 입력",
+      "name": "건강약국 체인 견적 요청",
+      "qty": "견적 요청 1건",
+      "qsub": "녹용 진액 30포 32개 외 2건",
+      "s": [
+       "d",
+       "d",
+       "d",
+       "d",
+       "d",
+       "d",
+       "d",
+       "d"
+      ],
+      "stepLabel": "8/8 완료",
+      "now": "진행 중",
+      "st": "대기 중"
+     },
+     "steps": [
+      {
+       "title": "견적 요청",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "견적 요청 확정  녹용 진액 30포 32개 외 2건",
+       "evidence": [
+        "tx-promise-793"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "견적",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "견적 확정  녹용 진액 30포 32개 외 2건",
+       "evidence": [
+        "tx-promise-794"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "수주",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "수주 확정  녹용 진액 30포 32개 외 2건",
+       "evidence": [
+        "tx-promise-795"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "출하지시",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "출하지시 확정  녹용 진액 30포 32개 외 2건",
+       "evidence": [
+        "tx-promise-796"
+       ],
+       "kind": "promise"
+      },
+      {
+       "title": "인도",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "20:40",
+       "summary": "인도 확정  녹용 진액 30포 32개 외 2건",
+       "evidence": [
+        "tx-event-1644"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "매출 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "09:00",
+       "summary": "매출 청구 확정  석류 콜라겐 젤리 14포 46개 외 11건",
+       "evidence": [
+        "tx-event-1656"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "반품 인도",
+       "actor": "automata",
+       "zone": "wh",
+       "status": "d",
+       "time": "10:00",
+       "summary": "반품 인도 확정  녹용 진액 30포 1개",
+       "evidence": [
+        "tx-event-1764"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "수정 청구",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "수정 청구 확정  녹용 진액 30포 1개",
+       "evidence": [
+        "tx-event-1766"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [
+      {
+       "id": "견적 요청-20261124-000001-1",
+       "title": "녹용 진액 30포",
+       "detail": "32개  0원",
+       "status": "진행 중",
+       "evidence": "tx-promise-793"
+      },
+      {
+       "id": "견적 요청-20261124-000001-2",
+       "title": "양배추 브로콜리즙 30포",
+       "detail": "24개  0원",
+       "status": "진행 중",
+       "evidence": "tx-promise-793"
+      },
+      {
+       "id": "견적 요청-20261124-000001-3",
+       "title": "도라지 배즙 30포",
+       "detail": "41개  0원",
+       "status": "진행 중",
+       "evidence": "tx-promise-793"
+      }
+     ],
+     "evidence": [
+      {
+       "id": "tx-promise-793",
+       "title": "견적 요청-20261124-000001 (견적 요청)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-24\n합계 0원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "32",
+         "0원",
+         "0원",
+         "0원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "0원",
+         "0원",
+         "0원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "0원",
+         "0원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-promise-794",
+       "title": "견적-20261124-000001 (견적)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-24\n합계 8,646,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "32",
+         "168,000원",
+         "5,376,000원",
+         "537,600원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "42,000원",
+         "1,008,000원",
+         "100,800원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "36,000원",
+         "1,476,000원",
+         "147,600원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-promise-795",
+       "title": "수주-20261124-000001 (수주)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-24\n합계 8,646,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "32",
+         "168,000원",
+         "5,376,000원",
+         "537,600원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "42,000원",
+         "1,008,000원",
+         "100,800원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "36,000원",
+         "1,476,000원",
+         "147,600원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-promise-796",
+       "title": "출하지시-20261124-000001 (출하지시)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-24\n합계 8,646,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "32",
+         "168,000원",
+         "5,376,000원",
+         "537,600원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "42,000원",
+         "1,008,000원",
+         "100,800원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "36,000원",
+         "1,476,000원",
+         "147,600원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1644",
+       "title": "인도-20261124-000001 (인도)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-25\n합계 8,646,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "32",
+         "168,000원",
+         "5,376,000원",
+         "537,600원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "42,000원",
+         "1,008,000원",
+         "100,800원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "36,000원",
+         "1,476,000원",
+         "147,600원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1656",
+       "title": "매출 청구-20261130-000001 (매출 청구)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-30\n합계 40,497,820원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "석류 콜라겐 젤리 14포",
+         "46",
+         "0원",
+         "1,794,000원",
+         "179,400원"
+        ],
+        [
+         "녹용 진액 30포",
+         "27",
+         "0원",
+         "4,536,000원",
+         "453,600원"
+        ],
+        [
+         "6년근 홍삼정 스틱 30포",
+         "39",
+         "0원",
+         "3,471,000원",
+         "347,100원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "33",
+         "0원",
+         "1,386,000원",
+         "138,600원"
+        ],
+        [
+         "흑염소 진액 60포",
+         "49",
+         "0원",
+         "13,132,000원",
+         "1,313,200원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "39",
+         "0원",
+         "1,404,000원",
+         "140,400원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "22",
+         "0원",
+         "767,800원",
+         "76,780원"
+        ],
+        [
+         "석류 콜라겐 젤리 14포",
+         "48",
+         "0원",
+         "1,814,400원",
+         "181,440원"
+        ],
+        [
+         "루테인 지아잔틴 60캡슐",
+         "21",
+         "0원",
+         "651,000원",
+         "65,100원"
+        ],
+        [
+         "녹용 진액 30포",
+         "32",
+         "0원",
+         "5,376,000원",
+         "537,600원"
+        ],
+        [
+         "양배추 브로콜리즙 30포",
+         "24",
+         "0원",
+         "1,008,000원",
+         "100,800원"
+        ],
+        [
+         "도라지 배즙 30포",
+         "41",
+         "0원",
+         "1,476,000원",
+         "147,600원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1764",
+       "title": "반품 인도-20261221-000001 (반품 인도)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-12-21\n합계 184,800원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "1",
+         "168,000원",
+         "168,000원",
+         "16,800원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1766",
+       "title": "수정 청구-20261221-000001 (수정 청구)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-12-21\n합계 -184,800원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "녹용 진액 30포",
+         "1",
+         "168,000원",
+         "168,000원",
+         "16,800원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "so",
+       "count": 1,
+       "detail": "건강약국 체인"
+      },
+      {
+       "type": "ship",
+       "count": 1,
+       "detail": "건강약국 체인"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "견적 요청 견적 요청 확정  녹용 진액 30포 32개 외 2건"
+      },
+      {
+       "time": "10:00",
+       "text": "견적 견적 확정  녹용 진액 30포 32개 외 2건"
+      },
+      {
+       "time": "10:00",
+       "text": "수주 수주 확정  녹용 진액 30포 32개 외 2건"
+      },
+      {
+       "time": "10:00",
+       "text": "출하지시 출하지시 확정  녹용 진액 30포 32개 외 2건"
+      },
+      {
+       "time": "20:40",
+       "text": "인도 인도 확정  녹용 진액 30포 32개 외 2건"
+      },
+      {
+       "time": "09:00",
+       "text": "매출 청구 매출 청구 확정  석류 콜라겐 젤리 14포 46개 외 11건"
+      },
+      {
+       "time": "10:00",
+       "text": "반품 인도 반품 인도 확정  녹용 진액 30포 1개"
+      },
+      {
+       "time": "10:00",
+       "text": "수정 청구 수정 청구 확정  녹용 진액 30포 1개"
+      }
+     ],
+     "nodes": [
+      "quote",
+      "quote",
+      "so",
+      "shipreq",
+      "deliver",
+      "voucher",
+      "pickup",
+      "so"
+     ],
+     "engineCaseId": 1370,
+     "stuck": "진행 중",
+     "flowName": "거래처 판매 (자사 배송)",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1371",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "GS칼텍스 셀프주유소 경비",
+      "qty": "경비 1건",
+      "qsub": "53,400원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  53,400원",
+       "evidence": [
+        "tx-event-1643"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1643",
+       "title": "경비-20261124-000001 (경비)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-11-24\n합계 53,400원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "48,545원",
+         "4,855원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "GS칼텍스 셀프주유소\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "GS칼텍스 셀프주유소"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  53,400원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1371,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-25",
+   "label": "11월 25일 수요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1372",
+      "t": "10:00",
+      "g": "bank",
+      "z": "bank",
+      "kind": "은행 거래 수집",
+      "name": "인삼 농산 유통 지급",
+      "qty": "지급 1건",
+      "qsub": "2,992,000원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  2,992,000원",
+       "evidence": [
+        "tx-event-1645"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 출금 내역",
+       "kind": "input",
+       "body": "회사 계좌 출금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-25",
+         "인삼 농산 유통",
+         "2,992,000원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1645",
+       "title": "지급-20261125-000001 (지급)",
+       "kind": "output",
+       "body": "인삼 농산 유통\n2026-11-25\n합계 2,992,000원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "2,992,000원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  2,992,000원"
+      }
+     ],
+     "nodes": [
+      "deposit"
+     ],
+     "engineCaseId": 1372,
+     "stuck": null,
+     "flowName": "지급",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1373",
+      "t": "10:00",
+      "g": "bank",
+      "z": "bank",
+      "kind": "은행 거래 수집",
+      "name": "한방 진액 제조 (OEM) 지급",
+      "qty": "지급 1건",
+      "qsub": "11,657,900원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  11,657,900원",
+       "evidence": [
+        "tx-event-1646"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 출금 내역",
+       "kind": "input",
+       "body": "회사 계좌 출금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-25",
+         "한방 진액 제조 (OEM)",
+         "11,657,900원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1646",
+       "title": "지급-20261125-000002 (지급)",
+       "kind": "output",
+       "body": "한방 진액 제조 (OEM)\n2026-11-25\n합계 11,657,900원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "11,657,900원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  11,657,900원"
+      }
+     ],
+     "nodes": [
+      "deposit"
+     ],
+     "engineCaseId": 1373,
+     "stuck": null,
+     "flowName": "지급",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1374",
+      "t": "10:00",
+      "g": "bank",
+      "z": "bank",
+      "kind": "은행 거래 수집",
+      "name": "건강약국 체인 입금",
+      "qty": "입금 1건",
+      "qsub": "29,631,360원",
+      "s": [
+       "d"
+      ],
+      "stepLabel": "1/1 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "입금",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "입금 확정  29,631,360원",
+       "evidence": [
+        "tx-event-1647"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "bank-in",
+       "title": "은행 입금 내역",
+       "kind": "input",
+       "body": "회사 계좌 입금 1건 수집",
+       "columns": [
+        "입금일",
+        "입금자",
+        "금액"
+       ],
+       "rows": [
+        [
+         "2026-11-25",
+         "건강약국 체인",
+         "29,631,360원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1647",
+       "title": "입금-20261125-000001 (입금)",
+       "kind": "output",
+       "body": "건강약국 체인\n2026-11-25\n합계 29,631,360원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "29,631,360원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "ar",
+       "count": 1,
+       "detail": "건강약국 체인"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "입금 입금 확정  29,631,360원"
+      }
+     ],
+     "nodes": [
+      "deposit"
+     ],
+     "engineCaseId": 1374,
+     "stuck": null,
+     "flowName": "입금",
+     "inputs": [
+      "bank-in"
+     ],
+     "approval": null
+    }
+   ]
+  },
+  {
+   "id": "2026-11-27",
+   "label": "11월 27일 금요일",
+   "cases": [
+    {
+     "unit": {
+      "id": "e1377",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "코레일 승차권 경비",
+      "qty": "경비 1건",
+      "qsub": "77,900원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  77,900원",
+       "evidence": [
+        "tx-event-1651"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1651",
+       "title": "경비-20261127-000001 (경비)",
+       "kind": "output",
+       "body": "코레일 승차권\n2026-11-27\n합계 77,900원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "70,818원",
+         "7,082원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "코레일 승차권\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "코레일 승차권"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  77,900원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1377,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    },
+    {
+     "unit": {
+      "id": "e1378",
+      "t": "10:00",
+      "g": "card",
+      "z": "bank",
+      "kind": "카드 승인 수집",
+      "name": "우체국 경비",
+      "qty": "경비 1건",
+      "qsub": "13,800원",
+      "s": [
+       "d",
+       "d"
+      ],
+      "stepLabel": "2/2 완료",
+      "now": "모든 단계 완료",
+      "st": "완료"
+     },
+     "steps": [
+      {
+       "title": "경비",
+       "actor": "automata",
+       "zone": "hq",
+       "status": "d",
+       "time": "10:00",
+       "summary": "경비 확정  13,800원",
+       "evidence": [
+        "tx-event-1652"
+       ],
+       "kind": "event"
+      },
+      {
+       "title": "지급",
+       "actor": "automata",
+       "zone": "bank",
+       "status": "d",
+       "time": "10:00",
+       "summary": "지급 확정  1,218,700원",
+       "evidence": [
+        "tx-event-1742"
+       ],
+       "kind": "event"
+      }
+     ],
+     "items": [],
+     "evidence": [
+      {
+       "id": "tx-event-1652",
+       "title": "경비-20261127-000002 (경비)",
+       "kind": "output",
+       "body": "우체국\n2026-11-27\n합계 13,800원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "13,800원",
+         "0원"
+        ]
+       ]
+      },
+      {
+       "id": "tx-event-1742",
+       "title": "지급-20261214-000001 (지급)",
+       "kind": "output",
+       "body": "우체국\n2026-12-14\n합계 1,218,700원",
+       "columns": [
+        "품목",
+        "수량",
+        "단가",
+        "공급가액",
+        "세액"
+       ],
+       "rows": [
+        [
+         "-",
+         "0",
+         "0원",
+         "1,218,700원",
+         "0원"
+        ]
+       ]
+      }
+     ],
+     "outputs": [
+      {
+       "type": "exp",
+       "count": 1,
+       "detail": "우체국"
+      }
+     ],
+     "variants": [],
+     "variant": 0,
+     "eventLog": [
+      {
+       "time": "10:00",
+       "text": "경비 경비 확정  13,800원"
+      },
+      {
+       "time": "10:00",
+       "text": "지급 지급 확정  1,218,700원"
+      }
+     ],
+     "nodes": [
+      "voucher",
+      "deposit"
+     ],
+     "engineCaseId": 1378,
+     "stuck": null,
+     "flowName": "경비",
+     "inputs": [],
+     "approval": null
+    }
+   ]
+  }
+ ]
+}

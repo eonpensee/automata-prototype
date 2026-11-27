@@ -19,5 +19,6 @@ const ORDER_SPEC: TodoSpec = { assignee: '주문 담당', question: () => '미�
 export function todoFor(flow: FlowCase): { spec: TodoSpec; items: BatchItem[] } | null {
   const items = flow.items.filter(i => i.status === '확인 필요')
   if (!items.length || !flow.steps.some(s => s.status === 'w')) return null
+  if (flow.engineCaseId) return { spec: { assignee: '담당자', question: () => flow.unit.now, o: '확인', x: '보류' }, items }
   return { spec: SPECS[flow.unit.id] || ORDER_SPEC, items }
 }
