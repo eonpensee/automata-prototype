@@ -3,6 +3,8 @@ import type { Status } from '../../data/today'
 import { PLACES, type Place, type PlaceId } from '../../data/nodes'
 import { BADGE, ZCLS } from '../../logic'
 import './village.css'
+import { Bank, CardCompany, Hq, Shop, Supplier, Warehouse, type PartnerDef } from '../map/partners'
+import { House } from './House'
 
 /** 지도 크기 (viewBox) */
 const U = 31
@@ -10,7 +12,7 @@ const W = Math.round(2 * 16.6 * U * Math.sqrt(3) / 2 + 120)
 const H = Math.round(16.6 * U + 150)
 /** 땅 한 칸 크기(px)와 원점 */
 const OX = W / 2
-const OY = 104
+const OY = 84
 const C = Math.sqrt(3) / 2
 
 const P = (gx: number, gy: number, z = 0): [number, number] => [OX + (gx - gy) * U * C, OY + (gx + gy) * U * 0.5 - z]
@@ -83,6 +85,20 @@ function Building({ p }: { p: Place }) {
   return <>{parts}</>
 }
 
+/** 1안 지도의 건물 그림을 그대로 줄여서 써요. 고객 집만 새로 그려요. */
+const ART: Partial<Record<Place['art'], PartnerDef>> = { shop: Shop, office: Hq, tower: Hq, warehouse: Warehouse, factory: Supplier, bank: Bank, card: CardCompany, house: House }
+function artFit(p: Place) {
+  const def = ART[p.art]
+  if (!def) return null
+  const ft = (def.plate.find(pg => pg.cls === 'ft') || def.plate[0]).points.split(' ').map(q => q.split(',').map(Number))
+  const cx = ft.reduce((m, q) => m + q[0], 0) / ft.length, cy = ft.reduce((m, q) => m + q[1], 0) / ft.length
+  const width = Math.max(...ft.map(q => q[0])) - Math.min(...ft.map(q => q[0]))
+  const k = (p.size[0] + p.size[1]) * U * C / width * (p.scale ?? 1.2)
+  const [tx, ty] = P(p.at[0], p.at[1])
+  const anchor: [number, number] = [tx + (def.anchor[0] * 13.66 - cx) * k, ty + (def.anchor[1] * 7.24 - cy) * k]
+  return { def, transform: `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${k.toFixed(3)}) translate(${(-cx).toFixed(1)} ${(-cy).toFixed(1)})`, anchor }
+}
+
 /** 길: 큰길(가운데 십자)과 골목 */
 const ROADS: [number, number, number, number][] = [
   [-0.2, 7.6, 16.2, 8.4], [7.6, -0.2, 8.4, 16.2],
@@ -101,7 +117,7 @@ export interface PlaceState { lit: boolean; current?: boolean; count?: { n: numb
 export interface PopupRow { id: string; title: string; sub: string; node: string; st: Status }
 
 const pct = (p: [number, number]) => ({ left: `${(p[0] / W * 100).toFixed(2)}%`, top: `${(p[1] / H * 100).toFixed(2)}%` })
-export const placeTop = (p: Place): [number, number] => P(p.at[0], p.at[1], p.h + (p.art === 'tower' ? 10 : p.art === 'factory' ? 32 : 18))
+export const placeTop = (p: Place): [number, number] => artFit(p)?.anchor ?? P(p.at[0], p.at[1], p.h + (p.art === 'tower' ? 10 : p.art === 'factory' ? 32 : 18))
 
 /** 가운데: 노드 마을 */
 export function Village({ states, route, routeCurrent, popup, onPickPlace, onOpenCase, onBackground }: {
@@ -124,9 +140,8 @@ export function Village({ states, route, routeCurrent, popup, onPickPlace, onOpe
     <svg viewBox={`0 0 ${W} ${H}`} className="village-svg" aria-hidden="false">
       {DISTRICTS.map(d => <polygon key={d.name} className="vground" points={quad(...d.q)} />)}
       {ROADS.map((r, i) => <polygon key={i} className="vroad" points={quad(...r)} />)}
-      {DISTRICTS.map(d => { const [x0, , , y1] = d.q; const [ex, ey] = P(x0 + .35, y1 - .3); return <text key={'dn' + d.name} className="vdistrict" transform={`matrix(${C} .5 ${-C} .5 ${ex.toFixed(1)} ${ey.toFixed(1)})`}>{d.name}</text> })}
       {[[8, -0.2, 8, 7.6], [8, 8.4, 8, 16.2], [-0.2, 8, 7.6, 8], [8.4, 8, 16.2, 8]].map(([a, b, c, d], i) => <polyline key={'c' + i} className="vroad-mid" points={pts(P(a, b), P(c, d))} />)}
-      {sorted.map(p => { const s = states[p.id]; return <polygon key={'lot' + p.id} className={'vlot' + (s?.lit ? ' on' : '') + (s?.current ? ' cur' : '')} points={quad(p.at[0] - p.size[0] / 2, p.at[1] - p.size[1] / 2, p.at[0] + p.size[0] / 2, p.at[1] + p.size[1] / 2)} /> })}
+      {sorted.map(p => { const s = states[p.id]; const fit = artFit(p); return fit ? <g key={'lot' + p.id} className={'zp' + (s?.lit ? ' zon' : '') + (s?.current ? ' zselected' : '')} transform={fit.transform}><g className="pl3">{fit.def.plate.map((pg, i) => <polygon key={i} points={pg.points} className={pg.cls} />)}</g></g> : <polygon key={'lot' + p.id} className={'vlot' + (s?.lit ? ' on' : '') + (s?.current ? ' cur' : '')} points={quad(p.at[0] - p.size[0] / 2, p.at[1] - p.size[1] / 2, p.at[0] + p.size[0] / 2, p.at[1] + p.size[1] / 2)} /> })}
       {segs.map(s => {
         const a = placeById(s.from), b = placeById(s.to)
         const pa = P(a.at[0], a.at[1]), pb = P(b.at[0], b.at[1])
@@ -136,7 +151,7 @@ export function Village({ states, route, routeCurrent, popup, onPickPlace, onOpe
           {on && <polyline points={pts(pa, pb)} pathLength={100} className="vroute-flow" />}
         </g>
       })}
-      {sorted.map(p => { const s = states[p.id]; const cls = 'vbld' + (s?.lit ? ' on' : anyLit ? ' off' : '') + (s?.current ? ' cur' : ''); return <g key={p.id} className={cls} role={s?.lit ? 'button' : undefined} tabIndex={s?.lit ? 0 : undefined} aria-label={p.name} onClick={() => s?.lit && onPickPlace(p.id)} onKeyDown={e => { if (s?.lit && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onPickPlace(p.id) } }}><Building p={p} /></g> })}
+      {sorted.map(p => { const s = states[p.id]; const cls = 'vbld' + (s?.lit ? ' on' : anyLit ? ' off' : '') + (s?.current ? ' cur' : ''); return <g key={p.id} className={cls} role={s?.lit ? 'button' : undefined} tabIndex={s?.lit ? 0 : undefined} aria-label={p.name} onClick={() => s?.lit && onPickPlace(p.id)} onKeyDown={e => { if (s?.lit && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onPickPlace(p.id) } }}>{(() => { const fit = artFit(p); return fit ? <g className={'zg' + (s?.lit ? ' zlit' : '') + (s?.current ? ' zselected' : '')} transform={fit.transform}><fit.def.Building /></g> : <Building p={p} /> })()}</g> })}
     </svg>
     {PLACES.map(p => { const s = states[p.id]; const t = placeTop(p); return <button key={'t' + p.id} type="button" className={'tag zt vtag' + (s?.current || popup?.place === p.id ? ' on' : !s?.lit && anyLit ? ' off' : '')} style={pct(t)} disabled={!s?.lit} onClick={() => onPickPlace(p.id)}>{p.name}{s?.count && s.count.n > 0 && <span className={ZCLS[s.count.st]}>{s.count.n}건</span>}</button> })}
     {pop && popup && (() => { const [px, py] = P(pop.at[0], pop.at[1], pop.h / 2); const right = px < W / 2; return <div className={`zpop ${right ? 'zpop-tail-left' : 'zpop-tail-right'} vpop`} style={{ left: `calc(${(px / W * 100).toFixed(2)}% ${right ? '+' : '-'} ${(pop.size[0] * U * .9).toFixed(0)}px)`, top: `${(py / H * 100).toFixed(2)}%`, transform: right ? 'translate(0,-50%)' : 'translate(-100%,-50%)' }}>

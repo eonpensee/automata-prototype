@@ -16,7 +16,7 @@ export type PlaceId =
 export type Art = 'shop' | 'office' | 'tower' | 'warehouse' | 'house' | 'factory' | 'bank' | 'card'
 export type District = '판매처' | '우리 회사' | '물류' | '매입처' | '금융'
 
-export interface Place { id: PlaceId; name: string; district: District; art: Art; at: [number, number]; size: [number, number]; h: number }
+export interface Place { id: PlaceId; name: string; district: District; art: Art; at: [number, number]; size: [number, number]; h: number; scale?: number }
 
 /** 마을 배치. at = 땅 격자 좌표(가운데), size = 바닥 칸 수, h = 높이(px) */
 export const PLACES: Place[] = [

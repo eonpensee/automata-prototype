@@ -39,3 +39,6 @@
 .vpop-empty{grid-column:1/-1;margin:4px 8px 8px;font-size:max(12px,var(--min-font-size,10px));color:#9C9C9C}
 
 .vdistrict{font-size:15px;font-weight:700;fill:#C4C4C4;letter-spacing:.02em;pointer-events:none}
+/* 1안 건물 그림을 줄여 써도 선 굵기는 그대로 */
+.village .zg *,.village .zp *{vector-effect:non-scaling-stroke}
+.village .vbld.off .zg{opacity:1}
