@@ -40,4 +40,5 @@
 
 - 1번: 루트 `index.html` → `src/main.tsx`
 - 3번: `3/index.html` → `src/v3/` (가운데 2D 카드와 3D 장면은 `src/v3/FlatStage.tsx`, 3D 그림은 `src/v3/flowScene.ts`)
+- 4번(노드 마을 가안, 11/27 미팅 후): `4/index.html` → `src/node/` (마을은 `src/components/village/`, 노드와 장소는 `src/data/nodes.ts`, 건 상세는 `src/components/CaseFlow.tsx`)
 - 새 시안은 번호 폴더(예: `2/index.html`)만 만들면 `vite.config.ts`가 알아서 같이 빌드해요. 로컬에서는 http://localhost:5173/3/ 처럼 열어요.
