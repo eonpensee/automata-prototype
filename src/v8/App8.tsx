@@ -68,7 +68,8 @@ export function TodayScreen() {
   for (const c of scoped) {
     const pl = where(c); if (!pl) continue
     const prev = placeStates[pl], next: PlaceState = { ...prev, lit: true }
-    if (c.unit.st !== '완료') { const st: Status = !prev?.count || RANK[c.unit.st] > RANK[prev.count.st] ? c.unit.st : prev.count.st; next.count = { n: (prev?.count?.n ?? 0) + 1, st } }
+    // 지도의 건수는 할 일(확인 필요)만 세요. 맨 위 숫자와 같은 기준이에요
+    if (c.unit.st === '확인 필요') next.count = { n: (prev?.count?.n ?? 0) + 1, st: '확인 필요' }
     placeStates[pl] = next
   }
   // 건물 안에 들어오면 자리마다 말풍선으로 그곳의 건을 바로 보여 줘요
