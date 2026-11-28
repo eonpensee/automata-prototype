@@ -333,3 +333,7 @@ body:has(.v8){background:#FAFAF8}
 .brow8-side .badge.cnt8::before{display:none !important}
 .brow8-side .badge.cnt8.st-done,.brow8-side .badge.cnt8.st-wait,.brow8-side .badge.cnt8.st-run,
 .brow8.on .brow8-side .badge.cnt8.st-done,.brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{background:#F1F1EE;border:0;color:#4F5B53;padding:6px 12px}
+
+/* 강조된 말풍선: 꼬리 테두리도 몸통과 같은 색, 같은 굵기 */
+.bub8.on{border-color:#355B52;box-shadow:0 8px 24px rgba(30,40,34,.1)}
+.bub8.on::after{border-color:#355B52}
