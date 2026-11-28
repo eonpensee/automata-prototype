@@ -355,3 +355,27 @@ body:has(.v8){background:#FAFAF8}
 .brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{background:none;border:1.5px dashed #9AA49D;padding:4.5px 10.5px;color:#4F5B53}
 .brow8-side .badge.cnt8{height:28px;box-sizing:border-box;padding-top:0 !important;padding-bottom:0 !important;align-items:center}
 .brow8-side .badge.cnt8.st-wait,.brow8-side .badge.cnt8.st-run,.brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{padding-left:8.5px;padding-right:8.5px;min-width:44px}
+
+/* 큰 숫자: 누르면 지도에 할 일만 남아요. 옆의 흐린 화살표가 누를 수 있다는 표시 */
+button.now8-big.go{display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:0;border-radius:10px;padding:2px 6px 2px 0}
+button.now8-big.go svg{color:#B9C1BB;transition:transform .15s,color .15s}
+button.now8-big.go:hover svg{color:#5F6B63;transform:translateX(2px)}
+button.now8-big.go.on svg{color:#355B52;transform:rotate(90deg)}
+button.now8-big.go:disabled{cursor:default}
+button.now8-big.go:disabled svg{visibility:hidden}
+
+/* 눌린 상태에서도 화살표는 오른쪽 그대로 (펼침처럼 보이지 않게) */
+button.now8-big.go.on svg{transform:none}
+
+/* 말풍선이 뜰 때: 살짝 떠오르며 나타나서 바뀐 게 느껴지게 */
+.bub8{animation:bub8-in .32s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes bub8-in{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.bub8{animation:none}}
+
+/* 말풍선의 더 보기 */
+button.bub8-more{align-self:flex-start;border:0;background:none;font:inherit;font-size:12px;font-weight:600;color:#355B52;cursor:pointer;padding:6px 10px 8px;border-radius:8px}
+button.bub8-more:hover{background:#F1F6F2}
+
+/* 말풍선 안 목록: 3건 반 높이까지만 보이고 그 안에서 스크롤 */
+.bub8-list{display:flex;flex-direction:column;gap:2px}
+.bub8-list.scroll{max-height:182px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}

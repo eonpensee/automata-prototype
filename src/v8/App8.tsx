@@ -73,7 +73,9 @@ export function TodayScreen() {
   }
   // 건물 안에 들어오면 자리마다 말풍선으로 그곳의 건을 바로 보여 줘요
   const bubbles: Record<string, { id: string; title: string; sub: string; node: string; st: Status }[]> = {}
-  if (inside) for (const c of [...scoped].sort((a, b) => RANK[b.unit.st] - RANK[a.unit.st])) { const at = where(c); if (!at) continue; (bubbles[at] ??= []).push({ id: c.unit.id, title: c.unit.name, sub: '', node: c.unit.st === '완료' ? '' : c.stuck || c.steps[currentStep(c)].title, st: c.unit.st }) }
+  // 맨 위 숫자를 눌러 할 일만 남겼을 때는 전체 지도에서도 건물마다 말풍선으로 그 건들을 바로 보여 줘요
+  const showTodo = scope.kind === 'status' && scope.st === '확인 필요'
+  if (inside || showTodo) for (const c of [...scoped].sort((a, b) => RANK[b.unit.st] - RANK[a.unit.st])) { const at = where(c); if (!at) continue; (bubbles[at] ??= []).push({ id: c.unit.id, title: c.unit.name, sub: '', node: c.unit.st === '완료' ? '' : c.stuck || c.steps[currentStep(c)].title, st: c.unit.st }) }
   // 할 일의 한 줄을 누르면 지도도 그 건이 있는 곳으로 가요 (자사 부문이면 자사 안의 그 자리)
   const goSpot = (key: string, c: FlowCase) => {
     if (scope.kind === 'spot' && scope.key === key) { setScope({ kind: 'all' }); setPop(null); return }
@@ -90,7 +92,10 @@ export function TodayScreen() {
       <div className="now8-main">
         <h2>지금 할 일</h2>
         <div className="now8-head">
-          <span className="now8-big">{need}건</span>
+          <button type="button" className={'now8-big go' + (scope.kind === 'status' && scope.st === '확인 필요' ? ' on' : '')} disabled={!need} aria-pressed={scope.kind === 'status' && scope.st === '확인 필요'} aria-label={`지금 할 일 ${need}건, 지도에서 보기`}
+            onClick={() => { toggle({ kind: 'status', st: '확인 필요' }); setInside(null); setPop(null) }}>
+            {need}건<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+          </button>
         </div>
         <div className="now8-legend">
           {ORDER.map(s => <div key={s} className={'lg8 ' + SEG[s] + (counts[s] ? '' : ' zero')}><span className="lg8-name"><i aria-hidden="true" />{s}</span><b>{counts[s]}<small>건</small></b></div>)}
@@ -131,14 +136,14 @@ export function TodayScreen() {
         </ul>
       </section>
 
-      <section className="card8 map8" aria-label="케이스 위치">
+      <section className="card8 map8" aria-label="처리 현황 지도">
         <header className="card8-head">
-          <h2>{inside ? <button type="button" className="back8" onClick={() => { setInside(null); setPop(null) }} aria-label="전체 지도로 돌아가기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>{insideName}</button> : '케이스 위치'}</h2>
+          <h2>{inside ? <button type="button" className="back8" onClick={() => { setInside(null); setPop(null) }} aria-label="전체 지도로 돌아가기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>{insideName}</button> : '처리 현황 지도'}</h2>
           <span className="head8-right">{scopeLabel && <button type="button" className="ct7-chip" onClick={() => setScope({ kind: 'all' })}>{scopeLabel}<span aria-hidden="true">×</span></button>}{need > 0 && <span className="live8"><i aria-hidden="true" />확인 필요</span>}</span>
         </header>
         <div className="stage s3stage review-stage stage5 st8"><div className="world">
           <Village key={inside ?? 'world'} scene={scene} allClickable={!inside} lively tight states={pop && placeStates[pop] ? { ...placeStates, [pop]: { ...placeStates[pop], current: true } } : placeStates}
-            bubbles={inside ? bubbles : undefined} popup={null} onPickPlace={id => { if (!inside) setInside(id) }} onOpenCase={() => window.open(CASE_SCREEN, '_blank', 'noopener')} onBackground={() => setPop(null)} />
+            bubbles={inside || showTodo ? bubbles : undefined} popup={null} onPickPlace={id => { if (!inside) setInside(id) }} onOpenCase={() => window.open(CASE_SCREEN, '_blank', 'noopener')} onBackground={() => { setPop(null); if (showTodo) setScope({ kind: 'all' }) }} />
         </div></div>
       </section>
     </div>

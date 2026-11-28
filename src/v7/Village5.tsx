@@ -587,7 +587,7 @@ export function Village({ scene, allClickable, lively, tight, bubbles, states, r
     const hit = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) => a.x < b.x + b.w + 8 && b.x < a.x + a.w + 8 && a.y < b.y + b.h + 8 && b.y < a.y + a.h + 8
     const taken: { x: number; y: number; w: number; h: number }[] = items.map(it => ({ x: it.ax - 50, y: it.ay, w: 100, h: it.gy - it.ay + 20 }))
     for (const it of items) {
-      const h = 40 + Math.min(it.rows.length, 3) * 52 + (it.rows.length > 3 ? 26 : 0), mid = (it.ay + it.gy) / 2
+      const h = 44 + Math.min(it.rows.length, 3.5) * 52, mid = (it.ay + it.gy) / 2
       const cands = [
         { side: 'bottom' as const, x: it.ax - BW / 2, y: it.ay - h - 12, ax: BW / 2 },
         { side: 'left' as const, x: it.ax + 64, y: mid - h / 2, ax: 0 },
@@ -608,7 +608,7 @@ export function Village({ scene, allClickable, lively, tight, bubbles, states, r
   const sorted = [...PLACES].sort((a, b) => (a.at[0] + a.at[1]) - (b.at[0] + b.at[1]))
   const picked = PLACES.find(p => states[p.id]?.current)?.id
   const pop = popup ? placeById(popup.place) : null
-  return <div ref={boxRef} className={'village v5v' + (picked ? ' picked' : '')} onClick={e => { if (onBackground && !(e.target as Element).closest('button,[role="button"],.zpop')) onBackground() }}>
+  return <div ref={boxRef} className={'village v5v' + (picked ? ' picked' : '')} onClick={e => { if (onBackground && !(e.target as Element).closest('button,[role="button"],.zpop,.bub8')) onBackground() }}>
     <svg viewBox={vb.join(' ')} className="village-svg" aria-hidden="false">
       <defs>
         {([['', '#F6FAF7', '#EBF2ED', '#E5EEE8', '#DAE6DD', '#E0EAE3'], ['on', '#E7F1E9', '#DAE9DD', '#D3E4D7', '#C6DBCB', '#CFE1D3'], ['cur', '#D6E7D9', '#C7DDCB', '#BFD6C5', '#ADC9B4', '#B9D1BF'], ['pr', '#EEEBFA', '#E2DDF5', '#DAD4F1', '#CCC5EA', '#D5CEEE'], ['prcur', '#DFDAF6', '#D0C9F0', '#C7BFEB', '#B5ABE2', '#C0B7E7']] as const).map(([k, ya, yb, xa, xb, m]) =>
@@ -652,8 +652,8 @@ export function Village({ scene, allClickable, lively, tight, bubbles, states, r
     {placed.map(({ p, rows, x, y, side, ax }) =>
       <div key={'b' + p.id} className={'bub8 a-' + side + (states[p.id]?.current ? ' on' : '')} style={{ left: x, top: y, ['--ax' as string]: `${ax}px` }}>
         <button type="button" className="bub8-head" onClick={() => onPickPlace(p.id)}><b>{p.name}</b><span>{rows.length}건</span></button>
-        {rows.slice(0, 3).map(r => <button key={r.id} type="button" className="bub8-row" onClick={() => onOpenCase?.(r.id)}><span className="bub8-main"><b>{r.title}</b>{r.node && <span>{r.node}</span>}</span><span className={BADGE[r.st]}>{r.st}</span></button>)}
-        {rows.length > 3 && <span className="bub8-more">외 {rows.length - 3}건</span>}
+        {/* 건이 많으면 안에서 스크롤. 넷째 줄이 반쯤 걸쳐 보여서 더 있다는 걸 알 수 있어요 */}
+        <div className={'bub8-list' + (rows.length > 3 ? ' scroll' : '')}>{rows.map(r => <button key={r.id} type="button" className="bub8-row" onClick={() => onOpenCase?.(r.id)}><span className="bub8-main"><b>{r.title}</b>{r.node && <span>{r.node}</span>}</span><span className={BADGE[r.st]}>{r.st}</span></button>)}</div>
       </div>)}
     {PLACES.filter(p => (states[p.id]?.lit || scene.interior || allClickable) && !bubbles?.[p.id]?.length).map(p => { const s = states[p.id]; return <button key={'t' + p.id} type="button" className={'tag zt vtag vtag5' + (s?.lit ? '' : ' idle') + (s?.current || popup?.place === p.id ? ' on' : '') + (s?.count && s.count.n > 0 ? ' live' : '')} style={pct(placeTop(p))} onClick={() => onPickPlace(p.id)}>{s?.kind && <span className={'vkind ' + s.kind} aria-label={s.kind === 'promise' ? '약속' : s.kind === 'event' ? '사건' : '약속과 사건'} />}{lively && s?.count?.st === '확인 필요' && <span className="need-dot" aria-label="확인 필요" />}<span className="vtag5-name">{p.name}</span>{s?.count && s.count.n > 0 && <span className={ZCLS[s.count.st]}>{s.count.n}건</span>}</button> })}
     {pop && popup && (() => { const [px, py] = P(pop.at[0], pop.at[1], 10); return <div className="zpop vpop" style={pct([px, py])}>
