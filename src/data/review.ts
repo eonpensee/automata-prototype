@@ -1,7 +1,7 @@
 import { UNITS, type Unit, type Status, type StepCode, type Source, type Result, type ResultId, type ZoneId } from './today'
 
 export interface Evidence { id: string; title: string; kind: 'input' | 'output' | 'session' | 'decision'; body: string; columns?: string[]; rows?: string[][] }
-export interface FlowStep { title: string; actor: string; zone: ZoneId; status: StepCode; time: string; summary: string; evidence: string[]; /** 엔진 노드 종류: 약속(promise) 또는 사건(event) */ kind?: 'promise' | 'event' }
+export interface FlowStep { title: string; actor: string; zone: ZoneId; status: StepCode; time: string; summary: string; evidence: string[]; /** 엔진 노드 종류: 약속(promise) 또는 사건(event) */ kind?: 'promise' | 'event'; /** 엔진 모듈(자사 부문) */ module?: string | null }
 export interface BatchItem { id: string; title: string; detail: string; status: Status; evidence: string }
 export interface Output { type: ResultId; count: number; detail: string }
 export interface FlowCase { unit: Unit; steps: FlowStep[]; items: BatchItem[]; evidence: Evidence[]; outputs: Output[]; variants: string[]; variant: number; eventLog: { time: string; text: string }[]

@@ -1,0 +1,335 @@
+/* ── 시안 8: 대시보드 ── */
+.v8{display:flex;flex-direction:column;gap:12px}
+.v8 h2{margin:0;font-size:16px;font-weight:700;color:#171717}
+.v8 h2 b{margin-left:8px;font-size:14px;font-weight:600;color:#5F6B63}
+
+/* 지금 상황 */
+.now8{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:8px}
+.now8-main,.now8-col,.card8{background:#FFFFFF;border:1px solid #E6EBE7;border-radius:18px}
+.now8-main{display:flex;flex-direction:column;gap:12px;padding:24px 28px}
+.now8-eyebrow{font-size:13px;font-weight:600;color:#5F6B63}
+.now8-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px 16px}
+.now8-big{padding:0;border:0;background:none;font:inherit;font-size:36px;font-weight:700;line-height:1.2;color:#171717;letter-spacing:-.01em}
+button.now8-big{cursor:pointer;border-bottom:3px solid transparent}
+button.now8-big:hover,button.now8-big.on{border-bottom-color:#171717}
+.now8-big b{font-size:44px;font-weight:800;font-variant-numeric:tabular-nums}
+.now8-sub{font-size:16px;color:#4F5B53}
+.bar8{display:flex;gap:3px;height:12px;border-radius:6px;overflow:hidden}
+.bar8 i{display:block;min-width:6px;border-radius:2px}
+.bar8 .need{background:#2E2E2E}.bar8 .run{background:#719681}.bar8 .wait{background:#C9D9CE}.bar8 .done{background:#DDE8E0}
+.now8-legend{display:flex;flex-wrap:wrap;gap:8px}
+.lg8{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #E6EBE7;border-radius:10px;background:#FFFFFF;font:inherit;font-size:14px;color:#2E3A32;cursor:pointer}
+.lg8:disabled{cursor:default;color:#8A948D}
+.lg8 i{width:10px;height:10px;border-radius:3px}
+.lg8.need i{background:#2E2E2E}.lg8.run i{background:#719681}.lg8.wait i{background:#C9D9CE}.lg8.done i{background:#DDE8E0;box-shadow:inset 0 0 0 1px #C9D9CE}
+.lg8 b{font-weight:700;font-variant-numeric:tabular-nums}
+.lg8:hover:not(:disabled){border-color:#BFD2C5}
+.lg8.on{border-color:#171717;box-shadow:inset 0 0 0 1px #171717}
+
+.now8-col{display:flex;flex-direction:column;gap:12px;padding:20px 20px 12px}
+.rows8{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.rows8 li+li{border-top:1px solid #EEF2EF}
+.row8{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:10px 8px;border:0;border-radius:10px;background:none;font:inherit;text-align:left;color:#171717}
+button.row8{cursor:pointer}
+button.row8:hover{background:#F6F9F7}
+button.row8.on{background:#EEF6F0}
+.row8 b{font-size:14px;font-weight:700}
+.rows8.plain .row8{grid-template-columns:minmax(0,1fr) auto;padding:10px 4px}
+.rows8.plain .row8 b{font-weight:600}
+.row8-sub{font-size:13px;color:#5F6B63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row8-n{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.row8-n small{margin-left:2px;font-size:12px;font-weight:600;color:#5F6B63}
+.empty8{padding:12px 4px;font-size:14px;color:#5F6B63}
+
+/* 가운데: 들어온 자료와 지도 */
+.mid8{display:grid;grid-template-columns:480px minmax(0,1fr);gap:12px;align-items:stretch}
+.card8{display:flex;flex-direction:column;min-width:0}
+.card8-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;padding:16px 20px 4px}
+.tabs8{display:flex;flex-wrap:wrap;gap:4px;padding:8px 16px}
+.tabs8 button{padding:6px 12px;border:0;border-radius:8px;background:none;font:inherit;font-size:13px;font-weight:600;color:#5F6B63;cursor:pointer}
+.tabs8 button:hover{background:#F3F6F4}
+.tabs8 button.on{background:#2E2E2E;color:#FFFFFF}
+.batch8{margin:0;padding:4px 12px 12px;list-style:none;display:flex;flex-direction:column;gap:4px;overflow:auto;max-height:600px}
+.brow8{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;padding:12px;border:1px solid transparent;border-radius:12px;background:none;font:inherit;text-align:left;color:#171717;cursor:pointer}
+.brow8:hover{background:#F6F9F7}
+.brow8.on{background:#EEF6F0;border-color:#BFD8C6}
+.brow8-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid #E3EBE5;background:#FFFFFF;color:#2E3A32}
+.brow8-icon svg{width:18px;height:18px}
+.brow8-main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.brow8-main b{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow8-sub{display:flex;gap:10px;font-size:12px;color:#5F6B63}
+.brow8-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px;width:120px}
+.brow8-side .bar8{width:100%;height:6px}
+.brow8-side .badge{font-size:12px;padding:4px 10px;line-height:16px;white-space:nowrap}
+.brow8.on .badge.st-done,.brow8.on .badge.st-run,.brow8.on .badge.st-wait{background:#FFFFFF;border:1px solid #DCE6DF}
+
+.map8 .card8-head .ct7-chip{margin-left:0}
+.back8{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 6px;margin-left:-6px;border:1px solid #E3EBE5;border-radius:10px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:700;color:#171717;cursor:pointer}
+.back8:hover{border-color:#BFD2C5}
+.stage.stage5.st8{display:block;min-height:0!important;padding:0 12px 12px}
+.st8 .world{display:block}
+.v8 .history-section{margin-top:8px}
+
+/* 숫자와 단위는 같은 크기, 같은 굵기 */
+.row8-n small{margin-left:0;font-size:inherit;font-weight:inherit;color:inherit}
+.now8-big{font-size:44px;font-weight:800;font-variant-numeric:tabular-nums}
+.brow8-side{width:auto}
+
+/* 지금 상황 카드: 위에는 큰 숫자, 아래는 상태 네 칸이 카드 폭을 채움 */
+.now8-main{justify-content:space-between;gap:20px}
+.now8-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.lg8{flex-direction:column;align-items:flex-start;gap:8px;padding:14px 16px;border-radius:12px}
+.lg8-name{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#4F5B53}
+.lg8 b{font-size:22px;line-height:1.2}
+.lg8 b small{font-size:inherit;font-weight:inherit}
+.lg8:disabled .lg8-name,.lg8:disabled b{color:#8A948D}
+
+/* 큰 숫자: 눌러도 밑줄 없음 */
+button.now8-big,button.now8-big:hover,button.now8-big.on{border-bottom:0}
+
+/* 위 네 칸은 읽기만 */
+.lg8{cursor:default}
+.lg8.zero .lg8-name,.lg8.zero b{color:#8A948D}
+/* 케이스 목록 위 상태 탭 */
+.list-tabs8{padding:0 0 12px}
+.list-tabs8 button{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;font-size:14px}
+.list-tabs8 button b{font-weight:700;font-variant-numeric:tabular-nums}
+.list-tabs8 button:disabled{cursor:default;color:#8A948D;background:none}
+
+/* 위 세 카드: 제목 크기와 시작 위치 통일 */
+.now8-main{padding:20px 20px 16px}
+.now8-col{padding:20px 20px 12px}
+
+/* 전체 회색 톤: 따뜻한 밝은 회색 */
+body:has(.v8){background:#FAFAF8}
+.v8 .ut6-head,.v8 .ut6-head:hover{background:#FAFAF8}
+.now8-main,.now8-col,.card8,.v8 .ut6{border-color:#ECECE8}
+.tabs8 button:hover{background:#F4F4F1}
+.row8:hover,.brow8:hover{background:#F7F7F4}
+
+/* 상태 아이콘: 모양으로도 구분 (확인 필요 검정 체크, 진행 중 초록 점, 대기 중 점선 원, 완료 회색 체크) */
+.lg8 i{width:16px;height:16px;border-radius:50%;box-sizing:border-box;background:none;box-shadow:none}
+.lg8.need i{background:#2E2E2E url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.6 8.3l2.2 2.2 4.6-4.9' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.lg8.run i{border:1.5px solid #719681;background:radial-gradient(circle,#719681 0 3.5px,#FFFFFF 4px)}
+.lg8.wait i{border:1.5px dashed #6F7A72;background:#FFFFFF}
+.lg8.done i{background:#E4E7E5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.6 8.3l2.2 2.2 4.6-4.9' fill='none' stroke='%236F7A72' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;box-shadow:none}
+
+/* 오늘 만든 것을 눌렀을 때: 문서 목록과 내려받기 */
+.dim8{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(23,23,23,.32)}
+.dlg8{display:flex;flex-direction:column;gap:12px;width:560px;max-height:70vh;padding:20px;border-radius:18px;background:#FFFFFF;box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.dlg8-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dlg8-head h2{font-size:18px}
+.dlg8-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;overflow:auto}
+.dlg8-list li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4px}
+.dlg8-list li+li{border-top:1px solid #ECECE8}
+.dlg8-doc{display:flex;flex-direction:column;gap:6px;min-width:0}
+.dlg8-doc b{font-size:14px;font-weight:700}
+.dlg8-doc span{font-size:12px;color:#5F6B63}
+.dl8{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid #DCDCD6;border-radius:10px;background:#FFFFFF;font:inherit;font-size:13px;font-weight:600;color:#171717;cursor:pointer;white-space:nowrap}
+.dl8:hover{border-color:#171717}
+
+/* 카드 뒤 바탕도 같은 따뜻한 회색: 흰 카드가 도드라지게 */
+.today-content.v8{background:#FAFAF8}
+
+/* 상태 네 칸: 상자 대신 흐린 세로 구분선 */
+.now8-legend{gap:0}
+.lg8{border:0;border-radius:0;background:none;padding:4px 20px}
+.lg8:first-child{padding-left:0}
+.lg8+.lg8{border-left:1px solid #ECECE8}
+
+/* 지금 상황 카드: 아래 여백 24px, 구분선 색 통일 */
+.now8-main{padding:20px 24px 24px}
+.now8-col{padding:20px 20px 16px}
+.now8-legend .lg8+.lg8{border-left:1px solid #ECECE8}
+.now8-main{padding:20px 24px 24px 30px}
+
+/* 카드 안 내용은 모두 왼쪽 30px에서 시작 */
+.now8-col{padding-left:30px;padding-right:24px}
+.now8-col .rows8 button.row8{margin-left:-8px;width:calc(100% + 8px)}
+.card8-head{padding-left:30px;padding-right:24px}
+.tabs8{padding-left:30px}
+.batch8{padding-left:18px;padding-right:18px}
+.v8 .history-heading,.list-tabs8{padding-left:0}
+.batch8{padding-left:16px}
+
+/* 지도 뒤로 가기: 테두리 없이 */
+.back8,.back8:hover{border:0;background:none;padding:6px 8px 6px 0;margin-left:-4px}
+.back8:hover{color:#3F5E4A}
+
+/* 확인 필요 아이콘: 뱃지와 같은 진한 초록 */
+.lg8.need i{background-color:#355B52}
+
+/* 확인 필요는 체크가 아니라 느낌표 (체크는 끝났다는 뜻이라서) */
+.lg8.need i{background:#355B52 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 4.2v4.6' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='11.6' r='1.1' fill='%23fff'/%3E%3C/svg%3E") center/16px no-repeat}
+.v8 .badge.st-flag::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1.4v4.4' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='5' cy='8.4' r='.95' fill='%23fff'/%3E%3C/svg%3E") center/10px no-repeat !important}
+.now8-big{font-size:36px;font-weight:700}
+
+/* 완료 뱃지: 회색 점 대신 체크 */
+.v8 .badge.st-done::before{width:10px !important;height:10px !important;border:0 !important;border-radius:0 !important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.8 5.3l2.2 2.2 4.2-4.6' fill='none' stroke='%236F7A72' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat !important}
+
+/* 들어온 자료의 뱃지: 아이콘을 글자 오른쪽에 둬서 세로로 정렬 */
+.brow8-side .badge{flex-direction:row-reverse}
+
+/* 확인할 곳: 이름과 설명은 같은 크기, 색만 다르게 */
+.row8-sub{font-size:14px}
+.now8-col .row8{gap:20px}
+
+/* 큰 숫자를 아래 네 칸 쪽으로 내림 */
+.now8-main{justify-content:flex-start;gap:16px}
+.now8-head{margin-top:auto}
+
+/* 큰 숫자: 제목과 네 칸 사이 가운데쯤 */
+.now8-head{margin-top:auto;margin-bottom:auto}
+.now8-main{gap:12px}
+
+/* 자리를 눌렀을 때 지도 위에 뜨는 건 목록 */
+.v8 .zpop{z-index:30;min-width:300px;padding:8px;border-radius:14px;border-color:#ECECE8;box-shadow:0 12px 32px rgba(30,40,34,.14);display:flex;flex-direction:column;gap:4px}
+.v8 .zpop-items{display:flex;flex-direction:column;gap:4px}
+.v8 .zpi{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:10px 12px;border:0;background:none;font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.v8 .zpi:hover{background:#F7F7F4}
+.v8 .zpt{gap:6px}
+.v8 .zps{font-size:12px;color:#5F6B63}
+.v8 .zpi .badge{font-size:12px;padding:4px 10px;line-height:16px;white-space:nowrap}
+.v8 .zpop::after,.v8 .zpop::before{display:none}
+
+/* 지도 제목 옆 살아 있다는 표시 */
+.live8{display:inline-flex;align-items:center;gap:6px;margin-left:12px;font-size:12px;font-weight:600;color:#3F5E4A;vertical-align:middle}
+.live8 i{position:relative;width:8px;height:8px;border-radius:50%;background:#719681}
+.live8 i::after{content:"";position:absolute;inset:0;border-radius:50%;background:#719681;animation:live8 1.8s ease-out infinite}
+@keyframes live8{0%{transform:scale(1);opacity:.6}100%{transform:scale(3);opacity:0}}
+@media (prefers-reduced-motion:reduce){.live8 i::after{animation:none;opacity:0}}
+
+/* 케이스 목록: 뱃지는 칸 오른쪽에 붙이고, 아이콘도 글자 오른쪽 */
+.v8 .ut6 .badge{flex-direction:row-reverse}
+.v8 .ut6-row>span:last-child{justify-self:end;text-align:right}
+
+/* 탭은 알약 모양 */
+.tabs8 button{border-radius:999px;padding-left:14px;padding-right:14px}
+.list-tabs8 button{padding-left:16px;padding-right:16px}
+
+.head8-right{display:inline-flex;align-items:center;gap:12px}
+.live8{margin-left:0}
+
+/* 지도 범례: 이름표의 점과 같은 색 */
+.live8{color:#355B52}
+.live8 i,.live8 i::after{background:#355B52}
+
+/* 길 끝의 고리: 건물과 애매하게 겹쳐서 숨김 */
+.v8 .v5v .vlinks5 .lk-end{display:none}
+
+/* 건물 안: 여기 있는 건을 바로 보여 주는 목록 (지도 왼쪽 위 빈 곳) */
+.st8 .world{position:relative}
+.here8{position:absolute;left:18px;top:8px;z-index:20;display:flex;flex-direction:column;gap:4px;width:340px;max-height:60%;overflow:auto;padding:8px;border:1px solid #ECECE8;border-radius:14px;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(30,40,34,.08)}
+.here8-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;font:inherit;text-align:left;color:#171717;cursor:pointer}
+.here8-row:hover{background:#F7F7F4}
+.here8-main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.here8-main b{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.here8-main span{font-size:12px;color:#5F6B63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.here8-row .badge{flex:0 0 auto;flex-direction:row-reverse;font-size:12px;padding:4px 10px;line-height:16px;white-space:nowrap}
+.here8 .empty8{margin:0;padding:10px 12px}
+
+/* 건물 안: 자리 위 말풍선에 그곳의 건을 바로 */
+.bub8{position:absolute;z-index:8;transform:translate(-50%,calc(-100% - 6px));display:flex;flex-direction:column;gap:2px;width:268px;padding:6px;border:1px solid #E3E6E2;border-radius:14px;background:#FFFFFF;box-shadow:0 8px 24px rgba(30,40,34,.1)}
+.bub8::after{content:"";position:absolute;left:50%;bottom:-7px;width:12px;height:12px;margin-left:-6px;background:#FFFFFF;border-right:1px solid #E3E6E2;border-bottom:1px solid #E3E6E2;transform:rotate(45deg);border-radius:0 0 3px 0}
+.bub8:hover{z-index:9}
+.bub8-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px 4px;border:0;background:none;font:inherit;font-size:12px;color:#5F6B63;cursor:default}
+.bub8-head b{font-weight:700;color:#171717;font-size:13px}
+.bub8-row{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:10px;background:none;font:inherit;text-align:left;color:#171717;cursor:pointer}
+.bub8-row:hover{background:#F7F7F4}
+.bub8-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.bub8-main b{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bub8-main span{font-size:12px;color:#5F6B63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bub8-row .badge{flex:0 0 auto;flex-direction:row-reverse;font-size:12px;padding:4px 10px;line-height:16px;white-space:nowrap}
+.bub8-more{padding:4px 10px 6px;font-size:12px;color:#5F6B63}
+
+.bub8.on{border-color:#355B52;box-shadow:0 0 0 1px #355B52,0 8px 24px rgba(30,40,34,.1)}
+
+/* 말풍선: 자리 잡기 로직이 좌표를 정하고, 화살표는 놓인 방향에 맞춰요 */
+.bub8{transform:none}
+.bub8::after{left:var(--ax,50%);bottom:-7px;top:auto;margin-left:-6px}
+.bub8.a-top::after{bottom:auto;top:-7px;transform:rotate(225deg)}
+.bub8.a-left::after{left:-7px;bottom:auto;top:50%;margin-left:0;margin-top:-6px;transform:rotate(135deg)}
+.bub8.a-right::after{left:auto;right:-7px;bottom:auto;top:50%;margin-left:0;margin-top:-6px;transform:rotate(-45deg)}
+
+/* 제목, 탭, 목록 사이 위아래 간격을 여유 있게 */
+.card8-head{padding-top:24px;padding-bottom:8px}
+.tabs8{padding-top:12px;padding-bottom:12px}
+.v8 .history-section{margin-top:20px}
+.v8 .history-heading{margin-bottom:12px}
+.list-tabs8{padding:4px 0 16px}
+
+/* 상태 네 칸: 글자를 한 단계 크게 */
+.lg8-name{font-size:14px}
+.lg8 b{font-size:26px}
+.lg8{gap:10px}
+
+/* 출처 탭에도 건수 */
+.tabs8 button{display:inline-flex;align-items:center;gap:6px}
+.tabs8 button b{font-weight:700;font-variant-numeric:tabular-nums}
+.lg8{gap:4px}
+.lg8{gap:12px}
+
+/* 출처 탭은 한 줄. 고른 탭에만 건수 */
+.in8 .tabs8{flex-wrap:nowrap;gap:2px}
+.in8 .tabs8 button{padding-left:12px;padding-right:12px;white-space:nowrap}
+
+/* 고르지 않은 탭도 아주 옅은 회색 칩 */
+.tabs8{gap:6px}
+.in8 .tabs8{gap:6px}
+.tabs8 button{background:#F5F5F2;color:#4F5B53}
+.tabs8 button:hover{background:#EDEDE9}
+.tabs8 button.on,.tabs8 button.on:hover{background:#2E2E2E;color:#FFFFFF}
+.list-tabs8 button{background:#EFEFEB}
+.list-tabs8 button:disabled{background:#F5F5F2;color:#8A948D}
+
+/* 들어온 자료 줄: 위아래 여유 */
+.brow8{padding-top:16px;padding-bottom:16px}
+.batch8{gap:6px}
+.brow8-main{gap:8px}
+
+/* 지도 바닥: 판은 테두리를 더 가늘고 옅게, 길은 가는 선 대신 넓고 옅은 띠 */
+.v8 .v5v .vground{fill:#FDFDFC;stroke:#E9EDEA;stroke-width:.6;stroke-linejoin:round}
+.v8 .v5v .vlinks5 .lk{stroke:#EEF2EF;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.v8 .v5v.picked .vlinks5 .lk{opacity:1}
+
+/* 뱃지: 13px, 위아래 6px */
+.v8 .badge,.brow8-side .badge,.v8 .ut6 .badge,.bub8-row .badge{font-size:13px;padding:6px 12px;line-height:16px}
+/* 길: 얇은 점선 */
+.v8 .v5v .vlinks5 .lk{stroke:#BFCFC4;stroke-width:.9;stroke-dasharray:1.5 4.5;stroke-linecap:round}
+
+/* 위 세 카드: 내용이 적은 날에도 같은 높이 */
+.now8-main,.now8-col{min-height:284px;box-sizing:border-box}
+.now8-main,.now8-col{min-height:251px}
+
+/* 묶음 안에 상태가 섞여 있으면 뱃지를 나란히 */
+.brow8-side{flex-direction:row;align-items:center;gap:6px}
+/* 확인 필요 아이콘: 원 안의 느낌표 (Reicon info-circle outline) */
+.v8 .badge.st-flag::before{width:16px !important;height:16px !important;background:url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' stroke='white'/%3E%3Cpath d='M12 8V13' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' stroke='white'/%3E%3Cpath d='M11.9944 16H12.0034' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' stroke='white'/%3E%3C/svg%3E") center/16px no-repeat !important}
+
+/* 여러 건이 묶인 자료: 펼침 */
+.chev8{flex:0 0 auto;color:#5F6B63;transition:transform .2s}
+.bgroup8.open .chev8{transform:rotate(180deg)}
+.bgroup8.open{border-radius:12px;background:#F7FAF8}
+.bgroup8.open .brow8.on{border-color:transparent;background:#EEF6F0}
+.bkids8{margin:0;padding:4px 12px 12px 64px;list-style:none;display:flex;flex-direction:column;gap:4px}
+.bkid8{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px;border:1px solid #E6ECE8;border-radius:10px;background:#FFFFFF;font:inherit;text-align:left;color:#171717;cursor:pointer}
+.bkid8:hover{border-color:#BFD2C5}
+.bkid8 .brow8-main b{font-size:14px;font-weight:600}
+.bkid8 .badge{flex:0 0 auto;flex-direction:row-reverse;white-space:nowrap}
+
+/* 들어온 자료의 뱃지 정리: 화살표 자리는 모든 줄에 비워 둬서 뱃지 오른쪽 끝을 맞추고,
+   확인 필요만 채운 알약, 나머지 상태는 배경 없는 글자 */
+.chev8.none{visibility:hidden}
+.brow8-side{gap:10px}
+.brow8-side .badge.st-done,.brow8-side .badge.st-wait,.brow8-side .badge.st-run,
+.brow8.on .brow8-side .badge.st-done,.brow8.on .brow8-side .badge.st-wait,.brow8.on .brow8-side .badge.st-run{background:none;border:0;padding-left:0;padding-right:0;color:#5F6B63;font-weight:500}
+
+/* 들어온 자료 줄 오른쪽: 건수와 펼침 화살표만 */
+.brow8-n{font-size:14px;font-weight:600;color:#171717;font-variant-numeric:tabular-nums}
+.need-dot.static::after{display:none}
+
+/* 건수 뱃지: 색으로 상태를 알려요 (확인 필요 진한 초록, 그 밖은 옅은 회색). 아이콘은 없음 */
+.brow8-side .badge.cnt8{min-width:44px;justify-content:center;padding:6px 12px;font-weight:600;font-variant-numeric:tabular-nums}
+.brow8-side .badge.cnt8::before{display:none !important}
+.brow8-side .badge.cnt8.st-done,.brow8-side .badge.cnt8.st-wait,.brow8-side .badge.cnt8.st-run,
+.brow8.on .brow8-side .badge.cnt8.st-done,.brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{background:#F1F1EE;border:0;color:#4F5B53;padding:6px 12px}

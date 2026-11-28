@@ -1,0 +1,842 @@
+/* 시안 5: 동그란 출처 버튼 · 마을 소품 · 장소 상세 패널 */
+
+/* 무대: 왼쪽은 좁은 아이콘 열, 장소를 고르면 오른쪽이 넓어져요 */
+.stage.stage5{grid-template-columns:128px minmax(0,1fr) 260px;transition:grid-template-columns .25s}
+.stage.stage5.zone-open{grid-template-columns:128px minmax(0,1fr) 440px}
+.stage5 .rlane{padding:20px 20px 20px 0!important;justify-content:flex-start}
+
+/* 왼쪽: 게임 버튼처럼 동그란 출처 + 알림 뱃지 */
+.dock5{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:22px 0 22px 18px}
+.dock5-group{display:flex;flex-direction:column;align-items:center;gap:28px}
+.dock5-group h3{margin-bottom:-6px!important}
+.dock5-group h3{margin:0;align-self:stretch;text-align:center;font-size:max(11px,var(--min-font-size,10px));font-weight:600;color:#8A8A8A;letter-spacing:.02em}
+.dock5-btn{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:0;border:0;background:none;font:inherit;color:#2E2E2E;cursor:pointer;transition:opacity .2s,transform .15s}
+.dock5-btn:hover{transform:translateY(-2px)}
+.dock5-btn:active{transform:translateY(1px)}
+.dock5-btn.muted{opacity:.35}
+.dock5-orb{position:relative;display:flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:50%;background:linear-gradient(180deg,#FFFFFF 0%,#F1F1F1 100%);border:1px solid #DADADA;box-shadow:0 3px 0 #D6D6D6,0 6px 14px rgba(0,0,0,.06);color:#2E2E2E;transition:box-shadow .2s,border-color .2s,background .2s}
+.dock5-orb svg{width:24px;height:24px}
+.dock5-btn:hover .dock5-orb{border-color:#BDBDBD}
+.dock5-btn.on .dock5-orb{background:linear-gradient(180deg,#3A3A3A 0%,#222 100%);border-color:#1A1A1A;box-shadow:0 3px 0 #000,0 6px 16px rgba(0,0,0,.18);color:#FFFFFF}
+.dock5-badge{position:absolute;top:-4px;right:-6px;min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:11px;background:#2E2E2E;color:#FFFFFF;border:2px solid #F8F8F8;font-size:12px;font-weight:700;line-height:18px;text-align:center;font-variant-numeric:tabular-nums}
+.dock5-badge.warn{background:#E5484D;animation:dock5-pop 2.4s ease-in-out infinite}
+@keyframes dock5-pop{0%,82%,100%{transform:scale(1)}88%{transform:scale(1.18)}94%{transform:scale(.96)}}
+@media (prefers-reduced-motion:reduce){.dock5-badge.warn{animation:none}}
+.dock5-name{margin-top:2px;font-size:max(12px,var(--min-font-size,10px));font-weight:600;line-height:1.25;text-align:center;word-break:keep-all}
+
+
+/* 오른쪽: 고른 장소의 건별 지금 하는 일 */
+.pp5{display:flex;flex-direction:column;gap:12px;height:100%;min-height:0;background:#FFFFFF;border:1px solid #E6E6E6;border-radius:16px;padding:16px;box-sizing:border-box;overflow:hidden}
+.pp5-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pp5-head h2{margin:2px 0 4px;font-size:max(20px,var(--min-font-size,10px));font-weight:700}
+.pp5-head p{margin:0;font-size:max(13px,var(--min-font-size,10px));color:#6F6F6F}
+.pp5-eyebrow{display:block;font-size:max(11px,var(--min-font-size,10px));font-weight:600;color:#8A8A8A}
+.pp5-list{display:flex;flex-direction:column;gap:8px;overflow:auto;min-height:0;padding-right:2px}
+.pp5-case{border:1px solid #ECECEC;border-radius:12px;background:#FBFBFB}
+.pp5-case.open{background:#FFFFFF;border-color:#CFCFCF}
+.pp5-case.passed{opacity:.72}
+.pp5-case-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.pp5-time{font-size:max(12px,var(--min-font-size,10px));font-weight:600;color:#6F6F6F}
+.pp5-title{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pp5-title b{font-size:max(14px,var(--min-font-size,10px));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pp5-title small{font-size:max(12px,var(--min-font-size,10px));color:#6F6F6F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pp5-body{display:flex;flex-direction:column;gap:12px;padding:0 12px 12px}
+.pp5-steps{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0;padding:0;list-style:none}
+.pp5-steps li{display:flex;align-items:center;gap:5px;font-size:max(11px,var(--min-font-size,10px));color:#9C9C9C}
+.pp5-steps li i{width:8px;height:8px;border-radius:50%;border:1.5px solid #CFCFCF;box-sizing:border-box}
+.pp5-steps li.s-d{color:#4F4F4F}.pp5-steps li.s-d i{background:#7FA58A;border-color:#7FA58A}
+.pp5-steps li.s-w i{background:#E5484D;border-color:#E5484D}.pp5-steps li.s-c i{background:#2E2E2E;border-color:#2E2E2E}
+.pp5-steps li.now{color:#171717;font-weight:700}
+.pp5-now{padding:12px;border-radius:10px;background:#F6F6F6}
+.pp5-now h3{margin:4px 0 4px;font-size:max(15px,var(--min-font-size,10px))}
+.pp5-now p{margin:0;font-size:max(13px,var(--min-font-size,10px));line-height:1.5;color:#3A3A3A}
+.pp5-items,.pp5-docs{display:flex;flex-direction:column;gap:6px}
+.pp5-item{display:flex;justify-content:space-between;gap:10px;font-size:max(13px,var(--min-font-size,10px))}
+.pp5-item span:last-child{color:#6F6F6F;white-space:nowrap}
+.pp5-more{font-size:max(12px,var(--min-font-size,10px));color:#8A8A8A}
+.pp5-doc{width:100%;padding:8px 10px;border:1px solid #E6E6E6;border-radius:8px;background:#FFFFFF;font:inherit;font-size:max(13px,var(--min-font-size,10px));text-align:left;cursor:pointer}
+.pp5-doc.on,.pp5-doc:hover{border-color:#9C9C9C}
+.pp5-doc-body{margin-top:6px;padding:10px;border-radius:8px;background:#F8F8F8;font-size:max(12px,var(--min-font-size,10px))}
+.pp5-doc-body p{margin:0 0 8px;white-space:pre-wrap;line-height:1.5}
+.pp5-doc-body table{width:100%;border-collapse:collapse}.pp5-doc-body th,.pp5-doc-body td{padding:4px 6px;border-bottom:1px solid #E6E6E6;text-align:left;white-space:nowrap}
+.pp5-open{align-self:flex-start;padding:8px 12px;border:0;border-radius:8px;background:#2E2E2E;color:#FFFFFF;font:inherit;font-size:max(13px,var(--min-font-size,10px));font-weight:600;cursor:pointer}
+
+
+
+/* 장소 패널 정리: 지나간 건을 흐리게 하지 않고 묶음 제목으로 나눔 */
+.pp5-case.passed{opacity:1}
+.pp5-group{margin:6px 2px 0;font-size:max(12px,var(--min-font-size,10px));font-weight:600;color:#6F6F6F}
+.pp5-group b{margin-left:4px;color:#171717}
+.pp5-group:first-child{margin-top:0}
+
+/* 출처 버튼: 어중간한 입체감 없이 평평하게 (흰 바탕 + 얇은 테두리 + 아주 옅은 그림자) */
+.dock5-orb{background:#FFFFFF;border:1px solid #DEDEDE;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.dock5-btn:hover{transform:none}.dock5-btn:active{transform:none}
+.dock5-btn:hover .dock5-orb{border-color:#9C9C9C}
+.dock5-btn.on .dock5-orb{background:#2E2E2E;border-color:#2E2E2E;box-shadow:none;color:#FFFFFF}
+
+/* ── 시안 5 마을: 작은 건축 모형 ─────────────────────────────
+   팔레트는 기존 그대로(밝은 바닥, 연한 민트, 회색 선). 광원은 왼쪽 위 하나라
+   윗면(ft) > 왼쪽 앞면(fy) > 둥근 면(fm) > 오른쪽 면(fx) 순으로 밝아요. */
+.v5v .vground{fill:#FCFCFC;stroke:#EDEDED;stroke-width:.8}
+
+/* 기본 덩어리 (오늘 일 없는 건물: 회색) */
+.v5v .vbox polygon{stroke:#CFCFCF;stroke-width:.7;stroke-linejoin:round}
+.v5v .vbox .ft{fill:#FFFFFF}.v5v .vbox .fy{fill:url(#v5fy)}.v5v .vbox .fx{fill:url(#v5fx)}.v5v .vbox .fm{fill:url(#v5fm)}
+.v5v .vhl{fill:none;stroke:#FFFFFF;stroke-width:1.4;stroke-linecap:round}
+.v5v .seam{stroke:#D6D6D6;stroke-width:.7}
+
+/* 오늘 일이 있는 건물: 같은 민트가 빛을 다르게 받은 면 */
+.v5v .vbld.on .vbox .ft{fill:#F3F9F4}.v5v .vbld.on .vbox .fy{fill:url(#v5fyon)}.v5v .vbld.on .vbox .fx{fill:url(#v5fxon)}.v5v .vbld.on .vbox .fm{fill:url(#v5fmon)}
+.v5v .vbld.on .vbox polygon,.v5v .vbld.on .seam{stroke:#A9C4B0}
+.v5v .vbld.cur .vbox .ft{fill:#E4F0E6}.v5v .vbld.cur .vbox .fy{fill:url(#v5fycur)}.v5v .vbld.cur .vbox .fx{fill:url(#v5fxcur)}.v5v .vbld.cur .vbox .fm{fill:url(#v5fmcur)}
+.v5v .vbld.cur .vbox polygon,.v5v .vbld.cur .seam{stroke:#83A58E}
+.v5v .vbld.off{opacity:.42}
+.v5v .vbld.minor{opacity:.55}.v5v .vbld.minor.on{opacity:.85}.v5v .vbld.minor.off{opacity:.3}
+
+/* 부재: 캐노피 · 기단 · 처마 · 기둥 · 왕관 · 슬래브 · 하역 턱은 두께가 보이게 조금 밝게 */
+.v5v .canopy .ft,.v5v .cornice .ft,.v5v .slab .ft,.v5v .crown .ft{fill:#FFFFFF}
+.v5v .vbld.on .canopy .fy,.v5v .vbld.on .cornice .fy,.v5v .vbld.on .slab .fy,.v5v .vbld.on .slab .fm{fill:#E9F2EB}
+.v5v .vbld.on .canopy .fx,.v5v .vbld.on .cornice .fx,.v5v .vbld.on .slab .fx{fill:#D7E7DB}
+.v5v .plinth .ft{fill:#FAFAFA}.v5v .vbld.on .plinth .ft{fill:#EEF5F0}
+.v5v .column .fy{fill:#FFFFFF}.v5v .vbld.on .column .fy{fill:#F1F8F2}
+.v5v .dock .ft{fill:#F7F7F7}.v5v .vbld.on .dock .ft{fill:#EAF2EC}
+
+/* 유리: 팔레트 안의 은은한 반사, 얇지만 보이는 창틀 */
+.v5v .vglass .gl{fill:url(#v5glass);stroke:none}
+.v5v .vbld.on .vglass .gl{fill:url(#v5glassOn)}
+.v5v .vglass.gside .gl,.v5v .vglass .gl.gside{fill-opacity:.82}
+.v5v .vglass .frame{fill:none;stroke:#B7C8BD;stroke-width:1.15;stroke-linejoin:round}
+.v5v .vglass polyline.frame{stroke-width:1}
+.v5v .vglass .mull{stroke:#B7C8BD;stroke-width:.9}
+.v5v .vglass .refl{stroke:#FFFFFF;stroke-width:1.6;stroke-linecap:round;stroke-opacity:.75}
+.v5v .glassbox .ft{fill:#EEF5F1}.v5v .glassbox .fy{fill:url(#v5glass)}.v5v .glassbox .fx{fill:url(#v5glass);fill-opacity:.85}
+.v5v .vbld.on .glassbox .fy,.v5v .vbld.on .glassbox .fx{fill:url(#v5glassOn)}
+
+/* 입구 깊이: 안쪽 바닥 · 안쪽 벽 · 옆벽, 입구 윗면 그늘 */
+.v5v .vrecess .rfloor{fill:#E4E4E4;stroke:none}
+.v5v .vrecess .rback{fill:#D9D9D9;stroke:none}
+.v5v .vrecess .rside{fill:#E9E9E9;stroke:none}
+.v5v .vrecess .rback.gside{fill:#D2D2D2}.v5v .vrecess .rside.gside{fill:#E2E2E2}
+.v5v .vrecess .rlip{fill:#CFCFCF;stroke:none;fill-opacity:.7}
+.v5v .vrecess .rframe{fill:none;stroke:#C4C4C4;stroke-width:1.1;stroke-linejoin:round}
+.v5v .vbld.on .vrecess .rfloor{fill:#D4E3D8}.v5v .vbld.on .vrecess .rback{fill:#BFD5C5}.v5v .vbld.on .vrecess .rside{fill:#CFE1D3}
+.v5v .vbld.on .vrecess .rback.gside{fill:#B5CEBC}.v5v .vbld.on .vrecess .rside.gside{fill:#C7DCCC}
+.v5v .vbld.on .vrecess .rframe{stroke:#98B6A1}
+
+/* 그림자: 처마 아래와 바닥 닿는 곳에만 짧고 부드럽게 */
+.v5v .eave{fill:#7E8A81;fill-opacity:.12;stroke:none}
+.v5v .vshadow{fill:#8E978F;fill-opacity:.16;filter:url(#v5soft)}
+.v5v .vao{fill:#7E877F;fill-opacity:.26;filter:url(#v5ao)}
+.v5v .court{fill:#E3ECE5;stroke:#CFDCD2;stroke-width:.6}
+.v5v .vbld.off .vshadow,.v5v .vbld.off .vao{fill-opacity:.06}
+
+/* 업무 연결선: 기단 접점에서 길을 따라. 고른 건물과 이어진 선만 강조색 */
+.v5v .vlink5 polyline{fill:none;stroke:#D7DDD9;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}
+.v5v .vlink5 ellipse{fill:#FFFFFF;stroke:#C9D2CC;stroke-width:.9}
+.v5v.picked .vlink5{opacity:.35}
+.v5v .vlink5.on{opacity:1}
+.v5v .vlink5.on polyline{stroke:#9DBAA5;stroke-width:1.8}
+.v5v .vlink5.on .flow{stroke:#719681;stroke-width:2.4;stroke-dasharray:18 82;animation:vflow 2.6s linear infinite}
+.v5v .vlink5.on ellipse{stroke:#719681;fill:#EEF5EF}
+@media (prefers-reduced-motion:reduce){.v5v .vlink5.on .flow{animation:none;stroke-dasharray:none}}
+
+/* 라벨과 건수 배지: 같은 안쪽 여백 · 같은 간격 */
+.village.v5v .vtag5{display:inline-flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;height:auto;min-height:34px;box-sizing:border-box;border-radius:10px;background:#FFFFFF;border:1px solid #E4E4E4;box-shadow:0 1px 2px rgba(0,0,0,.04);font-size:max(14px,var(--min-font-size,10px));font-weight:600;color:#2E2E2E;white-space:nowrap;transform:translate(-50%,-100%)}
+.village.v5v .vtag5:not(:has(.zc)){padding-right:12px}
+.village.v5v .vtag5 .zc{flex:0 0 auto;margin:0;padding:2px 7px;border-radius:6px;font-size:max(13px,var(--min-font-size,10px));line-height:18px;letter-spacing:0;white-space:nowrap;transform:none;width:auto;height:auto}
+.village.v5v .vtag5.on{background:#2E2E2E;border-color:#2E2E2E;color:#FFFFFF}
+
+/* 입구 안쪽: 일이 있는 건물은 같은 민트의 어두운 톤 (회색은 일 없는 건물에만) */
+.v5v .vbld.on .vrecess .rlip{fill:#B3CCBA}
+.v5v .vbld.cur .vrecess .rlip{fill:#9DBDA6}
+.v5v .vbld.cur .vrecess .rfloor{fill:#C4D9CA}.v5v .vbld.cur .vrecess .rback{fill:#A9C6B1}.v5v .vbld.cur .vrecess .rside{fill:#BDD4C3}
+
+/* 은행 박공: 삼각면 안쪽 띠 */
+.v5v .pediment .tymp{fill:none;stroke:#D2D2D2;stroke-width:.8}
+.v5v .vbld.on .pediment .tymp{stroke:#A9C4B0}
+.v5v .vbld.on .pediment .ft{fill:#F3F9F4}
+
+/* ── 현대 도시 재질 ── */
+.v5v .spandrel{fill:#E4ECE7;stroke:none}
+.v5v .vbld.on .spandrel{fill:#CFE1D4}
+.v5v .vbld.cur .spandrel{fill:#BCD4C3}
+.v5v .core .ft,.v5v .core .fy,.v5v .core .fx{fill:#E6E6E6}
+.v5v .vbld.on .core .fy{fill:#C9DDCE}.v5v .vbld.on .core .fx{fill:#BCD3C2}
+.v5v .fin .fy{fill:#FFFFFF}.v5v .fin .fx{fill:#EDEDED}
+.v5v .vbld.on .fin .fy{fill:#F4FAF5}.v5v .vbld.on .fin .fx{fill:#D9E8DC}
+.v5v .corr{stroke:#DCDCDC;stroke-width:.5}
+.v5v .vbld.on .corr{stroke:#C3D7C8}
+.v5v .skylight{fill:url(#v5glass);stroke:#B7C8BD;stroke-width:.7}
+.v5v .shutter{stroke:#BDBDBD;stroke-width:.7}
+.v5v .vbld.on .shutter{stroke:#9DB9A5}
+.v5v .sign{fill:#2E2E2E;stroke:none}
+.v5v .vbld.off .sign{fill:#BDBDBD}
+.v5v .signtxt{font-size:7.5px;font-weight:700;letter-spacing:.18em;fill:#FFFFFF;pointer-events:none}
+.v5v .awn{fill:#FFFFFF;stroke:#B7C8BD;stroke-width:.5}
+.v5v .awn.alt{fill:#CFE1D3}
+.v5v .vbld.off .awn.alt{fill:#E6E6E6}
+.v5v .awn-valance{fill:#BCD3C2;stroke:#A9C4B0;stroke-width:.5}
+.v5v .mast{stroke:#A9A9A9;stroke-width:1.1;stroke-linecap:round}
+.v5v .dish{fill:#FFFFFF;stroke:#A9A9A9;stroke-width:.9}
+.v5v .lawn{fill:#EDF4EE;stroke:#DCE8DE;stroke-width:.6}
+.v5v .vbld.off .lawn{fill:#F4F4F4;stroke:#EAEAEA}
+.v5v .fence{stroke:#C9D6CC;stroke-width:.8}
+.v5v .roof .ft{fill:#F7F7F7}.v5v .vbld.on .roof .ft{fill:#E7F0E9}
+
+/* 연결선: 합친 구간 한 줄, 고른 건물 경로만 강조 */
+.v5v .vlinks5 .lk{stroke:#D7DDD9;stroke-width:1.4;stroke-linecap:round}
+.v5v .vlinks5 .lk-end{fill:#FFFFFF;stroke:#C9D2CC;stroke-width:.9}
+.v5v.picked .vlinks5 .lk,.v5v.picked .vlinks5 .lk-end{opacity:.45}
+.v5v .lk-hot polyline{fill:none;stroke:#9DBAA5;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.v5v .lk-hot .flow{stroke:#719681;stroke-width:2.6;stroke-dasharray:18 82;animation:vflow 2.6s linear infinite}
+@media (prefers-reduced-motion:reduce){.v5v .lk-hot .flow{animation:none;stroke-dasharray:none}}
+.v5v .chimney .ft{fill:#F2F2F2}
+
+
+/* ── 회색 없애기: 일 없는 건물은 아주 옅은 초록, 그늘 · 선 · 부재는 진한 초록 ── */
+.v5v .vbox polygon{stroke:#C5D6CA}
+.v5v .vbox .ft{fill:#FAFCFA}
+.v5v .seam,.v5v .corr{stroke:#BCD1C2}
+.v5v .vrecess .rfloor{fill:#DCE8DF}.v5v .vrecess .rback{fill:#C9DBCE}.v5v .vrecess .rside{fill:#D6E4DA}
+.v5v .vrecess .rback.gside{fill:#C1D5C7}.v5v .vrecess .rside.gside{fill:#D0E0D4}
+.v5v .vrecess .rlip{fill:#BCD1C2}.v5v .vrecess .rframe{stroke:#A9C4B0}
+.v5v .eave{fill:#5F7F69}
+.v5v .vshadow{fill:#6F8C78}.v5v .vao{fill:#5F7F69}
+.v5v .sign{fill:#5E8A6C}
+.v5v .vbld.off .sign{fill:#A9C4B0}
+.v5v .shutter,.v5v .vbld.on .shutter{stroke:#8FB09A}
+.v5v .mast{stroke:#6E8F79}
+.v5v .dish{fill:#F4FAF5;stroke:#6E8F79}
+.v5v .fence{stroke:#A9C4B0}
+.v5v .vglass .frame,.v5v .vglass .mull{stroke:#A3BDAA}
+.v5v .core .ft,.v5v .core .fy,.v5v .core .fx{fill:#D6E4DA}
+.v5v .fin .fx{fill:#E3EDE6}
+.v5v .chimney .ft{fill:#EEF5F0}
+.v5v .vlinks5 .lk{stroke:#CFDDD3}.v5v .vlinks5 .lk-end{stroke:#B9CEC0}
+/* 창고 셔터 */
+.v5v .rolldoor{fill:#E4EEE7;stroke:#A9C4B0;stroke-width:.9}
+.v5v .vbld.on .rolldoor{fill:#D6E7DA;stroke:#8FB09A}
+.v5v .slat{stroke:#B3CBB9;stroke-width:.7}.v5v .vbld.on .slat{stroke:#9DBAA5}
+.v5v .doorhead{fill:#C9DBCE;stroke:none}.v5v .vbld.on .doorhead{fill:#B5CEBC}
+.v5v .gable .ft{fill:#F7FBF8}.v5v .vbld.on .gable .ft{fill:#EEF6F0}
+
+/* 흰 모서리 하이라이트 선은 뭉툭해서 없앰 (빛은 면 그라데이션으로만) */
+.v5v .vhl{display:none}
+.v5v .vglass .refl{stroke-width:.8;stroke-opacity:.45}
+.v5v .path{fill:#F7FBF8;stroke:#CFDDD3;stroke-width:.6}
+
+/* 창틀 · 멀리언을 고르게 얇게 (한 창만 두꺼워 보이지 않게) */
+.v5v .vglass .frame{stroke-width:.7}
+.v5v .vglass polyline.frame{stroke-width:.7}
+.v5v .vglass .mull{stroke-width:.55}
+.v5v .vrecess .rframe{stroke-width:.7}
+.v5v .rolldoor{stroke-width:.7}
+.v5v .canopy polygon{stroke-width:.6}
+
+/* 케이스 상세: 처리 단계 줄이 장면 위에 */
+.v5 .case-shell .case-steps{margin:4px 0 12px}
+.v5v .lk-hot.later polyline{stroke:#C9D9CE;stroke-dasharray:3 5}
+
+/* 흐린 건물: 반투명 대신 옅은 단색 실루엣 (아래 선이 비치거나 디테일이 겹쳐 보이지 않게) */
+.v5v .vbld.off,.v5v .vbld.minor.off,.v5v .vbld.minor{opacity:1}
+.v5v .vbld.off .vbox .ft{fill:#FBFCFB}
+.v5v .vbld.off .vbox .fy,.v5v .vbld.off .vbox .fm{fill:#F2F6F3}
+.v5v .vbld.off .vbox .fx{fill:#EAF0EC}
+.v5v .vbld.off .vbox polygon{stroke:#DEE8E1;stroke-width:.6}
+.v5v .vbld.off .vrecess,.v5v .vbld.off .vglass,.v5v .vbld.off .seam,.v5v .vbld.off .corr,.v5v .vbld.off .slat,.v5v .vbld.off .rolldoor,
+.v5v .vbld.off .doorhead,.v5v .vbld.off .awning,.v5v .vbld.off .eave,.v5v .vbld.off .tymp,.v5v .vbld.off .shutter,.v5v .vbld.off .fence,.v5v .vbld.off .path{display:none}
+.v5v .vbld.off .lawn{fill:#F6F9F7;stroke:none}
+.v5v .vbld.off .vshadow{fill-opacity:.05}.v5v .vbld.off .vao{fill-opacity:.08}
+
+/* 유리 위 흰 반사 사선 없앰 */
+.v5v .vglass .refl{display:none}
+.v5v .band{fill:none;stroke:#A9C4B0;stroke-width:1.2}
+.v5v .vbld.off .band{display:none}
+.v5v .silo-top{fill:#F7FBF8;stroke:#C5D6CA;stroke-width:.7}
+.v5v .vbld.on .silo-top{fill:#EEF6F0;stroke:#A9C4B0}
+
+/* 시각은 한 줄로 (15:28 이 두 줄로 나뉘지 않게) */
+.pp5-time{white-space:nowrap;flex-shrink:0;min-width:38px}
+.v5 .mono{white-space:nowrap}
+
+/* ── 장소 카드: 이름 > 금액 > 단계 > 문서 순의 위계 ── */
+.pp5-list{gap:10px}
+.pc5{border:1px solid #E8ECE9;border-radius:14px;background:#FFFFFF;transition:border-color .15s,box-shadow .15s}
+.pc5:hover{border-color:#CFDDD3}
+.pc5.open{border-color:#BFD2C5;box-shadow:0 2px 10px rgba(46,70,54,.06)}
+.pc5-head{display:flex;flex-direction:column;gap:6px;width:100%;padding:14px 16px;border:0;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.pc5-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.pc5-name{font-size:max(16px,var(--min-font-size,10px));font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc5-meta{color:#7A857D}
+.pc5-amount{font-size:max(14px,var(--min-font-size,10px));font-weight:600;color:#3F4A43;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc5-time{font-size:max(12px,var(--min-font-size,10px));color:#9AA49D;white-space:nowrap}
+.pc5-body{display:flex;flex-direction:column;gap:14px;padding:2px 16px 14px}
+/* 단계: 선으로 이어진 점, 지금 단계만 진하게 */
+.pc5-track{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));margin:0;padding:0;list-style:none}
+.pc5-track li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:max(12px,var(--min-font-size,10px));color:#9AA49D;text-align:center}
+.pc5-track li::before{content:"";position:absolute;top:5px;left:-50%;width:100%;height:2px;background:#DCE6DF}
+.pc5-track li:first-child::before{display:none}
+.pc5-track li.s-d::before,.pc5-track li.now::before{background:#9DBAA5}
+.pc5-track li i{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:#FFFFFF;border:2px solid #CFDDD3;box-sizing:border-box}
+.pc5-track li.s-d i{background:#9DBAA5;border-color:#9DBAA5}
+.pc5-track li.s-w i{background:#E5484D;border-color:#E5484D}
+.pc5-track li.s-c i{background:#2E2E2E;border-color:#2E2E2E}
+.pc5-track li.now{color:#171717;font-weight:700}
+.pc5-track li.now i{box-shadow:0 0 0 4px rgba(113,150,129,.18)}
+.pc5-track li span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+/* 하단: 연결 문서는 작은 링크, 자세히는 가벼운 텍스트 버튼 */
+.pc5-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid #EEF2EF}
+.pc5-doc{display:inline-flex;align-items:center;gap:6px;min-width:0;padding:0;border:0;background:none;font:inherit;font-size:max(13px,var(--min-font-size,10px));color:#5E7A67;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc5-doc:hover,.pc5-doc.on{color:#2E4A37;text-decoration:underline;text-underline-offset:3px}
+.pc5-more{flex-shrink:0;padding:6px 10px;border:0;border-radius:8px;background:none;font:inherit;font-size:max(13px,var(--min-font-size,10px));font-weight:600;color:#2E2E2E;cursor:pointer}
+.pc5-more:hover{background:#F1F5F2}
+.pc5-more::after{content:" →"}
+/* 이 건물에서 일어난 단계: 카드 머리 셋째 줄 */
+.pc5-here{align-self:flex-start;margin-top:2px;padding:3px 8px;border-radius:6px;background:#EEF5F0;font-size:max(12px,var(--min-font-size,10px));font-weight:600;color:#3F5E4A}
+
+/* 세로 간격: 최소 4px, 보통 6~12px (붙어야 하는 것도 2px 이상) */
+.pc5-head{gap:8px;padding:16px 16px 14px}
+.pc5-here{margin-top:4px}
+.pc5-body{gap:16px;padding:4px 16px 16px}
+.pc5-track li{gap:8px}
+.pc5-foot{padding-top:12px}
+.pp5{gap:16px}
+.pp5-list{gap:12px}
+.pp5-doc-body{margin-top:8px;padding:12px}
+.pp5-doc-body p{margin:0 0 10px;line-height:1.6}
+.pp5-doc-body th,.pp5-doc-body td{padding:6px 8px}
+.dock5-btn{gap:8px}
+.dock5-name{margin-top:0}
+/* 단계 표시를 뺀 뒤 펼친 영역: 문서 줄만 */
+.pc5-body{gap:12px;padding:0 16px 14px}
+.pc5-badge{flex-shrink:0;white-space:nowrap}
+
+/* 장소 카드: 접지 않고 다 보여 줌. 카드 전체를 누르면 케이스로 */
+.pc5{display:flex;flex-direction:column;gap:8px;padding:16px;cursor:pointer}
+.pc5:hover{border-color:#BFD2C5;box-shadow:0 2px 10px rgba(46,70,54,.06)}
+.pc5:focus-visible{outline:2px solid #719681;outline-offset:2px}
+.pc5-docrow{margin-top:4px;padding-top:10px;border-top:1px solid #EEF2EF}
+.pc5-go{flex-shrink:0;font-size:max(14px,var(--min-font-size,10px));color:#9AA49D;transition:transform .15s,color .15s}
+.pc5:hover .pc5-go{color:#2E2E2E;transform:translateX(2px)}
+
+/* 흐름: 점선 조각 대신 부드러운 빛 덩어리 (꼬리 → 중간 → 머리, 머리 끝을 맞춰 함께 이동) */
+.v5v .lk-hot .flow{display:none}
+.v5v .current polyline{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:calc(100 + var(--o));animation:v5current 3.4s cubic-bezier(.45,0,.55,1) infinite}
+.v5v .current .c-tail{--o:0;stroke:#B9D3C1;stroke-width:5;stroke-opacity:.35;stroke-dasharray:30 70;filter:url(#v5glow)}
+.v5v .current .c-mid{--o:-12;stroke:#8DB39A;stroke-width:3.4;stroke-opacity:.6;stroke-dasharray:18 82;filter:url(#v5glow)}
+.v5v .current .c-head{--o:-24;stroke:#5E8A6C;stroke-width:2.4;stroke-opacity:.9;stroke-dasharray:6 94}
+@keyframes v5current{from{stroke-dashoffset:calc(100 + var(--o))}to{stroke-dashoffset:var(--o)}}
+@media (prefers-reduced-motion:reduce){.v5v .current{display:none}}
+
+/* 상단 상태 탭 키우기 */
+.v5 .overview-tabs{padding:10px;gap:8px}
+.v5 .overview-tabs button{padding:16px 26px;font-size:max(17px,var(--min-font-size,10px));gap:10px}
+.v5 .overview-tabs button b{font-size:max(17px,var(--min-font-size,10px))}
+.v5 .overview-tabs .badge{width:11px;height:11px;min-width:11px}
+/* 왼쪽 출처 버튼 키우기 */
+.stage.stage5{grid-template-columns:150px minmax(0,1fr) 260px}
+.stage.stage5.zone-open{grid-template-columns:150px minmax(0,1fr) 440px}
+.dock5-orb{width:76px;height:76px}
+.dock5-orb svg{width:30px;height:30px}
+.dock5-badge{min-width:26px;height:26px;border-radius:13px;font-size:14px;line-height:22px;top:-4px;right:-6px}
+.dock5-name{font-size:max(15px,var(--min-font-size,10px))}
+.dock5-group{gap:32px}
+/* '생성된 결과' 제목 빼기 */
+.v5 .rlane .rh{display:none}
+
+/* ══ 시안 5 재구성: 요약 줄 · 처리 단위 목록 · 케이스 상세 (폰트 10 / 12 / 13~14) ══ */
+.v5 .overview-shell{display:flex;flex-direction:column;gap:12px}
+.stage.stage5{grid-template-columns:120px minmax(0,1fr) 400px}
+.stage.stage5.zone-open{grid-template-columns:120px minmax(0,1fr) 400px}
+.stage5 .rlane{padding:16px 16px 16px 0!important;overflow:hidden}
+
+/* 요약 줄 */
+.sb5{display:grid;grid-template-columns:1fr 2fr 1fr 1fr 1fr;gap:8px;padding:8px;background:#FFFFFF;border:1px solid #E8ECE9;border-radius:16px}
+.sb5-cell{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:12px 16px;border:0;border-radius:10px;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.sb5-cell:hover{background:#F5F8F6}
+.sb5-cell.on{background:#EEF5F0;box-shadow:inset 0 0 0 1px #BFD2C5}
+.sb5-label{font-size:12px;font-weight:600;color:#7A857D}
+.sb5-value{font-size:14px;font-weight:700}
+.sb5-work{cursor:default}.sb5-work:hover{background:none}
+.sb5-work-line{font-size:13px;font-weight:600;color:#2E3A32;line-height:1.5}
+.sb5-cell.need.has{background:#FDF1F1}.sb5-cell.need.has .sb5-value{color:#C8373C}.sb5-cell.need.has .sb5-label{color:#C8373C}
+.sb5-cell.need.has.on{box-shadow:inset 0 0 0 1px #E5A3A5}
+
+/* 출처 버튼 글자 */
+.dock5-orb{width:64px;height:64px}.dock5-orb svg{width:26px;height:26px}
+.dock5-name{font-size:13px}
+.dock5-badge{font-size:10px;min-width:22px;height:22px;line-height:18px;border-radius:11px}
+
+/* 오늘 들어온 자료 */
+.uf5{display:flex;flex-direction:column;gap:12px;height:100%;min-height:0}
+.uf5-title{margin:0;font-size:13px;font-weight:700;color:#2E3A32}
+.uf5-title b{margin-left:6px;color:#7A857D}
+.uf5-list{display:flex;flex-direction:column;gap:8px;overflow:auto;min-height:0;max-height:640px;padding-right:2px}
+.uf5-card{border:1px solid #E8ECE9;border-radius:12px;background:#FFFFFF}
+.uf5-card:hover{border-color:#BFD2C5}
+.uf5-head{display:flex;flex-direction:column;align-items:stretch;gap:6px;width:100%;padding:12px 14px;border:0;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.uf5-top{display:flex;align-items:center;gap:8px}
+.uf5-src{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:#EEF5F0;color:#3F5E4A}
+.uf5-src svg{width:14px;height:14px}
+.uf5-time{font-size:12px;color:#7A857D}
+.uf5-badge{margin-left:auto}
+.uf5-name{font-size:14px;font-weight:700;line-height:1.35}
+.uf5-sub{font-size:12px;color:#7A857D;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uf5-result{font-size:12px;font-weight:600;color:#3F5E4A}
+.uf5-progress{position:relative;display:flex;align-items:center;gap:8px;height:16px}
+.uf5-progress::before{content:"";flex:1;height:4px;border-radius:2px;background:#E8EEEA}
+.uf5-progress i{position:absolute;left:0;top:6px;height:4px;border-radius:2px;background:#7FA58E;max-width:calc(100% - 44px)}
+.uf5-progress em{font-style:normal;font-size:10px;font-weight:700;color:#7A857D}
+.uf5-items{margin:0;padding:0 10px 10px;list-style:none;display:flex;flex-direction:column;gap:4px}
+.uf5-items button{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;width:100%;padding:8px 8px;border:0;border-radius:8px;background:#F7FAF8;font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.uf5-items button:hover{background:#EEF5F0}
+.uf5-item-sub{font-size:12px;color:#7A857D;white-space:nowrap}
+
+/* 장소 패널 글자 */
+.pp5-head h2{font-size:16px}
+.pc5-name{font-size:14px}.pc5-amount{font-size:13px}.pc5-time{font-size:12px}.pc5-doc{font-size:12px}
+.village.v5v .vtag5{font-size:13px;min-height:30px;padding:5px 7px 5px 10px}
+.village.v5v .vtag5 .zc{font-size:12px}
+
+/* ── 케이스 상세 ── */
+.cf5{display:flex;flex-direction:column;gap:16px;padding:20px;background:#F8F8F8;border:1px solid #E6E6E6;border-radius:18px}
+.cf5-top{display:flex;align-items:center;gap:14px}
+.cf5-title{display:flex;flex-direction:column;gap:4px;min-width:0}
+.cf5-title h2{margin:0;font-size:18px;font-weight:700}
+.cf5-meta{display:flex;gap:10px;font-size:12px;color:#7A857D}
+.cf5-sub{font-size:13px;color:#4F5B53}
+.cf5-badge{margin-left:auto}
+.cf5-grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;align-items:start}
+.cf5-steps{margin:0;padding:16px 20px;list-style:none;background:#FFFFFF;border:1px solid #E8ECE9;border-radius:14px}
+.cf5-step{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px}
+.cf5-rail{position:relative;display:flex;justify-content:center}
+.cf5-rail::after{content:"";position:absolute;top:18px;bottom:-4px;width:2px;background:#E3EBE5}
+.cf5-step:last-child .cf5-rail::after{display:none}
+.cf5-rail i{position:relative;z-index:1;margin-top:4px;width:12px;height:12px;border-radius:50%;border:2px solid #CFDDD3;background:#FFFFFF;box-sizing:border-box}
+.cf5-step.s-d .cf5-rail i{background:#7FA58E;border-color:#7FA58E}
+.cf5-step.s-w .cf5-rail i{background:#E5484D;border-color:#E5484D}
+.cf5-step.s-c .cf5-rail i{background:#2E2E2E;border-color:#2E2E2E}
+.cf5-step-body{display:flex;flex-direction:column;gap:8px;padding-bottom:20px;min-width:0}
+.cf5-step:last-child .cf5-step-body{padding-bottom:4px}
+.cf5-step-head{display:flex;align-items:center;gap:8px}
+.cf5-step-head b{font-size:14px}
+.cf5-time{margin-left:auto;font-size:12px;color:#9AA49D}
+.cf5-summary{margin:0;font-size:13px;color:#4F5B53;line-height:1.5}
+.cf5-doc{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:10px;background:#F7FAF8;border:1px solid #EEF2EF}
+.cf5-doc-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cf5-doc-title{font-size:12px;font-weight:700;color:#3F5E4A}
+.cf5-body{margin:0;font-size:12px;line-height:1.6;color:#3F4A43;white-space:pre-wrap}
+.cf5-table{width:100%;border-collapse:collapse;font-size:12px}
+.cf5-table th{padding:6px 8px;text-align:left;font-weight:600;color:#7A857D;border-bottom:1px solid #E3EBE5}
+.cf5-table td{padding:6px 8px;border-bottom:1px solid #EEF2EF;white-space:nowrap}
+.cf5-table td:not(:first-child),.cf5-table th:not(:first-child){text-align:right}
+.cf5-link{padding:0;border:0;background:none;font:inherit;font-size:12px;font-weight:600;color:#5E7A67;cursor:pointer;text-decoration:none}
+.cf5-link:hover{text-decoration:underline;text-underline-offset:3px}
+.cf5-todo{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:10px;background:#FDF1F1}
+.cf5-todo-who{font-size:12px;font-weight:600;color:#C8373C}
+.cf5-todo-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
+.cf5-ox{display:flex;gap:6px;flex-shrink:0}
+.cf5-ox button{padding:6px 12px;border-radius:8px;border:1px solid #D9E2DC;background:#FFFFFF;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.cf5-ox .o{background:#2E2E2E;border-color:#2E2E2E;color:#FFFFFF}
+.cf5-todo-done{font-size:13px;font-weight:700;color:#3F5E4A}
+.cf5-side{display:flex;flex-direction:column;gap:12px}
+.cf5-card{display:flex;flex-direction:column;gap:10px;padding:14px 16px;background:#FFFFFF;border:1px solid #E8ECE9;border-radius:14px}
+.cf5-card h3{margin:0;font-size:12px;font-weight:700;color:#7A857D}
+.cf5-map{margin:-4px -8px -8px}
+.cf5-map .vtag5{transform:translate(-50%,-100%) scale(.85)}
+.cf5-result-line{margin:0;font-size:13px;font-weight:600;color:#2E3A32}
+.cf5-outputs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.cf5-outputs li{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#7A857D}
+.cf5 .overview-back{position:static;transform:none;flex-shrink:0}
+
+/* ── 6번 요약: 숫자 타일(필터)과 한 단계 낮은 처리 업무 줄 ── */
+.sb5{display:none}
+.sb6{display:flex;flex-direction:column;gap:12px}
+.sb6-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.sb6-tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:18px 20px;border:1px solid #E8ECE9;border-radius:14px;background:#FFFFFF;font:inherit;text-align:left;cursor:pointer;color:#171717;transition:border-color .15s,box-shadow .15s,background .15s}
+.sb6-tile:hover{border-color:#BFD2C5;box-shadow:0 2px 10px rgba(46,70,54,.06)}
+.sb6-tile.on{border-color:#719681;box-shadow:inset 0 0 0 1px #719681;background:#F4F9F5}
+.sb6-label{font-size:13px;font-weight:600;color:#5F6B63}
+.sb6-num{font-size:32px;font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.sb6-num small{margin-left:4px;font-size:14px;font-weight:600;color:#7A857D}
+.sb6-tile.need.has{background:#FDF1F1;border-color:#F2C9CA}
+.sb6-tile.need.has .sb6-label,.sb6-tile.need.has .sb6-num{color:#C8373C}
+.sb6-tile.need.has.on{box-shadow:inset 0 0 0 1px #C8373C}
+.sb6-work{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:0 4px}
+.sb6-work-label{font-size:12px;font-weight:600;color:#7A857D;margin-right:4px}
+.sb6-chip{padding:4px 10px;border-radius:999px;background:#EEF5F0;font-size:13px;font-weight:600;color:#3F5E4A}
+.sb6-none{font-size:13px;color:#9AA49D}
+/* 요약 카드 위아래 여백 20px (제목과, 아래 지도 영역과) */
+.v5 .sb6{margin:20px 0 8px}
+.v5 .sb6-work{padding:4px 4px 0}
+
+/* 요약 타일: 참고 이미지 느낌 (테두리 없는 흰 카드, 라벨 앞 상태 표시, 큰 숫자 + 같은 굵기의 작은 단위) */
+.sb6-tiles{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.sb6-tile{gap:14px;padding:22px 26px;border:1px solid transparent;border-radius:20px;background:#FFFFFF;box-shadow:none}
+.sb6-tile:hover{border-color:#E3EBE5;box-shadow:none}
+.sb6-tile.on{background:#EEF6F0;border-color:#BFD8C6;box-shadow:none}
+.sb6-label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#6F7A72}
+.sb6-mark{width:10px;height:10px;border-radius:50%;box-sizing:border-box}
+.sb6-mark.wait{border:1.5px dashed #6F7A72}
+.sb6-mark.mid{background:#9DBAA5}
+.sb6-mark.done{background:#CFCFCF}
+.sb6-mark.need{background:#FFFFFF}
+.sb6-num{font-size:40px;font-weight:800;line-height:1}
+.sb6-num small{margin-left:6px;font-size:18px;font-weight:800;color:#171717}
+/* 확인 필요: 진한 타일 */
+.sb6-tile.need{background:#2E2E2E}
+.sb6-tile.need .sb6-label{color:#D9D9D9}
+.sb6-tile.need .sb6-num,.sb6-tile.need .sb6-num small{color:#FFFFFF}
+.sb6-tile.need:hover{border-color:#2E2E2E}
+.sb6-tile.need.on{background:#171717;border-color:#719681}
+.sb6-tile.need.has{background:#C8373C}
+.sb6-tile.need.has .sb6-label,.sb6-tile.need.has .sb6-num,.sb6-tile.need.has .sb6-num small{color:#FFFFFF}
+
+/* 상태 뱃지: 목록 · 패널 · 상세 안에서는 12px로 (혼자 커 보이지 않게) */
+.v5 .uf5 .badge,.v5 .pp5 .badge,.v5 .cf5 .badge{font-size:12px;padding:4px 10px;line-height:16px;gap:6px}
+/* 요약 타일 좌우 여백 (바깥 카드 테두리에 붙지 않게) */
+.v5 .sb6{margin:20px 20px 8px}
+.uf5-headline{display:flex;flex-direction:column;gap:4px}
+.uf5-total{font-size:12px;color:#5E7A67}
+.v5 .sb6{margin:20px 20px 0}
+
+/* 처리 이력 (6번 전용): 고정 글자 크기, 줄바꿈 없는 표 */
+.v5 .history-heading h2{font-size:16px}
+.ut6{display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E8ECE9;border-radius:14px;overflow:hidden}
+.ut6-row{display:grid;grid-template-columns:72px 140px minmax(180px,1.4fr) minmax(160px,1.4fr) minmax(140px,1fr) 110px;align-items:center;gap:12px;width:100%;min-height:52px;padding:10px 20px;border:0;border-top:1px solid #EEF2EF;background:none;font:inherit;font-size:13px;text-align:left;color:#171717;cursor:pointer;box-sizing:border-box}
+.ut6-row:hover{background:#F7FAF8}
+.ut6-head{min-height:40px;border-top:0;background:#FAFBFA;font-size:12px;font-weight:600;color:#7A857D;cursor:default}
+.ut6-head:hover{background:#FAFBFA}
+.ut6-time{font-size:12px;color:#5F6B63}
+.ut6-src{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#5F6B63;white-space:nowrap}
+.ut6-src svg{width:14px;height:14px;color:#3F5E4A}
+.ut6-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ut6-sub{font-size:12px;color:#7A857D;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ut6-result{font-size:12px;font-weight:600;color:#3F5E4A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ut6 .badge{font-size:12px;padding:4px 10px;line-height:16px}
+.ut6-child{background:#FAFCFB;min-height:44px}
+.ut6-child .ut6-name{font-size:13px;font-weight:500}
+/* 강조선: 기본선과 비슷한 두께로 깔끔하게 */
+.v5v .lk-hot polyline{stroke-width:1.6}
+.v5v .current .c-tail{stroke-width:4}.v5v .current .c-mid{stroke-width:2.6}.v5v .current .c-head{stroke-width:1.8}
+/* 흐름: 딱딱한 머리 조각 없이 번지는 빛만 */
+.v5v .current .c-head{display:none}
+.v5v .current .c-tail{stroke:#A9CBB4;stroke-width:6;stroke-opacity:.3;stroke-dasharray:26 74;--o:0}
+.v5v .current .c-mid{stroke:#7FB092;stroke-width:3;stroke-opacity:.55;stroke-dasharray:12 88;--o:-7;filter:url(#v5glow)}
+
+/* 섹션 제목 레벨: 14~20px */
+.uf5-title{font-size:18px}
+.uf5-title b{font-size:18px}
+.uf5-total{font-size:14px}
+.uf5-headline{gap:6px}
+.v5 .history-heading h2{font-size:18px}
+.pp5-head h2{font-size:18px}
+.cf5-card h3{font-size:14px;color:#2E3A32}
+
+/* 색 깔린 줄 위의 뱃지는 흰 바탕 + 테두리 (회색 위 회색 금지), 줄 여백 넉넉히 */
+.uf5-items{gap:8px;padding:4px 12px 14px}
+.uf5-items button{padding:12px 14px;gap:12px;border-radius:10px;background:#F3F7F4}
+.uf5-items button:hover{background:#E9F1EC}
+.v5 .uf5-items .badge.st-done,.v5 .uf5-items .badge.st-run,.v5 .uf5-items .badge.st-wait,
+.v5 .ut6-child .badge.st-done,.v5 .ut6-child .badge.st-run,.v5 .ut6-child .badge.st-wait{background:#FFFFFF;border:1px solid #DCE6DF;color:#171717}
+.ut6-child{min-height:52px;background:#F3F7F4}
+.ut6-child:hover{background:#E9F1EC}
+/* 출처를 골랐을 때: 제목 옆 전체 보기 */
+.uf5-headline{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+.uf5-clear{flex-shrink:0;padding:6px 12px;border:1px solid #DCE6DF;border-radius:8px;background:#FFFFFF;font:inherit;font-size:13px;font-weight:600;color:#2E3A32;cursor:pointer}
+.uf5-clear:hover{background:#F3F7F4}
+
+/* 출처 버튼: 위에서부터 쌓기 (오른쪽 목록 윗선과 맞춤) */
+.v5 .dock5{justify-content:flex-start;padding:16px 0 16px 18px;gap:28px}
+.v5 .dock5-group{gap:28px}
+
+/* ── 게임 UI식 플라이아웃: 출처 아이콘 옆으로 튀어나오는 패널 ── */
+.dock6-slot{position:relative;display:flex;justify-content:center;width:100%}
+.fly6{position:absolute;left:calc(50% + 48px);top:-8px;z-index:20;width:340px;padding:16px;background:#FFFFFF;border:1px solid #DCE6DF;border-radius:18px;box-shadow:0 12px 32px rgba(30,50,38,.14),0 2px 6px rgba(30,50,38,.06);transform-origin:-24px 40px;animation:fly6-pop .28s cubic-bezier(.2,1.4,.4,1) both}
+.fly6::before{content:"";position:absolute;left:-8px;top:34px;width:14px;height:14px;background:#FFFFFF;border-left:1px solid #DCE6DF;border-bottom:1px solid #DCE6DF;transform:rotate(45deg);border-radius:0 0 0 3px}
+@keyframes fly6-pop{from{opacity:0;transform:scale(.5) translateX(-12px)}to{opacity:1;transform:scale(1) translateX(0)}}
+@media (prefers-reduced-motion:reduce){.fly6{animation:none}}
+.fly6-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.fly6-head h3{margin:0;font-size:18px;font-weight:700}
+.fly6-head h3 b{margin-left:8px;font-size:14px;font-weight:600;color:#7A857D}
+.fly6-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto}
+.fly6-list li{display:flex;flex-direction:column;gap:8px;border:1px solid #E8ECE9;border-radius:12px;background:#FFFFFF}
+.fly6-list li.on{border-color:#719681;background:#F4F9F5}
+.fly6-row{display:flex;flex-direction:column;gap:8px;width:100%;padding:12px 14px;border:0;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.fly6-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fly6-top b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fly6-sub{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#7A857D}
+.fly6-open{align-self:flex-start;margin:0 14px 12px;padding:6px 12px;border:0;border-radius:8px;background:#2E2E2E;color:#FFFFFF;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.v5 .fly6 .badge{font-size:12px;padding:4px 10px;line-height:16px}
+.v5 .fly6 li.on .badge.st-done,.v5 .fly6 li.on .badge.st-run,.v5 .fly6 li.on .badge.st-wait{background:#FFFFFF;border:1px solid #DCE6DF}
+.stage.stage5{overflow:visible}
+
+/* ── 오른쪽: 만든 것 ── */
+.stage.stage5,.stage.stage5.zone-open{grid-template-columns:120px minmax(0,1fr) 340px}
+.stage.stage5.zone-open{grid-template-columns:120px minmax(0,1fr) 400px}
+.made6{display:flex;flex-direction:column;gap:12px}
+.made6-list{display:flex;flex-direction:column;gap:8px}
+.made6-card{border:1px solid #E8ECE9;border-radius:12px;background:#FFFFFF}
+.made6-card:hover,.made6-card.open{border-color:#BFD2C5}
+.made6-head{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border:0;background:none;font:inherit;text-align:left;cursor:pointer;color:#171717}
+.made6-head b{font-size:14px}
+.made6-n{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.made6-n small{margin-left:2px;font-size:12px;font-weight:600;color:#7A857D}
+.made6-rows{margin:0;padding:0 10px 10px;list-style:none;display:flex;flex-direction:column;gap:6px}
+.made6-rows button{display:flex;justify-content:space-between;gap:10px;width:100%;padding:10px 12px;border:0;border-radius:8px;background:#F3F7F4;font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.made6-rows button:hover{background:#E9F1EC}
+.made6-sub{font-size:12px;color:#7A857D;white-space:nowrap}
+/* 출처 뱃지 숫자 12px */
+.v5 .dock5-badge{min-width:24px;height:24px;border-radius:12px;font-size:12px;line-height:20px;top:-5px;right:-7px}
+/* 뱃지를 원 가장자리에 걸치게 조금 아래 안쪽으로 */
+.v5 .dock5-badge{top:1px;right:-3px}
+.made6-n small{font-size:13px;margin-left:3px;color:#5F6B63}
+/* 한 방향 그림자 제거 (연결선 위에 얼룩처럼 덮여서). 바닥 닿는 자리의 옅은 그림자만 */
+.v5v .vshadow{display:none}
+.v5v .vao{fill-opacity:.16}
+/* 흐름: 번짐 없이 선 굵기 안에서만 밝은 빛이 지나감 */
+.v5v .current .c-tail{display:none}
+.v5v .current .c-mid{--o:0;stroke:#EAF6EE;stroke-width:1.6;stroke-opacity:.95;stroke-dasharray:16 84;filter:none}
+/* 왼쪽 첫 아이콘과 오른쪽 첫 카드의 윗선을 같은 높이(20px)로 */
+.v5 .dock5{padding-top:20px}
+.stage5 .rlane{padding-top:20px!important}
+
+/* 요약 숫자 굵기 완화 */
+.sb6-num{font-weight:700}
+.sb6-num small{font-weight:600;color:#7A857D}
+.sb6-tile.need .sb6-num small{color:#D9D9D9}
+
+/* 출처: 항상 다 보이고, 오늘 들어온 곳만 뱃지. 없는 곳은 옅게 */
+.v5 .dock5,.v5 .dock5-group{gap:20px}
+
+/* ── 약속(보라)과 사건(초록) 구분 ── */
+.vkind{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#7FA58E}
+.vkind.promise{background:#8B7FD1}
+.vkind.mix{background:linear-gradient(90deg,#8B7FD1 50%,#7FA58E 50%)}
+.village.v5v .vtag5.on .vkind{box-shadow:0 0 0 1.5px #FFFFFF}
+.cf5-kind{flex:0 0 auto;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;background:#E7F1E9;color:#3F5E4A}
+.cf5-kind.promise{background:#ECE9F9;color:#5B4FB0}
+.cf5-step.k-promise.s-d .cf5-rail i{background:#8B7FD1;border-color:#8B7FD1}
+.cf5-main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cf5-inputs{display:flex;flex-direction:column;gap:10px;padding:16px 20px;background:#FFFFFF;border:1px solid #E8ECE9;border-radius:14px}
+.cf5-inputs h3{margin:0;font-size:14px;font-weight:700;color:#2E3A32}
+
+/* 빈 출처도 같은 모양. 누르면 들어온 자료 없음 안내 */
+.fly6-list li.fly6-empty{border:0;padding:12px 4px;font-size:13px;color:#7A857D}
+.v5 .dock5{padding-bottom:40px}
+/* 요약 타일: 이름 왼쪽, 숫자 오른쪽 */
+.sb6-tile{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+
+/* 플라이아웃이 지도 이름표보다 위에 오게 */
+.v5 .dock5{z-index:30}
+
+/* 아래쪽 출처의 패널은 버튼 아래 끝에 맞춰 위로 펼침 */
+.fly6.up{top:auto;bottom:-8px;transform-origin:left bottom}
+.fly6.up::before{top:auto;bottom:58px}
+
+/* 확인 필요 타일: 건수가 있어도 검정. 타일 이름과 아이콘 키움 */
+.sb6-tile.need.has{background:#2E2E2E;border-color:transparent}
+.sb6-tile.need.has.on{background:#171717;border-color:#719681;box-shadow:none}
+.sb6-label{gap:10px;font-size:16px;font-weight:600}
+.sb6-mark{flex:0 0 auto;width:14px;height:14px}
+.sb6-mark.wait{border-width:2px}
+.sb6-mark{width:20px;height:20px}
+.sb6-mark.mid,.sb6-mark.done{width:14px;height:14px}
+
+/* 출처 뱃지는 확인 필요 여부와 상관없이 검정 */
+.v5 .dock5-badge.warn{background:#2E2E2E;animation:none}
+
+/* 처리 이력: 처리 단위 열을 줄이고 상태 열을 넓혀 문구가 잘리지 않게 */
+.ut6-row{grid-template-columns:72px 140px minmax(180px,1fr) minmax(200px,1.6fr) minmax(180px,1.4fr) 190px}
+.ut6 .badge{white-space:nowrap}
+
+/* 건이 머물러 있는 건물: 이름표 점에서 잔물결이 퍼져요 */
+.vkind{position:relative}
+.vtag5.live .vkind::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:vkind-ripple 2.4s ease-out infinite}
+@keyframes vkind-ripple{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(3.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.vtag5.live .vkind::after{animation:none;opacity:0}}
+.fly6-list li.fly6-empty{font-size:14px;color:#5F6B63;padding:8px 4px 12px}
+
+/* ── 케이스 상세(6번): 단계 줄 + 지도 + 아래 단계 내용 ── */
+.cf6{display:flex;flex-direction:column;gap:12px}
+.cf6-steps{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px}
+.cf6-step{position:relative}
+.cf6-step:not(:last-child)::after{content:"";position:absolute;top:50%;right:-12px;width:12px;border-top:1.5px solid #D5DDD7}
+.cf6-step button{display:flex;flex-direction:column;gap:8px;width:100%;height:100%;padding:14px 16px;border:1px solid #E8ECE9;border-radius:14px;background:#FFFFFF;font:inherit;text-align:left;cursor:pointer;color:#171717;box-sizing:border-box}
+.cf6-step button:hover{border-color:#BFD2C5}
+.cf6-step b{font-size:16px;font-weight:700}
+.cf6-step-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cf6-step-state{font-size:12px;color:#5F6B63}
+.cf6-step.k-event.on button{border-color:#719681;background:#F1F6F1;box-shadow:inset 0 0 0 1px #719681}
+.cf6-step.k-promise.on button{border-color:#8B7FD1;background:#F5F3FC;box-shadow:inset 0 0 0 1px #8B7FD1}
+.cf6-step.s-n button{background:#FAFBFA;color:#8A948D}
+.cf6-step.s-n .cf5-kind{background:#F0F2F0;color:#8A948D}
+.cf6-step.s-w .cf6-step-state{color:#171717;font-weight:600}
+.cf6-stage{min-height:560px}
+.cf6-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px;align-items:start}
+.cf6-detail>:only-child{grid-column:1/-1}
+.cf6-now,.cf6-in{display:flex;flex-direction:column;gap:12px}
+.cf6-in h3{margin:0;font-size:14px;font-weight:700;color:#2E3A32}
+
+/* 케이스 상세 머리글: 줄 사이 여유 */
+.cf5-top{gap:16px;padding:4px 0 8px}
+.cf5-title{gap:8px}
+.cf5-title h2{font-size:20px;line-height:1.3}
+.cf5-meta{gap:12px;line-height:1.4}
+.cf5-sub{font-size:14px;line-height:1.4}
+
+/* 단계 줄 양끝을 아래 출처 아이콘, 만든 것 카드와 맞춤 */
+.cf6-steps{padding:0 16px 0 36px}
+.cf6-steps{margin-top:12px}
+
+/* 케이스 상세 지도: 이 건의 길만 한 가지 선으로. 바탕 길과 끝 고리는 숨겨서 끊겨 보이지 않게 */
+.cf6 .v5v .vlinks5 .lk,.cf6 .v5v .vlinks5 .lk-end{display:none}
+.cf6 .v5v .lk-hot.later polyline{stroke:#9DBAA5;stroke-dasharray:none}
+
+/* 단계 카드 높이를 키워 길고 얇아 보이지 않게 */
+.cf6-step button{min-height:92px;padding:18px 20px;gap:12px;justify-content:center}
+.cf6-step b{font-size:18px}
+
+/* 케이스 상세 아래: 문서는 왼쪽, 할 일과 들어온 자료는 오른쪽. 한쪽만 있으면 폭을 제한 */
+.cf6-detail{grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr)}
+.cf6-detail.solo{grid-template-columns:minmax(0,960px)}
+.cf6-detail>:only-child{grid-column:auto}
+.cf6-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cf6-todo{gap:12px}
+.cf6-todo h3{margin:0;font-size:14px;font-weight:700;color:#2E3A32}
+.cf6-todo .cf5-todo-who{font-size:12px;color:#5F6B63}
+.cf6-todo .cf5-todo-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #EEF2EF;font-size:14px}
+
+/* 할 일 카드는 다시 연한 빨강 */
+.cf5-card.cf6-todo{background:#FDF1F1;border-color:#F6DCDC}
+.cf6-todo h3,.cf6-todo .cf5-todo-who{color:#C8373C}
+.cf6-todo .cf5-todo-row{border-top-color:#F6DCDC}
+
+/* ── 시안 7 ── */
+.v7 .world{position:relative}
+.lv7{position:absolute;left:16px;top:16px;z-index:5;display:flex;align-items:center;gap:8px;padding:4px;border:1px solid #E3EBE5;border-radius:12px;background:#FFFFFF}
+.lv7 button{padding:8px 12px;border:0;border-radius:8px;background:none;font:inherit;font-size:14px;font-weight:600;color:#5F6B63;cursor:pointer}
+.lv7 button.on{background:#2E2E2E;color:#FFFFFF}
+.lv7 span{font-size:14px;color:#9AA49D}
+.pp7-n{margin-left:8px;font-size:14px;font-weight:600;color:#7A857D}
+.ct7-count{margin-left:8px;font-size:14px;font-weight:600;color:#7A857D}
+.ct7-chip{display:inline-flex;align-items:center;gap:8px;margin-left:12px;padding:6px 12px;border:1px solid #BFD8C6;border-radius:999px;background:#EEF6F0;font:inherit;font-size:13px;font-weight:600;color:#2E3A32;cursor:pointer;vertical-align:middle}
+.ct7-step{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;white-space:nowrap}
+.ct7-step small{font-size:12px;font-weight:500;color:#7A857D}
+
+/* 자사 안으로 들어갔을 때만 뒤로 가기 */
+.lv7-back{position:absolute;left:16px;top:16px;z-index:5;display:inline-flex;align-items:center;gap:6px;padding:8px 14px 8px 10px;border:1px solid #E3EBE5;border-radius:12px;background:#FFFFFF;font:inherit;font-size:14px;font-weight:700;color:#171717;cursor:pointer}
+.lv7-back:hover{border-color:#BFD2C5}
+
+/* ── 자사 내부: 바닥 한 장과 부문 자리 ── */
+.v5v .vfloor .top{fill:#FCFDFC;stroke:#DCE6DF;stroke-width:.8}
+.v5v .vfloor .edge-y{fill:#E6EEE8;stroke:#D3DFD7;stroke-width:.6}
+.v5v .vfloor .edge-x{fill:#DCE7DF;stroke:#D3DFD7;stroke-width:.6}
+.v5v .vbox.pad .ft{fill:#F5F8F6}.v5v .vbox.pad .fy,.v5v .vbox.pad .fx{fill:#E4ECE6}
+.v5v .vbox.pad polygon{stroke:#DCE6DF}
+.v5v .vbld.on .vbox.pad .ft{fill:#E4F0E7}.v5v .vbld.on .vbox.pad .fy,.v5v .vbld.on .vbox.pad .fx{fill:#C9DDCE}
+.v5v .vbld.cur .vbox.pad .ft{fill:#D6E7D9}
+.v5v .vbld.on .vbox.screen .fy{fill:#8FAF99}
+.v5v .vbox.leg .vhl,.v5v .vbox.pad .vhl{display:none}
+
+/* 케이스가 없는 건물과 자리의 이름표: 옅게 */
+.village.v5v .vtag5.idle{background:rgba(255,255,255,.7);border-color:#EBEFEC;box-shadow:none;color:#7A857D;font-weight:500}
+.v7 .vbld[role="button"]{cursor:pointer}
+
+/* ── 실내 디테일 ── */
+.v5v .vwall .vbox .ft{fill:#F1F5F2}.v5v .vwall .vbox .fy{fill:#F7FAF8}.v5v .vwall .vbox .fx{fill:#EDF3EF}
+.v5v .vwall .vbox polygon{stroke:#D3DFD7}
+.v5v .vbld.deco .vbox .ft{fill:#FBFCFB}.v5v .vbld.deco .vbox .fy{fill:#EFF4F0}.v5v .vbld.deco .vbox .fx{fill:#E4ECE6}
+.v5v .vbld.deco .vbox polygon{stroke:#C9D8CE;stroke-width:.6}
+.v5v .vbld.deco .vbox.leaf .ft{fill:#CFE2D4}.v5v .vbld.deco .vbox.leaf .fy{fill:#B7D2BE}.v5v .vbld.deco .vbox.leaf .fx{fill:#A6C6AF}
+.v5v .vbld.deco .vbox.leaf polygon{stroke:#8FB39A}
+.v5v .vbld.deco .vbox.pot .fy,.v5v .vbld.deco .vbox.pot .fx{fill:#E2E6E3}
+.v5v .vbld.deco .vbox.vaultb .fy{fill:#E4ECE6}.v5v .vbld.deco .vbox.vaultb .fx{fill:#D6E1D9}
+.v5v .vdoor{fill:#F4F8F5;stroke:#9DBAA5;stroke-width:1}
+.v5v .vdoor.in{fill:#DCE8DF}
+.v5v .vhub{fill:#8FAF99;stroke:none}
+.v5v .vspoke{stroke:#8FAF99;stroke-width:1.2;stroke-linecap:round}
+.v5v .screenp{fill:#BFD6C5;stroke:#9DBAA5;stroke-width:.6}
+.v5v .doorp{fill:#E6EEE8;stroke:#B9CEC0;stroke-width:.8}
+.v5v .rug{fill:#EEF4F0;stroke:#DCE6DF;stroke-width:.6}
+.v5v .rope{fill:none;stroke:#B9CEC0;stroke-width:1}
+.v5v .vbld.deco .corr{stroke:#C9D8CE;stroke-width:.6}
+.v5v .vbld.deco .vshadow,.v5v .vbld.deco .vao{display:none}
+
+/* 금고 문과 창구 */
+.v5v .vdoor.frame{fill:#D3E0D7;stroke:#9DBAA5;stroke-width:.8}
+.v5v .vdoor.side{fill:#C4D6C9;stroke:none}
+.v5v .vdoor{fill:#EEF4F0;stroke:#8FAF99;stroke-width:.9}
+.v5v .vdoor.in{fill:#E1EBE4;stroke:#A9C4B0;stroke-width:.7}
+.v5v .vwheel{fill:none;stroke:#719681;stroke-width:1.6}
+.v5v .vspoke{stroke:#719681;stroke-width:1.4}
+.v5v .vhub{fill:#719681}
+.v5v .tglass{fill:rgba(207,226,212,.45);stroke:#9DBAA5;stroke-width:.7}
+.v5v .vbox.sign .fy{fill:#9DBAA5}.v5v .vbox.sign .ft{fill:#B7D2BE}.v5v .vbox.sign .fx{fill:#8FAF99}
+.v5v .vbox.tray .ft{fill:#FFFFFF}
+
+.v5v .tape{fill:#D9E5DC;stroke:#B9CEC0;stroke-width:.4}
+.v5v .vbld.on .tape{fill:#B7D2BE}
+.v5v .slip{fill:#FFFFFF;stroke:#B9CEC0;stroke-width:.4}
+
+.pp7-empty{margin:0;padding:12px 4px;font-size:14px;color:#5F6B63}
+
+/* 지도 위 범위 줄: 뒤로 가기와 고른 배치 */
+.bar7{position:absolute;left:16px;top:16px;z-index:5;display:flex;align-items:center;gap:8px}
+.bar7 .lv7-back{position:static}
+.bar7 .ct7-chip{margin-left:0;background:#FFFFFF}
+.made6-card.sel7{border-color:#719681;background:#F1F6F1}
+.v7 .vtag5 .vkind{display:none}
+
+.v5v .vbld.deco .vbox.doorframe .fy{fill:#F4F7F5}.v5v .vbld.deco .vbox.doorframe .fx{fill:#E4ECE6}
+
+/* 창구 가림판: 불투명 */
+.v5v .vbox.tscreen .ft{fill:#F4F8F5}.v5v .vbox.tscreen .fy{fill:#E6EEE8}.v5v .vbox.tscreen .fx{fill:#D9E4DC}
+.v5v .vbld.on .vbox.tscreen .fy{fill:#D3E4D7}.v5v .vbld.on .vbox.tscreen .fx{fill:#C6DBCB}
+
+.v5v .hit{fill:transparent;stroke:none}
+
+/* ── 일하고 있는 느낌 (lively) ── */
+.v5v .vgrid .gl{stroke:#E9EFEB;stroke-width:.5}
+.v5v .vring .glow{fill:#9DBAA5;fill-opacity:.16;filter:url(#v5soft)}
+.v5v .vring .ring{fill:none;stroke:#719681;stroke-width:1.2;transform-box:fill-box;transform-origin:center;opacity:0;animation:vring-pulse 3.3s cubic-bezier(.2,.6,.3,1) infinite}
+.v5v .vring.st-need .ring{stroke:#2E2E2E}
+.v5v .vring.st-need .glow{fill:#2E2E2E;fill-opacity:.07}
+@keyframes vring-pulse{0%{transform:scale(.55);opacity:0}15%{opacity:.55}100%{transform:scale(1.55);opacity:0}}
+.v5v .lk-live .current polyline{animation-duration:2.6s;animation-delay:var(--d,0s)}
+
+@keyframes vbld-breathe{0%,100%{filter:none}50%{filter:brightness(1.035)}}
+@media (prefers-reduced-motion:reduce){.v5v .vring .ring,.v5v .vbld.on{animation:none}.v5v .vring .ring{opacity:.3}}
+
+/* 바닥 고리: 전부 초록 톤으로, 은은하게 */
+.v5v .vring .ring,.v5v .vring.st-need .ring{stroke:#9DBAA5;stroke-width:.9}
+.v5v .vring .glow,.v5v .vring.st-need .glow{fill:#9DBAA5;fill-opacity:.1}
+@keyframes vring-pulse{0%{transform:scale(.55);opacity:0}15%{opacity:.3}100%{transform:scale(1.5);opacity:0}}
+.v5v .vgrid .gl{stroke:#EFF3F0;stroke-width:.4}
+
+.v5v .vring .glow{display:none}
+
+/* 길을 따라 흐르는 빛: 옅은 길 위에서는 초록 조각이어야 보여요 */
+.v5v .lk-live .current .c-mid{stroke:#719681;stroke-width:1.8;stroke-opacity:.75;stroke-dasharray:14 86}
+
+/* 흐르는 조각: 변수 없이 숫자로 직접 움직여야 부드럽게 이어져요 */
+@keyframes vlive-flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.v5v .lk-live .current polyline{animation:vlive-flow 2.8s linear infinite;animation-delay:var(--d,0s)}
+
+/* 확인 필요한 곳: 이름표 앞 점에서 원이 퍼져요 */
+.need-dot{position:relative;flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#355B52}
+.need-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:#355B52;animation:need-ripple 2s ease-out infinite}
+@keyframes need-ripple{0%{transform:scale(1);opacity:.45}80%,100%{transform:scale(3.4);opacity:0}}
+.village.v5v .vtag5.on .need-dot,.village.v5v .vtag5.on .need-dot::after{background:#FFFFFF}
+@media (prefers-reduced-motion:reduce){.need-dot::after{animation:none;opacity:0}}
+
+/* 컨베이어: 케이스가 있는 자리에서만 상자가 흘러가요 */
+.v5v .belt-item.in{opacity:0}
+.v5v .vbld.on .belt-item{animation:belt-move 2.4s linear infinite}
+.v5v .vbld.on .belt-item.in{animation-name:belt-in}
+.v5v .vbld.on .belt-item.out{animation-name:belt-out}
+@keyframes belt-move{from{transform:translate(0,0)}to{transform:translate(var(--bx),var(--by))}}
+@keyframes belt-in{0%{transform:translate(0,0);opacity:0}40%{opacity:1}100%{transform:translate(var(--bx),var(--by));opacity:1}}
+@keyframes belt-out{0%{transform:translate(0,0);opacity:1}60%{opacity:1}100%{transform:translate(var(--bx),var(--by));opacity:0}}
+@media (prefers-reduced-motion:reduce){.v5v .vbld.on .belt-item{animation:none}}

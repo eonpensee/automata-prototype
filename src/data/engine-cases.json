@@ -1,6 +1,6 @@
 {
- "exportedAt": "2026-11-27T18:54:45+09:00",
- "engineToday": "2026-11-27",
+ "exportedAt": "2026-11-28T21:15:18+09:00",
+ "engineToday": "2026-11-28",
  "days": [
   {
    "id": "2026-11-25",
@@ -38,7 +38,8 @@
        "evidence": [
         "tx-promise-7"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "sales"
       },
       {
        "title": "출하지시",
@@ -50,7 +51,8 @@
        "evidence": [
         "tx-promise-8"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "인도",
@@ -62,7 +64,8 @@
        "evidence": [
         "tx-event-8"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "매출 청구",
@@ -74,7 +77,8 @@
        "evidence": [
         "tx-event-9"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       },
       {
        "title": "입금",
@@ -84,7 +88,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [
@@ -262,7 +267,8 @@
        "evidence": [
         "tx-promise-21"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "purchasing"
       }
      ],
      "items": [
@@ -364,7 +370,8 @@
        "evidence": [
         "tx-event-19"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [
@@ -458,7 +465,8 @@
        "evidence": [
         "tx-event-21"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [],
@@ -568,7 +576,8 @@
        "evidence": [
         "tx-promise-1"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "sales"
       },
       {
        "title": "출하지시",
@@ -580,7 +589,8 @@
        "evidence": [
         "tx-promise-2"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "인도",
@@ -592,7 +602,8 @@
        "evidence": [
         "tx-event-2"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "매출 청구",
@@ -604,7 +615,8 @@
        "evidence": [
         "tx-event-3"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       },
       {
        "title": "입금",
@@ -616,7 +628,8 @@
        "evidence": [
         "tx-event-22"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [
@@ -880,7 +893,8 @@
        "evidence": [
         "tx-promise-9"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "sales"
       },
       {
        "title": "출하지시",
@@ -892,7 +906,8 @@
        "evidence": [
         "tx-promise-10"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "인도",
@@ -902,7 +917,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "매출 청구",
@@ -912,7 +928,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       },
       {
        "title": "입금",
@@ -922,7 +939,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [
@@ -1068,7 +1086,8 @@
        "evidence": [
         "tx-promise-11"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "sales"
       },
       {
        "title": "출하지시",
@@ -1078,7 +1097,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "인도",
@@ -1088,7 +1108,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "매출 청구",
@@ -1098,7 +1119,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       },
       {
        "title": "입금",
@@ -1108,7 +1130,8 @@
        "time": "",
        "summary": "",
        "evidence": [],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [
@@ -1200,7 +1223,8 @@
        "evidence": [
         "tx-promise-13"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "order_mgmt"
       },
       {
        "title": "출하지시",
@@ -1212,7 +1236,8 @@
        "evidence": [
         "tx-promise-14"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "출고",
@@ -1224,7 +1249,8 @@
        "evidence": [
         "tx-event-10"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "인도",
@@ -1236,7 +1262,8 @@
        "evidence": [
         "tx-event-11"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       }
      ],
      "items": [
@@ -1417,7 +1444,8 @@
        "evidence": [
         "tx-promise-15"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "order_mgmt"
       },
       {
        "title": "출하지시",
@@ -1429,7 +1457,8 @@
        "evidence": [
         "tx-promise-16"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "출하지시",
@@ -1441,7 +1470,8 @@
        "evidence": [
         "tx-promise-19"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       },
       {
        "title": "출고",
@@ -1453,7 +1483,8 @@
        "evidence": [
         "tx-event-12"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       },
       {
        "title": "인도",
@@ -1465,7 +1496,8 @@
        "evidence": [
         "tx-event-13"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "inventory"
       }
      ],
      "items": [
@@ -1670,7 +1702,8 @@
        "evidence": [
         "tx-promise-17"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "order_mgmt"
       },
       {
        "title": "출하지시",
@@ -1682,7 +1715,8 @@
        "evidence": [
         "tx-promise-20"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "logistics"
       }
      ],
      "items": [
@@ -1800,7 +1834,8 @@
        "evidence": [
         "tx-promise-22"
        ],
-       "kind": "promise"
+       "kind": "promise",
+       "module": "inventory"
       }
      ],
      "items": [
@@ -1890,7 +1925,8 @@
        "evidence": [
         "tx-event-22"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [],
@@ -1990,7 +2026,8 @@
        "evidence": [
         "tx-event-23"
        ],
-       "kind": "event"
+       "kind": "event",
+       "module": "accounting_mgmt"
       }
      ],
      "items": [],

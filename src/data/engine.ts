@@ -8,7 +8,7 @@ import type { FlowCase } from './review'
 interface EngineDay { id: string; label: string; cases: FlowCase[] }
 interface EngineExport { exportedAt: string; days: EngineDay[] }
 // 6번은 첫 화면에 건이 고루 보이도록 데모 데이터가 기본, ?data=song 으로 송공작소 데이터
-const PICK = new URLSearchParams(location.search).get('data') ?? (/\/6\/?(index\.html)?$/.test(location.pathname) ? 'demo' : 'song')
+const PICK = new URLSearchParams(location.search).get('data') ?? (/\/[678]\/?(index\.html)?$/.test(location.pathname) ? 'demo' : 'song')
 const RAW = (PICK === 'demo' ? demo : song) as unknown as EngineExport
 const DAYS = RAW.days
 
