@@ -337,3 +337,21 @@ body:has(.v8){background:#FAFAF8}
 /* 강조된 말풍선: 꼬리 테두리도 몸통과 같은 색, 같은 굵기 */
 .bub8.on{border-color:#355B52;box-shadow:0 8px 24px rgba(30,40,34,.1)}
 .bub8.on::after{border-color:#355B52}
+
+/* 들어온 자료 카드: 높이는 옆의 지도 카드에 맞추고, 목록이 카드 바닥까지 스크롤 영역을 다 써요 */
+.in8{height:0;min-height:100%}
+.batch8{flex:1 1 auto;min-height:0;max-height:none;padding-bottom:16px}
+/* 펼친 줄: 진한 머리줄과 아래 묶음 사이를 띄움 */
+.bkids8{padding-top:10px}
+
+/* 멈춘 이유: 품목 설명과 구분되게 진한 초록, 조금 굵게 */
+.brow8-sub .stuck8{color:#355B52;font-weight:600}
+
+/* 키보드 초점 표시: 줄 안쪽에 옅게 */
+.v8 .brow8:focus-visible,.v8 .bkid8:focus-visible,.v8 button.row8:focus-visible{outline:2px solid #CFE0D4;outline-offset:-2px}
+
+/* 건수 뱃지: 아직 안 끝난 건이 있지만 내가 할 일은 없는 묶음(대기 중, 진행 중)은 점선 테두리 */
+.brow8-side .badge.cnt8.st-wait,.brow8-side .badge.cnt8.st-run,
+.brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{background:none;border:1.5px dashed #9AA49D;padding:4.5px 10.5px;color:#4F5B53}
+.brow8-side .badge.cnt8{height:28px;box-sizing:border-box;padding-top:0 !important;padding-bottom:0 !important;align-items:center}
+.brow8-side .badge.cnt8.st-wait,.brow8-side .badge.cnt8.st-run,.brow8.on .brow8-side .badge.cnt8.st-wait,.brow8.on .brow8-side .badge.cnt8.st-run{padding-left:8.5px;padding-right:8.5px;min-width:44px}

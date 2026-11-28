@@ -198,7 +198,7 @@ function BatchRow({ u, on, onPick, onOpenCase }: { u: ProcUnit; on: boolean; onP
   </button>
   {/* 누르면 아래로 펼쳐져 안의 건과 상태가 보여요 */}
   {on && <ul className="bkids8">{u.cases.map(c => <li key={c.unit.id}><button type="button" className="bkid8" onClick={() => onOpenCase(c)}>
-    <span className="brow8-main"><b>{c.unit.name}</b><span className="brow8-sub"><span>{c.unit.qsub}</span>{c.unit.st !== '완료' && c.stuck && <span>{c.stuck}</span>}</span></span>
+    <span className="brow8-main"><b>{c.unit.name}</b><span className="brow8-sub"><span>{c.unit.qsub}</span>{c.unit.st !== '완료' && c.stuck && <span className="stuck8">{c.stuck}</span>}</span></span>
     <span className={BADGE[c.unit.st]}>{c.unit.st}</span>
   </button></li>)}</ul>}
   </li>
